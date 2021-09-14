@@ -2,6 +2,8 @@
 
 Project Name: Word of Mouth 
 
+Project Leader: John Eagan 
+
 Group Members: 
 1. John Eagan 
 2. Mitchell Maltezo
