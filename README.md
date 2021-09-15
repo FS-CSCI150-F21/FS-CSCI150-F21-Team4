@@ -1,11 +1,11 @@
 # FS-CSCI150-F21-Team4
 Start Date: 9/14/2021
 
-Project Name: Word of Mouth 
+## Project Name: Word of Mouth 
 
-Project Leader: John Eagan 
+## Project Leader: John Eagan 
 
-Group Members: 
+### Group Members: 
 1. John Eagan 
 2. Mitchell Maltezo
 3. Anthony Marin
