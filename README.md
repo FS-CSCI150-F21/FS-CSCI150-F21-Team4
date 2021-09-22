@@ -34,7 +34,7 @@ edit
 ## Project Description
 A website where people/users looking for a laborer of some kind (landscaper, painter, etc) can browse different laborer profiles and examine their services, rates, and whatever else. there will also be a "reviews" section where a machine learning model interprets the reviews and breaks them down into good, neutral, and bad.
 ## Project Features/Requirements
-edit
+Database Integration - We will be using MySql Workbench to harbor csv files to do SQL commands. We will be utilizing a api, either MangoDB or XAMP, to handle read and writes to data to continually update it. Data will be pooled using a web scraping library like Beautiful Soup in Python.  
 ## Prioritization
 edit
 ## Diagrams
