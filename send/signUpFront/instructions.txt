@@ -1,0 +1,10 @@
+in front-end registration folder:
+
+npx create-react-app
+
+in backend registration folder:
+
+npm install express nodemon mongoose dotenv cors
+
+
+ 
