@@ -1,0 +1,15 @@
+POST http://localhost:4000/app/signup
+Content-Type:application/json
+
+{
+    "firstName": "Travis",
+    "lastName" : "Quigg",
+    "email": "tquigg96@mail.fresnostate.edu",
+    "phone" : "1-559-361-8526",
+    "userName" : "tquigg96",
+    "password" : "cheese"
+    
+
+  
+    
+}
