@@ -6,6 +6,9 @@ in backend registration folder:
 
 npm install express nodemon mongoose dotenv cors
 
-node start //to run the program
+
+cd to backend folder
+
+node run start //to run the program
 
  
