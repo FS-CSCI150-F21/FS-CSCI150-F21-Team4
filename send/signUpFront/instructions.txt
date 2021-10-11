@@ -11,4 +11,6 @@ cd to backend folder
 
 node run start //to run the program
 
+take care not to override tha app folder. If it get overriden when you run npx create-react-app then simply redownload from this repository.
+
  
