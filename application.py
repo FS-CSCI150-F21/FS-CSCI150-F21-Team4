@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, url_for, request
 
 application = Flask(__name__)
 
-@application.route("/login", methods = ["POST", "GET"])
+@application.route("/login/", methods = ["POST", "GET"])
 def login():
 	if request.method == "POST":
 		user = request.form['uname']
@@ -11,11 +11,11 @@ def login():
 	else:
 		return render_template("login.html")
 
-@application.route("/register")
+@application.route("/register/")
 def register():
 	return render_template("register.html")
 
-@application.route("/results")
+@application.route("/results/")
 def resultsPage():
 	return render_template("resultsPage.html")
 
@@ -23,7 +23,7 @@ def resultsPage():
 def landingPage():
 	return render_template("landingPage.html")
 
-@application.route("/<usr>")
+@application.route("/<usr>/")
 def user(usr):
 	return f"<h1>{usr}</h1>"
 
