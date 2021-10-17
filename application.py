@@ -10,11 +10,11 @@ client = MongoClient(url)
 
 @application.route("/login", methods = ["POST", "GET"])
 def login():
-	#if request.method == "POST":
-		#user = request.form['uname']
-		#psw = request.form['psw']
-		#return redirect(url_for("user", usr = user))
-	#else:
+	if request.method == "POST":
+		user = request.form['uname']
+		psw = request.form['psw']
+		return redirect(url_for("user", usr = user))
+	else:
 	return render_template("login.html")
 
 @application.route('/register', methods = ['POST', 'GET'])
