@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, url_for, request
 from pymongo import MongoClient
 import bcrypt
-from datetime import datetime
+from datetime import date
 
 application = Flask(__name__)
 
@@ -26,9 +26,9 @@ def register():
 
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': datetime.date,'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
-            session['username'] = request.form['username']
-            return redirect(url_for('index'))
+            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+            #session['username'] = request.form['username']
+            return redirect(url_for('landingPage'))
 
         return 'Username already exists'
     return render_template('register.html')
