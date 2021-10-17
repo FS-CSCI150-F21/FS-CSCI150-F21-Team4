@@ -10,12 +10,12 @@ client = MongoClient(url)
 
 @application.route("/login", methods = ["POST", "GET"])
 def login():
-	if request.method == "POST":
-		user = request.form['uname']
-		psw = request.form['psw']
-		return redirect(url_for("user", usr = user))
-	else:
-	return render_template("login.html")
+    if request.method == "POST":
+        user = request.form['uname']
+        psw = request.form['psw']
+        return redirect(url_for("user", usr = user))
+    else:
+        return render_template("login.html")
 
 @application.route('/register', methods = ['POST', 'GET'])
 def register():
@@ -26,7 +26,7 @@ def register():
 
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': datetime.date,'name': request.form['username'], 'password':hashpass}, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'])
+            users.insert_one({'date': datetime.date,'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
 
