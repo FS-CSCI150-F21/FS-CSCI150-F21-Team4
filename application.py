@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, url_for, request
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 @app.route("/login", methods = ["POST", "GET"])
 def login():
@@ -28,4 +28,4 @@ def user(usr):
 	return f"<h1>{usr}</h1>"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(debug=True)
