@@ -25,7 +25,7 @@ def register():
 
     if existing_user is None:
       hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-      users.insert_one({'date': datetime.date,'name': request.form['username'], 'password':hashpass}, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'])
+      users.insert_one({'date': datetime.date,'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
       session['username'] = request.form['username']
       return redirect(url_for('index'))
 
