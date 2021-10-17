@@ -1,0 +1,3 @@
+python -m venv [folder]
+[folder]\Scripts\activate.bat
+py register.py

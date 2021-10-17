@@ -1,0 +1,18 @@
+in front-end registration folder:
+
+npx create-react-app
+
+in backend registration folder:
+
+npm install express nodemon mongoose dotenv cors
+
+
+cd to backend folder
+
+node run start //to run the program
+
+take care not to override tha app folder. If it get overriden when you run npx create-react-app then simply redownload from this repository.
+
+<THIS IS A MERN CONFIGURATION. THIS IS NOT PART OF THE MFAP CONFIGURATION FOR THE MAIN BANCH. THIS IS NOT A PART OF THE MAIN PROJECT BUT INSTEAD A PAST CREATION. USE ONLY MFAP DOCUMENTS FOR THE PROJECT>
+
+ 

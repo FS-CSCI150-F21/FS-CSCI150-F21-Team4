@@ -1,22 +1,11 @@
-{% extends "base.html" %}
-{% block head %}
-<meta charset="UTF-8">
-<title>Signup Page</title>
+{% extends 'base.html' %}
 
-<style>
-
-
-
-
-</style>
-{% endblock %}
-
-{% block content %}
+{% block body %}
 <div>
     <img src="\wireframes\images\corner_logo.png" align="left">
 </div>
 <div align="right">
-    <p><a href="#">About</a> <br /> <a href="/login">Login </a><br/> <a href="#">Account</a></p>
+    <p><a href="#">About</a> <br /> <a href="#">Login </a><br/> <a href="#">Account</a></p>
 </div>
 
 <div align="center">
@@ -27,31 +16,31 @@
                     <td> Username </td>
                 </tr>
                 <tr>
-                    <td> <input type = "text" id = "username" placeholder="Username" required></td>
+                    <td> <input type = "text" name = "username" placeholder="Username" required></td>
                 </tr>
                 <tr>
                     <td> Email </td>
                 </tr>
                 <tr>
-                    <td> <input type = "text" id = "email" placeholder="johndoe@email.com" required></td>
+                    <td> <input type = "text" name = "email" placeholder="johndoe@email.com" required></td>
                 </tr>
                 <tr>
                     <td> Password </td>
                 </tr>
                 <tr>
-                    <td> <input type = "text" id = "password" placeholder="Password" maxlength="30" required></td>
+                    <td> <input type = "text" name = "password" placeholder="Password" maxlength="30" required></td>
                 </tr>
                 <tr>
                     <td> Phone Number </td>
                 </tr>
                 <tr>
-                    <td> <input type = "text" id = "phonenumber" placeholder="x-xxx-xxx-xxxx" pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required></td>
+                    <td> <input type = "text" name = "phonenumber" placeholder="x-xxx-xxx-xxxx" pattern = "[0-9]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required></td>
                 </tr>
                 <tr>
                     <td>Labor (Keywords)</td>
                 </tr>
                 <tr>
-                    <td> <input type = "text" id = "keywords" placeholder="Ex. painter, landscaper, renovator..."  required></td>
+                    <td> <input type = "text" name = "keywords" placeholder="Ex. painter, landscaper, renovator..."  required></td>
                 </tr>
                 <tr>
                     <td>
@@ -63,5 +52,5 @@
     </form>
 </div>
 
-
 {% endblock %}
+
