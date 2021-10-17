@@ -8,7 +8,7 @@ application = Flask(__name__)
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
 
-@application.route("/login", methods = ["POST", "GET"])
+@application.route("/login/", methods = ["POST", "GET"])
 def login():
     if request.method == "POST":
         user = request.form['uname']
@@ -33,7 +33,7 @@ def register():
         return 'Username already exists'
     return render_template('register.html')
 
-@application.route("/results")
+@application.route("/results/")
 def resultsPage():
 	return render_template("resultsPage.html")
 
@@ -41,7 +41,7 @@ def resultsPage():
 def landingPage():
 	return render_template("landingPage.html")
 
-@application.route("/<usr>")
+@application.route("/<usr>/")
 def user(usr):
 	return f"<h1>{usr}</h1>"
 
