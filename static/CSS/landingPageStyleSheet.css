@@ -1,0 +1,59 @@
+#topBar{
+	display: flex;
+	justify-content: right;
+	background-color: #777;
+	height: 10%;
+}
+
+.landingPageWoM{
+	display: flex;
+	justify-content: center;
+}
+
+.midSec{
+	display: flex;
+	justify-content: space-around;
+}
+
+#aboutHeading{
+	text-align: center;
+}
+
+#aboutContent{
+	text-align: center;
+}
+
+#buttonss{
+	display:flex;
+	justify-content: center;
+}	
+
+#adContainerLeft{
+	width: 15%;
+	height: 50%;
+	border: 2px solid #ddd;
+}
+#adContainerRight{
+	width: 16%;
+	height: 50%;
+	border: 2px solid #ddd;
+}
+
+.mostPopularServices{
+	display:flex;
+	text-align: center;
+	justify-content: center;
+}
+
+.mpsImage{
+	height: auto;
+	width: 300px;
+	border-radius: 8px;
+	border: 2px solid #ddd;
+}
+
+#mpsTable{
+	display:flex;
+	justify-content: center;
+	table-layout: fixed;
+}
