@@ -56,3 +56,16 @@ body {
 	display:flex;
 	justify-content: center;
 }
+
+.mpsImage{
+	height: auto;
+	width: 300px;
+	border-radius: 8px;
+	border: 2px solid #ddd;
+}
+
+#mpsTable{
+	display:flex;
+	justify-content: center;
+	table-layout: fixed;
+}
