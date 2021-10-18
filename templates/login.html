@@ -145,7 +145,7 @@
   <form class="modal-content animate" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
+      <img src="/static/images/img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
     <div class="container">
@@ -156,7 +156,7 @@
       <input type="password" placeholder="Enter Password" name="psw" required>
         
       <button type="submit" class="otherbuttons">Login</button>
-      <button type="submit" class="otherbuttons">Register</button>
+	  <button onclick="location.href = '/register'" class="otherbuttons">Register</button>
       <label>
         <input type="checkbox" name="remember"> Remember me
       </label>
