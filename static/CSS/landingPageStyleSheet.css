@@ -57,3 +57,8 @@
 	justify-content: center;
 	table-layout: fixed;
 }
+
+#searchIconContainer{
+	height: 100%;
+	width: auto;
+}
