@@ -1,0 +1,74 @@
+.searchContainer {
+
+    display:inline-flex;
+    }
+    .searchContainer  div{
+    
+        padding:10px;
+    }
+    .topBar{
+        width:100%;
+        height:15%;
+    }
+    #logo{
+        width:8%;
+        height:100%;
+    }
+    #topBarUtility{
+        display:inline-flex;
+        justify-content: flex-end;
+        float:right;
+        
+    }
+    
+     #topBarUtility div{
+        
+    
+        
+    
+        padding:10px;
+        
+        }
+    #linkContainer img{
+        height:150px;
+        width:200px;
+    }
+    #searchIcon2{
+    width:20px;
+    height:20px;
+    }
+    .result{
+    
+    display:inline-flex;
+    
+    height:20%;
+    }
+    
+    img.result_profileImage  {
+        height:100%;
+        padding-right:20px;
+        padding-top:20px;
+      
+        
+    }
+    .result_info{
+    font:80%;
+    height:100%;
+    }
+    .midSec{
+    
+        height:90%;
+    }
+    #resultsSection{
+    
+        height:80%;
+    }
+    div.midContent, #results{
+        height: 100%;
+    }
+    html{
+        height:100%;
+    }
+    body{
+        height:99%; 
+    }

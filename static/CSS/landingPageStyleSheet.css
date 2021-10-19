@@ -1,9 +1,3 @@
-#topBar{
-	display: flex;
-	justify-content: right;
-	background-color: #714310;
-	height: 10%;
-}
 
 .landingPageWoM{
 	display: flex;
@@ -75,7 +69,3 @@
 	table-layout: fixed;
 }
 
-#searchIconContainer{
-	height: 100%;
-	width: auto;
-}

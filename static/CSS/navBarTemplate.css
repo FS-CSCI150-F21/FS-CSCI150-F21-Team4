@@ -1,0 +1,24 @@
+#topBarUtil {
+  
+ 
+ display:flex;
+  
+    
+}
+#topBar{
+	display: flex;
+	justify-content: space-between;
+	background-color: #714310;
+	height: 10%;
+    flex-wrap:nowrap;
+}
+
+
+#searchIconContainer, #profileThumbnailContainer{
+	height: 100%;
+	width: auto;
+}
+#logo{
+    height:105%;
+
+}
