@@ -19,7 +19,8 @@
 
         <div class = "midContent">
             <div class = "searchContainer">
-                <input  type = "text" id = "searchBar" placeholder = "Search" >
+               <h3>Find</h3>
+               <input  type = "text" id = "searchBar" placeholder = "gardener, plumber, painter... " >
 				<script>
 						if(document.getElementById("searchBar").value == null){
 
@@ -28,7 +29,8 @@
 							document.getElementById("searchBar").value =sessionStorage.getItem("searchItem");
 						}
 				</script>
-                <div id = "locationServicesContainer">location services palceholder</div>
+                <h3>Near</h3>
+                <input  type = "text" id = "locationBar" placeholder = "Fresno,CA" >
                 <div id = "filterContainer" >filter paceholder</div>
 				<script>
 					function setSearchTerm(){
