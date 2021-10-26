@@ -1,0 +1,104 @@
+{% extends "base.html"%}
+{% block head %}
+<link rel = "stylesheet" href = "/static/CSS/landingPageStyleSheet.css">
+<link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+<style>
+
+</style>
+{% endblock %}
+</head>
+
+<body>
+
+	{% block content %}
+	<section class = "landingPageWoM" >
+		<div id = "WoMContainer">
+			<h1 id = "WoM">Word of Mouth</h1>
+		</div>
+	</section>
+
+	<section class = "midSec">
+
+		<div id = "adContainerLeft">
+
+			<script src="https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js" type="text/javascript"></script>
+			
+		</div>
+		
+			<section  id = "landingPageContentContainer" >
+				<div  id = "aboutContainer">
+					
+					<article class = "about">
+						<h4 id = "aboutHeading">About</h4>
+						<p id = "aboutContent"> Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+							Consequatur dignissimos odit, sequi magni cumque quod 
+							cum dolores ab illo officiis doloribus, minima aliquam sit ducimus reprehenderit iusto soluta minus provident.
+						</p>
+					</article>
+				</div>
+
+				<div id = "lookingForContainer">
+					<table id = "buttonss">
+						<tr>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
+
+							<td>	<p>or</p></td>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
+
+					
+						</tr>
+					</table>
+
+					<section class ="mostPopularServices">
+		
+			
+						<div id = "mpsContainer">
+							<div id ="mpsHeadingContainer">
+								<h3>Most Popular Services in</h3>
+							</div>	
+							<table id = "mpsTable">
+								<tr>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/landscaping.jpeg" />
+											<h5>Landscaping</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/carpentry.jpeg" />
+											<h5>Carpentry</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/cleaningservices.jpg" />
+											<h5>Cleaning Services</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/plumbing.jpeg" />
+											<h5>Plumbing</h5>
+										</div>
+									</td>
+								</tr>
+			
+			
+							</table>
+							
+						</div>
+					
+				</section>
+				</div>
+				
+			</section>
+		
+		<div id = "adContainerRight">
+
+			<script src="https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js" type="text/javascript"></script>
+			
+		</div>
+
+	</section>
+	{% endblock %}
