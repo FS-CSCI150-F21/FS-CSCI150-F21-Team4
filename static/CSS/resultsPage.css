@@ -1,11 +1,42 @@
-.searchContainer {
+#searchContainer {
 
-    display:inline-flex;
+    display:flex;
+    justify-content:space-around;
+    margin-left:10%;
+    margin-right:10%;
+    height:10%;
+    background-color:white;
     }
-    .searchContainer  div{
+    #searchContainer input{
+        border:none;
+
+    }
+    #searchContainer  label{
     
-        padding:10px;
+        padding:2%;;
+       
+
     }
+    label h3{
+        padding-bottom: 100%;
+    }
+    #searchBar{
+        flex-grow:.8;
+    }
+    #searchButton{
+        height:100%;
+        
+    }
+    #searchIcon2{
+        height:100%;
+    }
+    #locationBar{
+        flex-grow:.2;
+    }
+    #searchContainer label{
+      
+    }
+
     .topBar{
         width:100%;
         height:15%;
@@ -33,9 +64,10 @@
         height:150px;
         width:200px;
     }
-    #searchIcon2{
-    width:20px;
-    height:20px;
+    #searchButtonContainer{
+    
+    height:100%;
+
     }
     .result{
     
