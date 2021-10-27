@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel = "stylesheet" href = "/static/CSS/navBarTemplate.css">
+        <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
         <style>
         html {
             height: 100%;
@@ -20,7 +21,7 @@
     </head>
     <body>
         <div  id = "topBar" >
-            <img id = "logo" src = "/static/Images/logo1.png"/>
+         <a href = "{{url_for('landingPage')}}" >  <img id = "logo" src = "/static/Images/logo1.png"/></a>
             <div><h1>Word of Mouth</h1></div>
             <div id = "topBarUtil">
                 <div id = "searchIconContainer">

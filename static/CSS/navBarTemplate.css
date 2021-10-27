@@ -11,11 +11,13 @@
 	background-color: #714310;
 	height: 10%;
     flex-wrap:nowrap;
+	box-shadow:0px 5px #1f1d1d;
 }
 
 
 #searchIconContainer, #profileThumbnailContainer{
-	height: 100%;
+	padding-top:10%;
+	height: 80%;
 	width: auto;
 }
 #logo{
