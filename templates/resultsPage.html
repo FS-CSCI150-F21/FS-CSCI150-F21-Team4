@@ -14,8 +14,9 @@
 
 	<div class="midContent">
 		<div id="searchContainer">
+			
 			<label for="searchBar" id="searchLabel"> Find </label>
-			<form><input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... "></form>
+			<input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
 			<script>
 				if (document.getElementById("searchBar").value == null) {
 
@@ -30,6 +31,7 @@
 
 			<div id="searchButtonContainer"><button name="searchButton" id="searchButton"><img id="searchIcon2"
 						src="../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
+			
 
 		</div>
 
@@ -38,24 +40,25 @@
 
 			<div id="results">
 				<!--flask loop -->
-			
+				{% for users in rslts %}
 				<article class="result">
 
 					<div class="result_imageContainer">
-						<img src="../static/Images/bob.jpg" class="result_profileImage">
+						<img src="{{users.imgLink}}" class="result_profileImage">
 					</div>
 					<div class="result_info">
-						<p class="result_userName">Username</p>
-						<p class="result_labor">labor</p>
-						<p class="result_location">location</p>
+						<p class="result_userName">{{users.userName}}</p>
+						<p class="result_labor">{{users.labor}}</p>
+						<p class="result_location">{{users.location}}</p>
 
 					</div>
 					<div class="result_stars">
 					
 					</div>
 				</article>
+				<hr>
 				<!--end Flask loop-->
-				
+				{% endfor %}
 			</div>
 
 		</section>
