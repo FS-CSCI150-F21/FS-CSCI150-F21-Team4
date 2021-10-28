@@ -48,3 +48,7 @@ def user(usr):
 
 if __name__ == "__main__":
     application.run(debug=True)
+
+@application.route("/profile")
+def profile():
+    return render_template("profile.html")

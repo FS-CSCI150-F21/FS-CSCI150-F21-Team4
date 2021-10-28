@@ -1,0 +1,87 @@
+{% extends "base.html"%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "../static/CSS/profile.css">
+</head>
+<body>
+
+    <style>
+
+    form{
+        
+        height: 50px;
+        width:400px;
+        background-color: blue;
+        display: flex;
+        align-items: center;
+        
+    }
+
+    .profile{
+        height: 200px;
+        width: 400px;
+        background-color: orange;
+        display:flex;
+
+
+    }
+    #info{
+        position:relative;
+        display:flex;
+        margin-right: 50px;
+    }
+
+
+    </style>
+    {% block content %}
+
+    <form>
+        <input type = "text" id = "search" placeholder="New Search">
+        <input type = "text" id = "location" placeholder = "location">
+        <img src = "" alt = "search">
+    </form>
+
+    <section class= "profile">
+        <div id ="profilePic">
+
+            <div id = "ratings">ratings</div>
+            <img src = "profilePic"  id = "pic">
+
+        </div>
+
+        <div id = "sectionHandler">
+                <div id ="info">
+                    <div id = "username"> Username</div>
+                    <div id = "location">Location</div>
+                </div>
+
+                <div id = "description"> 
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
+                    Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?
+                </div>
+        </div>
+    </section>
+
+    <section id = "projects">
+        <p>Projects</p>
+        <div id = "container">
+            <img src = "" alt = "photo1" class = "photo">
+            <img src = "" alt = "photo2" class = "photo">
+            <div id = "Description"></div>
+            
+        </div>
+    </section>
+
+
+
+    
+    
+    {% endblock %}
+</body>
+</html>
