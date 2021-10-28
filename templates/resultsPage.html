@@ -1,83 +1,69 @@
 {% extends "base.html"%}
 {% block head %}
-	<link rel="stylesheet" href="../static/CSS/resultsPage.css">
-	<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
-        <meta http-equiv="X-UA-Compatible" content = "ie=edge">
-   <script>
-
-	   
-  
-			
-</script>
+<link rel="stylesheet" href="../static/CSS/resultsPage.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="../static/JS/resultsPageJS.js"></script>
 {% endblock %}
-   
 
-	{% block content %}
-    <br><br>
-	<section class = "midSec">
 
-        <div class = "midContent">
-            <div id = "searchContainer">
-			    <label for = "searchBar" id = "searchLabel" >  Find </label>
-            	<input  name = "searchBar" type = "text" id = "searchBar" placeholder = "gardener, plumber, painter... " >
-				<script>
-						if(document.getElementById("searchBar").value == null){
+{% block content %}
+<br><br>
+<section class="midSec">
 
-							
-						}else{
-							document.getElementById("searchBar").value =sessionStorage.getItem("searchItem");
-						}
-				</script>
-				<label for = "locationBar" id = "locationLabel"> Near </label>
-                <input  name = "locationBar" type = "text" id = "locationBar" placeholder = "Fresno,CA" >
-                <div id = "filterContainer" >filter paceholder</div>
-				<script>
-					function setSearchTerm(){
-						let temp = document.getElementById("searchBar").value;
-						sessionStorage.setItem("searchItem",temp )
-						location.reload();
-						return;
-					}
+	<div class="midContent">
+		<div id="searchContainer">
+			<label for="searchBar" id="searchLabel"> Find </label>
+			<form><input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... "></form>
+			<script>
+				if (document.getElementById("searchBar").value == null) {
 
-				</script>
-				<div id = "searchButtonContainer" ><button name = "searchButton" id = "searchButton"><img id = "searchIcon2" src = "../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
-				
-            </div>
 
-            <section id = "resultsSection">
-                <h1>Results</h1>
+				} else {
+					document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+				}
+			</script>
+			<label for="locationBar" id="locationLabel"> Near </label>
+			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
+			<div id="filterContainer">filter paceholder</div>
 
-                <div id = "results">
-					 <!--flask loop -->
-                   <article class = "result">
-					  
-						<div class = "result_imageContainer">
-							<img src = "../static/Images/bob.jpg"class ="result_profileImage">
-						</div>
-						<div class = "result_info">
-							<p class = "result_userName">Username</p>	
-							<p class = "result_labor">labor</p>	
-							<p class = "result_location">location</p>	
+			<div id="searchButtonContainer"><button name="searchButton" id="searchButton"><img id="searchIcon2"
+						src="../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
 
-						</div>
-						<div class = "result_stars">
-
-						</div>
-				   </article>
-				<!--end Flask loop-->
-                </div>
-
-            </section>
-        </div>
-	
-		<div id = "adContainerRight">
-			
 		</div>
 
-	</section>
-	{% endblock %}
+		<section id="resultsSection">
+			<h1>Results</h1>
 
-	
+			<div id="results">
+				<!--flask loop -->
+			
+				<article class="result">
 
-		
+					<div class="result_imageContainer">
+						<img src="../static/Images/bob.jpg" class="result_profileImage">
+					</div>
+					<div class="result_info">
+						<p class="result_userName">Username</p>
+						<p class="result_labor">labor</p>
+						<p class="result_location">location</p>
+
+					</div>
+					<div class="result_stars">
+					
+					</div>
+				</article>
+				<!--end Flask loop-->
+				
+			</div>
+
+		</section>
+	</div>
+
+	<div id="adContainerRight">
+
+	</div>
+
+</section>
+{% endblock %}

@@ -46,29 +46,10 @@
         width:100%;
         height:15%;
     }
-    #logo{
-        width:8%;
-        height:100%;
-    }
-    #topBarUtility{
-        display:inline-flex;
-        justify-content: flex-end;
-        float:right;
-        
-    }
+  
+
     
-     #topBarUtility div{
-        
-    
-        
-    
-        padding:10px;
-        
-        }
-    #linkContainer img{
-        height:150px;
-        width:200px;
-    }
+
     #searchButtonContainer{
     
     height:100%;

@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, url_for, request
 from pymongo import MongoClient
 import bcrypt
 from datetime import date
+from testData import rslts
 
 application = Flask(__name__)
 
@@ -35,7 +36,7 @@ def register():
 
 @application.route("/results/")
 def resultsPage():
-	return render_template("resultsPage.html")
+	return render_template("resultsPage.html",rslts = rslts)
 
 @application.route("/")
 def landingPage():
