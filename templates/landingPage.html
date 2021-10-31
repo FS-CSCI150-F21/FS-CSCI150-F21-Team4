@@ -1,38 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base.html"%}
+{% block head %}
 <link rel = "stylesheet" href = "/static/CSS/landingPageStyleSheet.css">
 <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
 <style>
-	html {
-    height: 100%;
-	}
-	body {
-		font-family: "Arvo";
-		height: 100%;
-		margin: 0;
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background: #D3D3D3
-		/* background: linear-gradient(#e66465, #9198e5); */
-	}
+
 </style>
+{% endblock %}
 </head>
+
 <body>
-	<div  id = "topBar" >
-		<img id = "logo" src = "/static/Images/logo1.png"/>
-		<div id = "searchIconContainer">
-			<svg id = "searchIcon" width="100%" viewBox="0 -3 100 100" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></svg>
-		</div>
-		<div id = "profileThumbnailContainer">
-			<img src = "/static/Images/userIcon.png" id = "userIcon" heigh = "30" width = "30" />
-		</div>	
-	</div>
 
-
+	{% block content %}
 	<section class = "landingPageWoM" >
 		<div id = "WoMContainer">
-			<h1 id = "WoM">Word of Mouth</h1>
+			<!--<h1 id = "WoM">Word of Mouth</h1>-->
 		</div>
 	</section>
 
@@ -59,10 +40,10 @@
 				<div id = "lookingForContainer">
 					<table id = "buttonss">
 						<tr>
-							<td>	<button type = "button">Looking for Help?</button></td>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
 
 							<td>	<p>or</p></td>
-							<td>	<button type = "button">Looking for Work?</button></td>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
 
 					
 						</tr>
@@ -120,5 +101,4 @@
 		</div>
 
 	</section>
-</body>
-</html>
+	{% endblock %}

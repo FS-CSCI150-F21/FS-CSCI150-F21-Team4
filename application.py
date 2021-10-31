@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, url_for, request, session
 from pymongo import MongoClient
 import bcrypt
 from datetime import date
+from testData import rslts
 
 application = Flask(__name__)
 
@@ -46,7 +47,7 @@ def login():
 
 @application.route("/results/")
 def resultsPage():
-	return render_template("resultsPage.html")
+	return render_template("resultsPage.html",rslts = rslts)
 
 @application.route("/")
 def landingPage():
@@ -56,5 +57,9 @@ def landingPage():
 def user(usr):
 	return f"<h1>{usr}</h1>"
 
+@application.route("/profile")
+def profile():
+    return render_template("profile.html")
+	
 if __name__ == "__main__":
     application.run(debug=True)

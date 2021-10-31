@@ -1,100 +1,69 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="../CSS/resultsPage.css">
-	<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
-        <meta http-equiv="X-UA-Compatible" content = "ie=edge">
-   <script>
-	   
-  
-			
-</script>
-   
-</head>
-<body>
-	<section class = "topBar" >
-		<img id = "logo" src = "../Images/logo1.png"/>
-		<div id = "topBarUtility">
-			<div id = "searchIconContainer">
-				<svg id = "searchIcon"width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></svg>
-			</div>
-			<div id = "profileThumbnailContainer">
-				<img src = "../Images/userIcon.png" id = "userIcon" heigh = "30" width = "30" />
-			</div>
+{% extends "base.html"%}
+{% block head %}
+<link rel="stylesheet" href="../static/CSS/resultsPage.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="../static/JS/resultsPageJS.js"></script>
+{% endblock %}
+
+
+{% block content %}
+<br><br>
+<section class="midSec">
+
+	<div class="midContent">
+		<div id="searchContainer">
+			<label for="searchBar" id="searchLabel"> Find </label>
+			<form><input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... "></form>
+			<script>
+				if (document.getElementById("searchBar").value == null) {
+
+
+				} else {
+					document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+				}
+			</script>
+			<label for="locationBar" id="locationLabel"> Near </label>
+			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
+			<div id="filterContainer">filter paceholder</div>
+
+			<div id="searchButtonContainer"><button name="searchButton" id="searchButton"><img id="searchIcon2"
+						src="../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
+
 		</div>
-	</section>
-    <br><br>
-	<section class = "midSec">
 
-        <div class = "midContent">
-            <div class = "searchContainer">
-                <input  type = "text" id = "searchBar" placeholder = "Search" >
-				<script>
-						if(document.getElementById("searchBar").value == null){
+		<section id="resultsSection">
+			<h1>Results</h1>
 
-							
-						}else{
-							document.getElementById("searchBar").value =sessionStorage.getItem("searchItem");
-						}
-				</script>
-                <div id = "locationServicesContainer">location services palceholder</div>
-                <div id = "filterContainer" >filter paceholder</div>
-				<script>
-					function setSearchTerm(){
-						let temp = document.getElementById("searchBar").value;
-						sessionStorage.setItem("searchItem",temp )
-						location.reload();
-						return;
-					}
+			<div id="results">
+				<!--flask loop -->
+			
+				<article class="result">
 
-				</script>
-				<div id = "searchButtonContainer" ><button name = "searchButton"><img id = "searchIcon2" src = "../Images/search.png" onclick="setSearchTerm()"></button> </div>
-				
-            </div>
+					<div class="result_imageContainer">
+						<img src="../static/Images/bob.jpg" class="result_profileImage">
+					</div>
+					<div class="result_info">
+						<p class="result_userName">Username</p>
+						<p class="result_labor">labor</p>
+						<p class="result_location">location</p>
 
-            <section id = "resultsSection">
-                <h1>Results</h1>
-
-                <div id = "results">
-					 <!--flask loop -->
-                   <article class = "result">
-					  
-						<div class = "result_imageContainer">
-							<img src = "../Images/bob.jpg"class ="result_profileImage">
-						</div>
-						<div class = "result_info">
-							<p class = "result_userName">Username</p>	
-							<p class = "result_labor">labor</p>	
-							<p class = "result_location">location</p>	
-
-						</div>
-						<div class = "result_stars">
-
-						</div>
-				   </article>
+					</div>
+					<div class="result_stars">
+					
+					</div>
+				</article>
 				<!--end Flask loop-->
-                </div>
+				
+			</div>
 
-            </section>
-        </div>
-	
-		<div id = "adContainerRight">
-			
-		</div>
+		</section>
+	</div>
 
-	</section>
+	<div id="adContainerRight">
 
-	
+	</div>
 
-		
-
-
-
-
-
-
-
-	
-</body>
-</html>
+</section>
+{% endblock %}
