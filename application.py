@@ -26,33 +26,22 @@ def register():
 
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
-    usersDB = client["userRegistration"]
-    users = usersDB['userregistrations']
-    # Problem exists here, method 1 = 'method' object is not scriptable
-    login_user = users.find_one({'name': request.form.get('username')})
+    if request.method == 'POST':
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+       
+        login_user = users.find_one({'name': request.form['username']})
 
-    #if login_user is None:
-    #    return redirect(url_for('register'))
-    # method 2, The browser (or proxy) sent a request that this server could not understand. KeyError: 'username'
-    #login_user = users.find_one({'name': request.form['username']})
-
-    user_pass = login_user['password']
-    login_pass = request.form.get('password')
+        user_pass = login_user['password']
+        login_pass = request.form.get('password')
 
 
     # Method 1
-    if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
-       return 'Test successful'
-    else:
-        return 'Test Failed'
-
-    # Method 2
-    
-    """if login_user:
-        if bcrypt.hashpw(request.form.get('password').encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
-            return redirect(url_for(landingPage))
-        return 'Invalid'
-    return 'Invalid'"""
+        if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
+          return 'Test successful'
+        else:
+            return 'Test Failed'
+    return render_template('login.html')
 
 
 @application.route("/results/")
