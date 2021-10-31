@@ -32,14 +32,16 @@ def login():
         users = usersDB['userregistrations']
        
         login_user = users.find_one({'name': request.form['username']})
+        if login_user is None:
+           return redirect(url_for('register'))
 
         user_pass = login_user['password']
         login_pass = request.form.get('password')
 
 
-    # Method 1
+        # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
-          return 'Test successful'
+            return 'Test successful'
         else:
             return 'Test Failed'
     return render_template('login.html')
@@ -47,20 +49,23 @@ def login():
 
 @application.route("/results/")
 def resultsPage():
-	return render_template("resultsPage.html",rslts = rslts)
+    return render_template("resultsPage.html",rslts = rslts)
 
-@application.route("/")
+@application.route("/", methods = ["POST", "GET"])
 def landingPage():
-	return render_template("landingPage.html")
+    if request.method == 'POST':
+        if login() == 'Test successful':
+            return login()
+    return render_template("landingPage.html")
 
 @application.route("/<usr>/")
 def user(usr):
-	return f"<h1>{usr}</h1>"
+    return f"<h1>{usr}</h1>"
 
 @application.route("/profile/")
 def profile():
     return render_template("profile.html")
-	
+
 
 if __name__ == "__main__":
     application.run(debug=True)
