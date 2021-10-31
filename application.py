@@ -57,9 +57,10 @@ def landingPage():
 def user(usr):
 	return f"<h1>{usr}</h1>"
 
-@application.route("/profile")
+@application.route("/profile/")
 def profile():
     return render_template("profile.html")
 	
+
 if __name__ == "__main__":
     application.run(debug=True)
