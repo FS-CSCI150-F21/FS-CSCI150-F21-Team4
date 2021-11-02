@@ -91,3 +91,6 @@
     body{
         height:99%; 
     }
+     input[type=submit]{
+        background-image: url('../static/Images/search.png');
+      }

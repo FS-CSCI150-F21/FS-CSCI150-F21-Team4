@@ -13,10 +13,10 @@
 <section class="midSec">
 
 	<div class="midContent">
-		<div id="searchContainer">
+		<form id="searchContainer" method = "get">
 			
-			<label for="searchBar" id="searchLabel"> Find </label>
-			<input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+			<label for="search" id="searchLabel"> Find </label>
+			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
 			<script>
 				if (document.getElementById("searchBar").value == null) {
 
@@ -29,11 +29,10 @@
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
 			<div id="filterContainer">filter paceholder</div>
 
-			<div id="searchButtonContainer"><button name="searchButton" id="searchButton"><img id="searchIcon2"
-						src="../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
+			<div id="searchButtonContainer"><input type = "submit" name="searchButton" id="searchButton"> </div>
 			
 
-		</div>
+		</form>
 
 		<section id="resultsSection">
 			<h1>Results</h1>
@@ -44,12 +43,12 @@
 				<article class="result">
 
 					<div class="result_imageContainer">
-						<img src="{{users.imgLink}}" class="result_profileImage">
+						<img src="" class="result_profileImage">
 					</div>
 					<div class="result_info">
-						<p class="result_userName">{{users.userName}}</p>
+						<p class="result_userName">{{users.name}}</p>
 						<p class="result_labor">{{users.labor}}</p>
-						<p class="result_location">{{users.location}}</p>
+						<p class="result_location">{{users.phonenumber}}</p>
 
 					</div>
 					<div class="result_stars">
