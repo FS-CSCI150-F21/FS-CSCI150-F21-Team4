@@ -60,7 +60,7 @@
 	object-fit: cover;
 	width: 300px;
 	border-radius: 8px;
-	border: 3px solid #64915f;
+	border: 3px solid black;
 }
 
 #mpsTable{
@@ -68,4 +68,3 @@
 	justify-content: center;
 	table-layout: fixed;
 }
-
