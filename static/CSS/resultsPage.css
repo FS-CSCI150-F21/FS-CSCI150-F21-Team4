@@ -17,6 +17,10 @@
        
 
     }
+    form{
+        display:flex;
+        align-content:space-between;
+    }
     label h3{
         padding-bottom: 100%;
     }
@@ -38,7 +42,8 @@
       
     }
     #locationBar{
-        flex-grow:.2;
+        flex-grow:.1;
+        
     }
 
 
