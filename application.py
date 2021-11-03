@@ -1,6 +1,8 @@
 from flask import Flask, redirect, render_template, url_for, request, session
 from pymongo import MongoClient
 import bcrypt
+import pickle
+import sklearn
 from datetime import date
 from testData import rslts
 
@@ -69,7 +71,8 @@ def profile():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        return render_template("NLP.html")
+        #filename = 'svm_model.sav'
+        #model = pickle.load(open(filename, 'rb'))
     return render_template("NLP.html")
 
 if __name__ == "__main__":
