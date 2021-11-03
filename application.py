@@ -6,6 +6,12 @@ import sklearn
 from datetime import date
 from testData import rslts
 
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.calibration import CalibratedClassifierCV
+
 application = Flask(__name__)
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
@@ -71,9 +77,12 @@ def profile():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        #filename = 'svm_model.sav'
-        #model = pickle.load(open(filename, 'rb'))
-    return render_template("NLP.html")
+        filename = 'svm_model.sav'
+        model = pickle.load(open(filename, 'rb'))
+        text = request.form.get('NLPtext')
+        prediction = model.predict([text])
+        return render_template("NLP.html", data = [text, prediction[0]])
+    return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
     application.run(debug=True)
