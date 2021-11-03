@@ -6,15 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../static/JS/resultsPageJS.js"></script>
 {% endblock %}
-
-
 {% block content %}
 <br><br>
 <section class="midSec">
-
 	<div class="midContent">
-		<form id="searchContainer" method = "post">
-			
+		<form id="searchContainer" method="post">
 			<label for="search" id="searchLabel"> Find </label>
 			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
 			<script>
@@ -29,8 +25,8 @@
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
 			<div id="filterContainer">filter paceholder</div>
 
-			<div id="searchButtonContainer"><input type = "submit" name="searchButton" id="searchButton"> </div>
-			
+			<div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton"> </div>
+
 
 		</form>
 
@@ -40,22 +36,19 @@
 			<div id="results">
 				{%if rslts is defined and rslts != {} %}
 				{% for users in rslts %}
-					<article class="result">
-
-						<div class="result_imageContainer">
-							<img src="" class="result_profileImage">
-						</div>
-						<div class="result_info">
-							<p class="result_userName">{{users.name}}</p>
-							<p class="result_labor">{{users.labor}}</p>
-							<p class="result_location">{{users.phonenumber}}</p>
-					
-						</div>
-						<div class="result_stars">
-						
-						</div>
-					</article>
-					<hr>
+				<article class="result">
+					<div class="result_imageContainer">
+						<img src="" class="result_profileImage">
+					</div>
+					<div class="result_info">
+						<p class="result_userName">{{users.name}}</p>
+						<p class="result_labor">{{users.labor}}</p>
+						<p class="result_location">{{users.phonenumber}}</p>
+					</div>
+					<div class="result_stars">
+					</div>
+				</article>
+				<hr>
 				{% endfor %}
 				{% else %}
 					<p>Nothing here</p>
@@ -64,10 +57,6 @@
 
 		</section>
 	</div>
-
-	<div id="adContainerRight">
-
-	</div>
-
+	<div id="adContainerRight"></div>
 </section>
 {% endblock %}
