@@ -66,6 +66,11 @@ def user(usr):
 def profile():
     return render_template("profile.html")
 
+@application.route("/NLP/", methods = ["POST", "GET"])
+def NLP():
+    if request.method == 'POST':
+        return render_template("NLP.html")
+    return render_template("NLP.html")
 
 if __name__ == "__main__":
     application.run(debug=True)
