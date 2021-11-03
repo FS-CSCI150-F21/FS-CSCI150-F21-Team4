@@ -7,15 +7,13 @@
 <script src="../static/JS/resultsPageJS.js"></script>
 {% endblock %}
 
-
 {% block content %}
 <br><br>
 <section class="midSec">
-
 	<div class="midContent">
-		<div id="searchContainer">
-			<label for="searchBar" id="searchLabel"> Find </label>
-			<form><input name="searchBar" type="text" id="searchBar" placeholder="gardener, plumber, painter... "></form>
+		<form id="searchContainer" method="post">
+			<label for="search" id="searchLabel"> Find </label>
+			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
 			<script>
 				if (document.getElementById("searchBar").value == null) {
 
@@ -28,42 +26,35 @@
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
 			<div id="filterContainer">filter paceholder</div>
 
-			<div id="searchButtonContainer"><button name="searchButton" id="searchButton"><img id="searchIcon2"
-						src="../static/Images/search.png" onclick="setSearchTerm()"></button> </div>
-
-		</div>
-
+			<div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton"> </div>
+		</form>
 		<section id="resultsSection">
 			<h1>Results</h1>
 
 			<div id="results">
-				<!--flask loop -->
-			
+				{%if rslts is defined and rslts != {} %}
+				{% for users in rslts %}
 				<article class="result">
-
 					<div class="result_imageContainer">
-						<img src="../static/Images/bob.jpg" class="result_profileImage">
+						<img src="" class="result_profileImage">
 					</div>
 					<div class="result_info">
-						<p class="result_userName">Username</p>
-						<p class="result_labor">labor</p>
-						<p class="result_location">location</p>
-
+						<p class="result_userName">{{users.name}}</p>
+						<p class="result_labor">{{users.labor}}</p>
+						<p class="result_location">{{users.phonenumber}}</p>
 					</div>
 					<div class="result_stars">
-					
 					</div>
 				</article>
-				<!--end Flask loop-->
-				
+				<hr>
+				{% endfor %}
+				{% else %}
+					<p>Nothing here</p>
+				{% endif %}
 			</div>
 
 		</section>
 	</div>
-
-	<div id="adContainerRight">
-
-	</div>
-
+	<div id="adContainerRight"></div>
 </section>
 {% endblock %}
