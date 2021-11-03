@@ -49,14 +49,14 @@ def login():
 
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
-    if request.method == 'GET':
+    if request.method == 'POST':
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         searchResults = users.find({'labor': request.form['search']}) 
 
         return render_template("resultsPage.html",rslts = searchResults)
     else:
-        return render_template("resultsPage.html",rslts = rslts)
+        return render_template("resultsPage.html")
 
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():

@@ -13,7 +13,7 @@
 <section class="midSec">
 
 	<div class="midContent">
-		<form id="searchContainer" method = "get">
+		<form id="searchContainer" method = "post">
 			
 			<label for="search" id="searchLabel"> Find </label>
 			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
@@ -38,26 +38,28 @@
 			<h1>Results</h1>
 
 			<div id="results">
-				<!--flask loop -->
+				{%if rslts is defined and rslts != {} %}
 				{% for users in rslts %}
-				<article class="result">
+					<article class="result">
 
-					<div class="result_imageContainer">
-						<img src="" class="result_profileImage">
-					</div>
-					<div class="result_info">
-						<p class="result_userName">{{users.name}}</p>
-						<p class="result_labor">{{users.labor}}</p>
-						<p class="result_location">{{users.phonenumber}}</p>
-
-					</div>
-					<div class="result_stars">
+						<div class="result_imageContainer">
+							<img src="" class="result_profileImage">
+						</div>
+						<div class="result_info">
+							<p class="result_userName">{{users.name}}</p>
+							<p class="result_labor">{{users.labor}}</p>
+							<p class="result_location">{{users.phonenumber}}</p>
 					
-					</div>
-				</article>
-				<hr>
-				<!--end Flask loop-->
+						</div>
+						<div class="result_stars">
+						
+						</div>
+					</article>
+					<hr>
 				{% endfor %}
+				{% else %}
+					<p>Nothing here</p>
+				{% endif %}
 			</div>
 
 		</section>
