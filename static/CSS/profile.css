@@ -1,4 +1,27 @@
 form{
-    position: static;
-    margin: 0px;
+        
+    height: 50px;
+    width:400px;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    
+}
+
+
+#info{
+    position:relative;
+    display:flex;
+    margin-right: 50px;
+}
+
+#profileInfo{
+    display:flex;
+    justify-content:space-evenly;
+
+}
+#projectContent{
+    display:flex;
+    justify-content:space-evenly;
+    gap:20px;
 }
