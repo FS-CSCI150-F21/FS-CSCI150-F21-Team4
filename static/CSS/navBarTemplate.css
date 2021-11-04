@@ -8,7 +8,7 @@
 }
 #logoContainer{
 	justify-content: left;
-	width: 150px;
+	width: 5%;
 }
 #websiteNameContainer {
 	text-align: center;
@@ -16,7 +16,7 @@
 #topBarUtil {
 	display: flex;
 	justify-content: right;
-	width: 150px;
+	width: 5%;
 }
 #logo{
     height:105%;
