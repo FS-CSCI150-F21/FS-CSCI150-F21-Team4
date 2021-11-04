@@ -1,50 +1,21 @@
 {% extends "base.html"%}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel = "stylesheet" href = "../static/CSS/profile.css">
-</head>
-<body>
-
-    <style>
-
-    form{
-        
-        height: 50px;
-        width:400px;
-        background-color: blue;
-        display: flex;
-        align-items: center;
-        
-    }
-
-    .profile{
-        height: 200px;
-        width: 400px;
-        background-color: orange;
-        display:flex;
 
 
-    }
-    #info{
-        position:relative;
-        display:flex;
-        margin-right: 50px;
-    }
+   
+{% block head %}
 
 
-    </style>
+
+    
+    {% endblock %}
+
     {% block content %}
-
     <form>
         <input type = "text" id = "search" placeholder="New Search">
         <input type = "text" id = "location" placeholder = "location">
         <img src = "" alt = "search">
+        
     </form>
 
     <section class= "profile">
@@ -80,8 +51,12 @@
 
 
 
+    <a href = "{{ url_for('profileEdit') }}">Edit</a>
+
+
+
     
     
     {% endblock %}
-</body>
-</html>
+
+
