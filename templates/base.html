@@ -3,6 +3,154 @@
     <head>
         <link rel = "stylesheet" href = "/static/CSS/navBarTemplate.css">
         <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+
+
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body {font-family: Arial, Helvetica, sans-serif;}
+          
+          /* Full-width input fields */
+          input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+          }
+          
+          /* Set a style for all buttons */
+          .otherbuttons {
+            background-color: rgb(77, 133, 77);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        
+          }
+          
+          .logbutton {
+            width: auto;
+            height: auto;
+          }
+          
+          button:hover {
+            opacity: 0.8;
+          }
+          
+          /* Extra styles for the cancel button */
+          .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            margin: 8px 0;
+            background-color: #f44336;
+          }
+          
+          /* Center the image and position the close button */
+          .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+            
+          }
+          
+          img.avatar {
+            width: 40%;
+            border-radius: 50%;
+          }
+          
+          .container {
+            padding: 16px;
+          }
+          
+          span.psw {
+            float: right;
+            padding-top: 16px;
+          }
+          
+          /* The Modal (background) */
+          .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+          }
+          
+          /* Modal Content/Box */
+          .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+          }
+          
+          /* The Close Button (x) */
+          .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+          }
+          
+          .close:hover,
+          .close:focus {
+            color: red;
+            cursor: pointer;
+          }
+          
+          /* Add Zoom Animation */
+          .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+          }
+          
+          @-webkit-keyframes animatezoom {
+            from {-webkit-transform: scale(0)} 
+            to {-webkit-transform: scale(1)}
+          }
+            
+          @keyframes animatezoom {
+            from {transform: scale(0)} 
+            to {transform: scale(1)}
+          }
+          
+          /* Change styles for span and cancel button on extra small screens */
+          @media screen and (max-width: 300px) {
+            span.psw {
+               display: block;
+               float: none;
+            }
+            .cancelbtn {
+               width: 100%;
+            }
+          }
+        </style>
+
+
+
+
+
+
+
+
+
+
         <style>
         html {
             height: 100%;
@@ -14,7 +162,7 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-color: rgb(77, 133, 77);
-	            background-image: linear-gradient(to top right, rgb(77, 133, 77), grey);
+	            background-image: linear-gradient(to top right, rgb(77, 133, 77),rgb(100, 181, 235));
                
             }
         </style>
@@ -23,10 +171,43 @@
     <body>
         <div  id = "topBar" >
          <a href = "{{url_for('landingPage')}}" >  <img id = "logo" src = "/static/Images/logo1.png"/></a>
-            <div><h1>Word of Mouth</h1></div>
+            <div><h2>Word of Mouth</h2></div>
             <div id = "topBarUtil">
                 <div id = "searchIconContainer">
                  <a href = "{{ url_for('resultsPage') }}">  <img src = "/static/Images/search.png" id = "searchIcon" height = "100%" /> </a>
+                 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="otherbuttons">Login</button>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="/static/images/img_avatar2.png" alt="Avatar" class="avatar">
+    </div>
+
+    <!--Login form found here-->
+    <div class="container">
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+    <!--Login/Register/remember submit buttons-->
+      <button type="submit" class="otherbuttons">Login</button>
+	  <button onclick="location.href = '/register'" class="otherbuttons">Register</button>
+      <label>
+        <input type="checkbox" name="remember"> Remember me
+      </label>
+
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw">Forgot <a href="#">password?</a></span>
+    </div>
+  </form>
+</div>
                     <!-- <svg id = "searchIcon" viewBox="0 -3 100 100" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></svg> -->
                 </div>
                 <div id = "profileThumbnailContainer">
@@ -34,9 +215,20 @@
             </div>	
             </div>
           </div>
-    
+          
         {% block content %}
       
         {% endblock %}
+        <script>
+            // Get the modal
+            var modal = document.getElementById('id01');
+            
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            </script>
     </body>
 </html>

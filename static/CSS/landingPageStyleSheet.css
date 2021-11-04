@@ -2,6 +2,8 @@
 .landingPageWoM{
 	display: flex;
 	justify-content: center;
+	left:400px;
+	
 }
 
 .midSec{
@@ -15,6 +17,12 @@
 
 #aboutContent{
 	text-align: center;
+	width: 1224px;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid black;
+	font-family: Lucida ;
+	font-size: 1.2pc;
 }
 
 .LookingForButtons{
@@ -55,6 +63,11 @@
 	justify-content: center;
 }
 
+#linkContainer:hover{
+	color:rgb(211, 198, 172);
+	
+}
+
 .mpsImage{
 	height: 200px;
 	object-fit: cover;
@@ -63,6 +76,9 @@
 	border: 3px solid black;
 }
 
+.mpsImage:hover{
+	border: 3px solid rgb(211, 198, 172);
+}
 #mpsTable{
 	display:flex;
 	justify-content: center;
