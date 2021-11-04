@@ -17,6 +17,10 @@
        
 
     }
+    form{
+        display:flex;
+        align-content:space-between;
+    }
     label h3{
         padding-bottom: 100%;
     }
@@ -38,7 +42,8 @@
       
     }
     #locationBar{
-        flex-grow:.2;
+        flex-grow:.1;
+        
     }
 
 
@@ -60,6 +65,7 @@
     display:inline-flex;
     
     height:20%;
+    width:75%;
     }
     
     img.result_profileImage  {
@@ -90,3 +96,6 @@
     body{
         height:99%; 
     }
+     input[type=submit]{
+        background-image: url('../static/Images/search.png');
+      }
