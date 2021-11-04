@@ -6,93 +6,64 @@
 
 </style>
 {% endblock %}
-</head>
 
-<body>
+{% block content %}
 
-	{% block content %}
-	<section class = "landingPageWoM" >
-		<div id = "WoMContainer">
-			<!--<h1 id = "WoM">Word of Mouth</h1>-->
+<section class = "midSec">
+	<section id = "landingPageContentContainer" >
+		<div id = "aboutContainer">
+			<article class = "about">
+				<h4 id = "aboutHeading">About</h4>
+				<p id = "aboutContent"> Word of Mouth is a website where people/users like you can easily search for a laborer of some kind like a landscaper or painter. You will be able to browse through different labor profiles and examine their work and reviews. If you are the worker you can create a profile where you can show your amazing previous work through pictures and descriptions. You will also be able to gain reviews. 
+				</p>
+			</article>
 		</div>
-	</section>
 
-	<section class = "midSec">
+		<div id = "lookingForContainer">
+			<table id = "buttonss">
+				<tr>
+					<td><button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
+					<td><p>or</p></td>
+					<td><button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
+				</tr>
+			</table>
 
-			
-		</div>
-		
-			<section  id = "landingPageContentContainer" >
-				<div  id = "aboutContainer">
-					<!--<div id="grad1" style="text-align:center;margin:auto;color: black ;font-size:20px">-->
-						
-						
-					<article class = "about">
-						<h4 id = "aboutHeading">About</h4>
-						
-						<p id = "aboutContent"> Word of Mouth is a website where people/users like you can easily search for a laborer of some kind like a landscaper or painter. You will be able to browse through different labor profiles and examine their work and reviews. If you are the worker you can create a profile where you can show your amazing previous work through pictures and descriptions. You will also be able to gain reviews. 
-						</p>
-					</article>
-					<!--</div>-->
-
-				<div id = "lookingForContainer">
-					<table id = "buttonss">
+			<section class ="mostPopularServices">
+				<div id = "mpsContainer">
+					<div id ="mpsHeadingContainer">
+						<h3>Most Popular Services in</h3>
+					</div>	
+					<table id = "mpsTable">
 						<tr>
-							<td>	<button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
-
-							<td>	<p>or</p></td>
-							<td>	<button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
-
-					
+							<td>
+								<div id = "linkContainer">
+									<img class = "mpsImage" src = "/static/Images/landscaping.jpeg" />
+									<h5>Landscaping</h5>
+								</div>
+							</td>
+							<td>
+								<div id = "linkContainer">
+									<img class = "mpsImage" src = "/static/Images/carpentry.jpeg" />
+									<h5>Carpentry</h5>
+								</div>
+							</td>
+							<td>
+								<div id = "linkContainer">
+									<img class = "mpsImage" src = "/static/Images/cleaningservices.jpg" />
+									<h5>Cleaning Services</h5>
+								</div>
+							</td>
+							<td>
+								<div id = "linkContainer">
+									<img class = "mpsImage" src = "/static/Images/plumbing.jpeg" />
+									<h5>Plumbing</h5>
+								</div>
+							</td>
 						</tr>
 					</table>
-
-					<section class ="mostPopularServices">
-		
-			
-						<div id = "mpsContainer">
-							<div id ="mpsHeadingContainer">
-								<h3>Most Popular Services in</h3>
-							</div>	
-							<table id = "mpsTable">
-								<tr>
-									<td>
-										<div id = "linkContainer">
-											<img class = "mpsImage" src = "/static/Images/landscaping.jpeg" />
-											<h5>Landscaping</h5>
-										</div>
-									</td>
-									<td>
-										<div id = "linkContainer">
-											<img class = "mpsImage" src = "/static/Images/carpentry.jpeg" />
-											<h5>Carpentry</h5>
-										</div>
-									</td>
-									<td>
-										<div id = "linkContainer">
-											<img class = "mpsImage" src = "/static/Images/cleaningservices.jpg" />
-											<h5>Cleaning Services</h5>
-										</div>
-									</td>
-									<td>
-										<div id = "linkContainer">
-											<img class = "mpsImage" src = "/static/Images/plumbing.jpeg" />
-											<h5>Plumbing</h5>
-										</div>
-									</td>
-								</tr>
-			
-			
-							</table>
-							
-						</div>
-					
-					</section>
 				</div>
-			</div>
-		</section>
-		
-
-
+			</section>
+		</div>
 	</section>
-	{% endblock %}
+</section>
+{% endblock %}
