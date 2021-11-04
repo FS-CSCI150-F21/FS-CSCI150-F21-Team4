@@ -10,50 +10,64 @@
 {% endblock %}
 
 {% block content %}
+    <br>    
+    <form id="searchContainer" method="post">
+        <label for="search" id="searchLabel"> Find </label>
+        <input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+        <script>
+            if (document.getElementById("searchBar").value == null) {
 
-    <form>
-        <input type = "text" id = "search" placeholder="New Search">
-        <input type = "text" id = "location" placeholder = "location">
-        <img src = "" alt = "search">
+
+            } else {
+                document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+            }
+        </script>
+        <label for="locationBar" id="locationLabel"> Near </label>
+        <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
+        <div id="filterContainer">filter paceholder</div>
+
+        <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
     </form>
+    <br>
+    <section id = profileContent>
+        <section id= "profileInfo">
+            <div id ="profilePic">
 
-    <section id= "profileInfo">
-        <div id ="profilePic">
+                
+                <img src = "profilePic"  id = "userImg">
+                <div id = "ratings">ratings</div>
 
-            
-            <img src = "profilePic"  id = "userImg">
-            <div id = "ratings">ratings</div>
+            </div>
 
-        </div>
-
-        <div id = "userDescriptionContainer">
-                <div id ="info">
-                    <div id = "username"> Username</div>
-                    <div id = "location">Location</div>
-                </div>
-
-                <div id = "userDescription"> 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
-                    Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?
-                </div>
-        </div>
-    
-    </section>
-        <section id = "userProjects">
-            <h2>Projects</h2>
-
-            <article id = "projectContainer">
-                <h3>Project Title</h3>
-                <div id = "projectContent">
-                    <img src = "" alt = "photo1" class = "projectPhoto">
-                    <img src = "" alt = "photo2" class = "projectPhoto">
-                    <div id = "projectDescription">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
-                            Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?</p>
+            <div id = "userDescriptionContainer">
+                    <div id ="info">
+                        <div id = "username"> Username</div>
+                        <div id = "location">Location</div>
                     </div>
-                </div>
-            </article>
+
+                    <div id = "userDescription"> 
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
+                        Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?
+                    </div>
+            </div>
+        
         </section>
+            <section id = "userProjects">
+                <h2>Projects</h2>
+
+                <article id = "projectContainer">
+                    <h3>Project Title</h3>
+                    <div id = "projectContent">
+                        <img src = "" alt = "photo1" class = "projectPhoto">
+                        <img src = "" alt = "photo2" class = "projectPhoto">
+                        <div id = "projectDescription">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
+                                Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?</p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+    </section>
     
     
     {% endblock %}

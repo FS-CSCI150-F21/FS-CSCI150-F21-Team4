@@ -26,7 +26,7 @@
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
 			<div id="filterContainer">filter paceholder</div>
 
-			<div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton"> </div>
+			<div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
 		</form>
 		<section id="resultsSection">
 			<h1>Results</h1>
@@ -45,6 +45,7 @@
 					</div>
 					<div class="result_stars">
 					</div>
+					
 				</article>
 				<hr>
 				{% endfor %}
