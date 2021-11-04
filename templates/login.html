@@ -136,8 +136,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>Modal Login Form.</h2>
-
+<h2>Login Form</h2>
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="otherbuttons">Login</button>
 
 <div id="id01" class="modal">
@@ -148,13 +147,15 @@
       <img src="/static/images/img_avatar2.png" alt="Avatar" class="avatar">
     </div>
 
+    <!--Login form found here-->
     <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+    <!--Login/Register/remember submit buttons-->
       <button type="submit" class="otherbuttons">Login</button>
 	  <button onclick="location.href = '/register'" class="otherbuttons">Register</button>
       <label>
