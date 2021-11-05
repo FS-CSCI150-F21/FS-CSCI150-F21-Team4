@@ -17,8 +17,6 @@ application = Flask(__name__)
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
 
-<<<<<<< HEAD
-
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -42,9 +40,6 @@ def login():
         return render_template("login.html")
 
 @application.route('/register', methods = ['POST', 'GET'])
-=======
-@application.route('/register/', methods = ['POST', 'GET'])
->>>>>>> 830dc12d77c0dffbc6fa1afc0d2d072291d9d047
 def register():
     if request.method == 'POST':
         usersDB = client["userRegistration"]
@@ -102,7 +97,6 @@ def landingPage():
 
 @application.route("/<usr>/")
 def user(usr):
-<<<<<<< HEAD
 	return f"<h1>{usr}</h1>"
     
 @application.route("/profile/")
@@ -113,17 +107,6 @@ def profile():
 def profileEdit():
     #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
     return render_template("profileEdit.html")#, image_file = image_file)
-
-
-if __name__ == "__main__":
-    application.run(debug=True)
-
-=======
-    return f"<h1>{usr}</h1>"
-
-@application.route("/profile/")
-def profile():
-    return render_template("profile.html")
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
@@ -137,4 +120,3 @@ def NLP():
 
 if __name__ == "__main__":
     application.run(debug=True)
->>>>>>> 830dc12d77c0dffbc6fa1afc0d2d072291d9d047
