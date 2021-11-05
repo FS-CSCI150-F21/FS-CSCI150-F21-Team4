@@ -1,69 +1,165 @@
 {% extends "base.html"%}
 {% block head %}
 <link rel = "stylesheet" href = "/static/CSS/landingPageStyleSheet.css">
+<link rel = "stylesheet" href = "/static/CSS/carousel.css">
 <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+
 <style>
 
 </style>
 {% endblock %}
+</head>
 
-{% block content %}
-
-<section class = "midSec">
-	<section id = "landingPageContentContainer" >
-		<div id = "aboutContainer">
-			<article class = "about">
-				<h4 id = "aboutHeading">About</h4>
-				<p id = "aboutContent"> Word of Mouth is a website where people/users like you can easily search for a laborer of some kind like a landscaper or painter. You will be able to browse through different labor profiles and examine their work and reviews. If you are the worker you can create a profile where you can show your amazing previous work through pictures and descriptions. You will also be able to gain reviews. 
-				</p>
-			</article>
-		</div>
-
-		<div id = "lookingForContainer">
-			<table id = "buttonss">
-				<tr>
-					<td><button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
-					<td><p>or</p></td>
-					<td><button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
-				</tr>
-			</table>
-
-			<section class ="mostPopularServices">
-				<div id = "mpsContainer">
-					<div id ="mpsHeadingContainer">
-						<h3>Most Popular Services in</h3>
-					</div>	
-					<table id = "mpsTable">
-						<tr>
-							<td>
-								<div id = "linkContainer">
-									<img class = "mpsImage" src = "/static/Images/landscaping.jpeg" />
-									<h5>Landscaping</h5>
-								</div>
-							</td>
-							<td>
-								<div id = "linkContainer">
-									<img class = "mpsImage" src = "/static/Images/carpentry.jpeg" />
-									<h5>Carpentry</h5>
-								</div>
-							</td>
-							<td>
-								<div id = "linkContainer">
-									<img class = "mpsImage" src = "/static/Images/cleaningservices.jpg" />
-									<h5>Cleaning Services</h5>
-								</div>
-							</td>
-							<td>
-								<div id = "linkContainer">
-									<img class = "mpsImage" src = "/static/Images/plumbing.jpeg" />
-									<h5>Plumbing</h5>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</section>
+<body>
+	
+	{% block content %}
+	<section class = "landingPageWoM" >
+		<div id = "WoMContainer">
+			<!--<h1 id = "WoM">Word of Mouth</h1>-->
 		</div>
 	</section>
-</section>
-{% endblock %}
+
+	<section class = "midSec">
+
+			
+		</div>
+		
+			<section  id = "landingPageContentContainer" >
+				<div  id = "aboutContainer">
+					
+						
+						
+					<article class = "about">
+						<h4 id = "aboutHeading">About</h4>
+						
+						<p id = "aboutContent"> Word of Mouth is a website where people/users like you can easily search for a laborer of some kind like a landscaper or painter. You will be able to browse through different labor profiles and examine their work and reviews. If you are the worker you can create a profile where you can show your amazing previous work through pictures and descriptions. You will also be able to gain reviews. 
+						</p>
+					</article>
+					
+
+				<div id = "lookingForContainer">
+					<table id = "buttonss">
+						<tr>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Help?</button></td>
+							<br>
+							<td>	<p>or</p></td>
+							<td>	<button class = "LookingForButtons" type = "button">Looking for Work?</button></td>
+							
+					
+						</tr>
+					</table>
+					<br>
+					<!--Delete if does not work carousel-->
+					
+					<section class="carousel" aria-label="Gallery">
+					<ol class="carousel__viewport">
+						<li id="carousel__slide1"
+
+							tabindex="0"
+							class="carousel__slide">
+						<div class="carousel__snapper">
+							<a href="#carousel__slide4"
+							class="carousel__prev">Go to last slide</a>
+							<a href="#carousel__slide2"
+							class="carousel__next">Go to next slide</a>
+						</div>
+						</li>
+						<li id="carousel__slide2"
+							tabindex="0"
+							class="carousel__slide">
+						<div class="carousel__snapper"></div>
+						<a href="#carousel__slide1"
+							class="carousel__prev">Go to previous slide</a>
+						<a href="#carousel__slide3"
+							class="carousel__next">Go to next slide</a>
+						</li>
+						<li id="carousel__slide3"
+							tabindex="0"
+							class="carousel__slide">
+						<div class="carousel__snapper"></div>
+						<a href="#carousel__slide2"
+							class="carousel__prev">Go to previous slide</a>
+						<a href="#carousel__slide4"
+							class="carousel__next">Go to next slide</a>
+						</li>
+						<li id="carousel__slide4"
+							tabindex="0"
+							class="carousel__slide">
+						<div class="carousel__snapper"></div>
+						<a href="#carousel__slide3"
+							class="carousel__prev">Go to previous slide</a>
+						<a href="#carousel__slide1"
+							class="carousel__next">Go to first slide</a>
+						</li>
+					</ol>
+					<aside class="carousel__navigation">
+						<ol class="carousel__navigation-list">
+						<li class="carousel__navigation-item">
+							<a href="#carousel__slide1"
+							class="carousel__navigation-button">Go to slide 1</a>
+						</li>
+						<li class="carousel__navigation-item">
+							<a href="#carousel__slide2"
+							class="carousel__navigation-button">Go to slide 2</a>
+						</li>
+						<li class="carousel__navigation-item">
+							<a href="#carousel__slide3"
+							class="carousel__navigation-button">Go to slide 3</a>
+						</li>
+						<li class="carousel__navigation-item">
+							<a href="#carousel__slide4"
+							class="carousel__navigation-button">Go to slide 4</a>
+						</li>
+						</ol>
+					</aside>
+					</section>
+					<section class ="mostPopularServices">
+		
+			
+						<div id = "mpsContainer">
+							<div id ="mpsHeadingContainer">
+								<h3>Most Popular Services in</h3>
+							</div>	
+							<table id = "mpsTable">
+								<tr>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/landscaping.jpeg" />
+											<h5>Landscaping</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/carpentry.jpeg" />
+											<h5>Carpentry</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/cleaningservices.jpg" />
+											<h5>Cleaning Services</h5>
+										</div>
+									</td>
+									<td>
+										<div id = "linkContainer">
+											<img class = "mpsImage" src = "/static/Images/plumbing.jpeg" />
+											<h5>Plumbing</h5>
+										</div>
+									</td>
+								</tr>
+			
+			
+							</table>
+							
+						</div>
+					
+					</section>
+				</div>
+			</div>
+		</section>
+		
+
+
+	</section>
+	{% endblock %}
+

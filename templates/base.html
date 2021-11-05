@@ -4,6 +4,9 @@
         <link rel = "stylesheet" href = "/static/CSS/navBarTemplate.css">
         <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
 
+
+
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
           body {font-family: Arial, Helvetica, sans-serif;}
@@ -20,13 +23,14 @@
           
           /* Set a style for all buttons */
           .otherbuttons {
-            background-color: #04AA6D;
+            background-color: rgb(77, 133, 77);
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
             border: none;
             cursor: pointer;
             width: 100%;
+        
           }
           
           .logbutton {
@@ -54,6 +58,7 @@
             text-align: center;
             margin: 24px 0 12px 0;
             position: relative;
+            
           }
           
           img.avatar {
@@ -137,16 +142,30 @@
           }
         </style>
 
-        <style>
-          body {
-              font-family: "Arvo";
-              margin: 0;
-              background-repeat: no-repeat;
-              background-attachment: fixed;
-	            background-image: linear-gradient(to top right, rgb(77, 133, 77), grey);
-          }
-        </style>
 
+
+
+
+
+
+
+
+
+        <style>
+        html {
+            height: 100%;
+            }
+            body {
+                font-family: "Arvo";
+                height: 100%;
+                margin: 0;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-color: rgb(77, 133, 77);
+	            background-image: linear-gradient(to top right, rgb(77, 133, 77),rgb(100, 181, 235));
+               
+            }
+        </style>
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -218,6 +237,5 @@
                 }
             }
             </script>
-        <footer></footer>
     </body>
 </html>
