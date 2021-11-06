@@ -1,103 +1,46 @@
-#searchContainer {
+hr{
+    width:90%;
+    margin-right:20%;
+}
+.result{
 
-    display:flex;
-    justify-content:space-around;
-    margin-left:5%;
-    margin-right:5%;
-    height:10%;
-    background-color:white;
-    }
-    #searchContainer input{
-        border:none;
+display:inline-flex;
+margin-bottom:1%;
+height:23%;
+width:75%;
+}
 
-    }
-    #searchContainer  label{
-    
-        padding:2%;;
-       
-
-    }
-    form{
-        display:flex;
-        align-content:space-between;
-    }
-    label h3{
-        padding-bottom: 100%;
-    }
-    #searchBar{
-        flex-grow:.8;
-        border:none;
-        
-    }
-    input:focus, textarea:focus, select:focus{
-        outline: none;
-    }
-    #searchButton{
-        height:100%; 
-        margin-left:10%;
-        
-    }
-    #searchIcon2{
-        height:100%;
-      
-    }
-    #locationBar{
-        flex-grow:.1;
-        
-    }
-
-
-
-    hr{
-        width:90%;
-        margin-right:20%;
-    }
-  
-
-    
-
-    #searchButtonContainer{
-    
+img.result_profileImage  {
     height:100%;
+    padding-right:20px;
+    padding-top:20px;
+    
+    
+}
+.result_info{
+font-size:small;
+font-size: 1.5vw;
 
-    }
-    .result{
-    
-    display:inline-flex;
-    
-    height:23%;
-    width:75%;
-    }
-    
-    img.result_profileImage  {
-        height:100%;
-        padding-right:20px;
-        padding-top:20px;
-      
-        
-    }
-    .result_info{
-    font-size:small;
+height:100%;
+
+}
+.midSec{
+
+    height:90%;
+}
+#resultsSection{
+    margin-left: 5%;
+    height:80%;
+}
+div.midContent, #results{
+    height: 100%;
+}
+html{
     height:100%;
-    padding-bottom:20%;
+}
+body{
+    height:99%; 
+}
+    input[type=submit]{
+    background-image: url('../static/Images/search.png');
     }
-    .midSec{
-    
-        height:90%;
-    }
-    #resultsSection{
-        margin-left: 5%;
-        height:80%;
-    }
-    div.midContent, #results{
-        height: 100%;
-    }
-    html{
-        height:100%;
-    }
-    body{
-        height:99%; 
-    }
-     input[type=submit]{
-        background-image: url('../static/Images/search.png');
-      }
