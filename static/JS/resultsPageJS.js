@@ -4,3 +4,4 @@ function setSearchTerm(){
 						location.reload();
 						return;
 }
+// external js: flickity.pkgd.js
