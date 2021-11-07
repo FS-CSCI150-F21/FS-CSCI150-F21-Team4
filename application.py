@@ -3,11 +3,13 @@ from pymongo import MongoClient
 import bcrypt
 from datetime import date
 from testData import rslts
+from flask_login import login_user
 
 application = Flask(__name__)
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
+
 
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
