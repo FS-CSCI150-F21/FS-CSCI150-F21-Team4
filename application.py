@@ -6,6 +6,7 @@ from testData import rslts
 from flask_login import login_user
 
 application = Flask(__name__)
+application.secret_key = 'free3070herebozo'
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
@@ -30,6 +31,7 @@ def register():
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
     if request.method == 'POST':
+        session.pop('user_id', None)
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
        
@@ -43,9 +45,11 @@ def login():
 
         # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
-            return 'Test successful'
+            login_id = str(login_user['_id'])
+            session['user_id'] = login_id
+            return redirect(url_for('landingPage'))
         else:
-            return 'Test Failed'
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 
