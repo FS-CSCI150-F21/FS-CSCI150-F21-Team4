@@ -55,7 +55,7 @@ def login():
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
             login_id = str(login_user['_id'])
             session['user_id'] = login_id
-            return redirect(url_for('landingPage'))
+            return redirect(url_for('profile'))
         else:
             return redirect(url_for('login'))
     return render_template('login.html')
