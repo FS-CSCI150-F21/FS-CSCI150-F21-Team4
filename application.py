@@ -1,9 +1,17 @@
 from flask import Flask, redirect, render_template, url_for, request, session
 from pymongo import MongoClient
 import bcrypt
+import pickle
+import sklearn
 from datetime import date
 from testData import rslts
 from flask_login import login_user
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.calibration import CalibratedClassifierCV
 
 application = Flask(__name__)
 application.secret_key = 'free3070herebozo'
@@ -53,9 +61,16 @@ def login():
     return render_template('login.html')
 
 
-@application.route("/results/")
+@application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
-    return render_template("resultsPage.html",rslts = rslts)
+    if request.method == 'POST':
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        searchResults = users.find({'labor': request.form['search']}) 
+
+        return render_template("resultsPage.html",rslts = searchResults)
+    else:
+        return render_template("resultsPage.html")
 
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():
@@ -66,12 +81,26 @@ def landingPage():
 
 @application.route("/<usr>/")
 def user(usr):
-    return f"<h1>{usr}</h1>"
-
+	return f"<h1>{usr}</h1>"
+    
 @application.route("/profile/")
 def profile():
     return render_template("profile.html")
+    
+@application.route("/profileEdit")
+def profileEdit():
+    #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
+    return render_template("profileEdit.html")#, image_file = image_file)
 
+@application.route("/NLP/", methods = ["POST", "GET"])
+def NLP():
+    if request.method == 'POST':
+        filename = 'svm_model.sav'
+        model = pickle.load(open(filename, 'rb'))
+        text = request.form.get('NLPtext')
+        prediction = model.predict([text])
+        return render_template("NLP.html", data = [text, prediction[0]])
+    return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
     application.run(debug=True)
