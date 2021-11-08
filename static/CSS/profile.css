@@ -9,5 +9,17 @@
     gap:20px;
 }
 #profileContent{
-    margin-left:2%;
+    margin-left:3%;
+}
+#profilePic{
+    width:30%;
+    margin-right:1%;
+
+}
+#userImg{
+    width:100%;
+    
+}
+.projectPhoto{
+    width:25%;
 }

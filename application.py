@@ -5,6 +5,7 @@ import pickle
 import sklearn
 from datetime import date
 from testData import rslts
+from profileLoadingTestData import profileResult
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -92,7 +93,8 @@ def user(usr):
     
 @application.route("/profile/")
 def profile():
-    return render_template("profile.html")
+    
+    return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit")
 def profileEdit():
