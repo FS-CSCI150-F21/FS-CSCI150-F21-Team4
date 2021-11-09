@@ -4,6 +4,7 @@ rslts = [
 			"labor": "Taika Waititi",
 			"location": 2017,
 			"imgLink": "https://a.ltrbxd.com/resized/film-poster/2/0/9/3/8/2/209382-thor-ragnarok-0-460-0-690-crop.jpg?k=02c656f39b"
+			
 		},
 		{
 			"userName": "My Dinner with Andre",

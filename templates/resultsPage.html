@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale = 1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../static/JS/resultsPageJS.js"></script>
+<link rel = "stylesheet" href = "../static/CSS/searchBar.css">
 {% endblock %}
 
 {% block content %}
@@ -32,7 +33,7 @@
 			<h1>Results</h1>
 
 			<div id="results">
-				{%if rslts is defined and rslts != {} %}
+				{%if rslts is defined and rslts != [{}] %}
 				{% for users in rslts %}
 				<article class="result">
 					<div class="result_imageContainer">

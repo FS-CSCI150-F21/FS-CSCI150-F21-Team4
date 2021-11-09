@@ -1,0 +1,52 @@
+#searchContainer {
+
+    display:flex;
+    justify-content:space-around;
+    margin-left:5%;
+    margin-right:5%;
+    height:10%;
+    background-color:white;
+}
+#searchContainer input{
+        border:none;
+
+}
+#searchContainer  label{
+    
+        padding:2%;;
+       
+
+}
+form{
+        display:flex;
+        align-content:space-between;
+}
+label h3{
+    padding-bottom: 100%;
+}
+#searchBar{
+    flex-grow:.8;
+    border:none;
+    
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+#searchButton{
+    height:100%; 
+    margin-left:10%;
+    
+}
+#searchIcon2{
+    height:100%;
+    
+}
+#locationBar{
+    flex-grow:.1;
+    
+}
+#searchButtonContainer{
+
+    height:100%;
+
+    }
