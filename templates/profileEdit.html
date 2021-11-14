@@ -1,23 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html"%}
+{% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+    <link rel = "stylesheet" href = "../static/CSS/profile.css">
+    <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+{% endblock %}
+
+{% block content %}
 <body>
     <Form method = "POST">
         <label for="username">Username</label>
         <input type = "text" id = "username">
+        <br>
         <label for = "password">Password</label>
         <input type = "text" for = "password">
+        <br>
         <label for = "email" id = "email"> Email</label>
         <input type = "text" for = "email" >
+        <br>
         <label for = "labor">labor</label>
         <input type = "text" for = "labor">
+        <br>
         <label for = "image">Profile Pic</label>
+        <br>
         <button type = "btn" id = "Pic">upload</button>
     </Form>
 </body>
-</html>
+{% endblock %}
