@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, request, session
+from flask import Flask, redirect, render_template, url_for, request, session, g
 from pymongo import MongoClient
 import bcrypt
 import pickle
@@ -6,6 +6,7 @@ import sklearn
 from datetime import date
 from testData import rslts
 from profileLoadingTestData import profileResult
+from flask_login import login_user
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -14,10 +15,20 @@ from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
 
 application = Flask(__name__)
+application.secret_key = 'free3070herebozo'
+        
 
-
+url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
 
+@application.before_request
+def before_request():
+    g.user = None
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    if 'email' in session:
+        user = users.find_one({'email': session['email']})
+        g.user = user
 
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
@@ -35,12 +46,22 @@ def register():
         return 'Username already exists'
     return render_template('register.html')
 
+
+@application.route("/logout/", methods=["POST", "GET"])
+def logout():
+    if 'email' in session:
+        session.pop('email', None)
+        return redirect(url_for('landingPage'))
+    else:
+        return redirect(url_for('login'))
+
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
     if request.method == 'POST':
+        session.pop('email', None)
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
-       
+        
         login_user = users.find_one({'name': request.form['username']})
         if login_user is None:
            return redirect(url_for('register'))
@@ -51,9 +72,11 @@ def login():
 
         # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
-            return 'Test successful'
+            login_email = login_user['email']
+            session['email'] = login_email
+            return redirect(url_for('profile'))
         else:
-            return 'Test Failed'
+            return redirect(url_for('login'))
     return render_template('login.html')
 
 
@@ -81,6 +104,9 @@ def user(usr):
     
 @application.route("/profile/")
 def profile():
+    if not g.user:
+        return redirect(url_for('login'))
+    return render_template("profile.html")
     
     return render_template("profile.html", profileResult=profileResult )
     
