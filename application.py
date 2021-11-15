@@ -15,7 +15,7 @@ from sklearn.calibration import CalibratedClassifierCV
 
 application = Flask(__name__)
 
-url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
+
 client = MongoClient(url)
 
 
@@ -86,7 +86,7 @@ def profile():
     
 @application.route("/profileEdit", methods = ["POST", "GET"])
 def profileEdit():
-    #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
+    
     return render_template("profileEdit.html")#, image_file = image_file)
 
 @application.route("/NLP/", methods = ["POST", "GET"])
