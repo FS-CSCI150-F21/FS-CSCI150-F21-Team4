@@ -18,7 +18,7 @@ application = Flask(__name__)
 application.secret_key = 'free3070herebozo'
         
 
-url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
+
 client = MongoClient(url)
 
 @application.before_request
