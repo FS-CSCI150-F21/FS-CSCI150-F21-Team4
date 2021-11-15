@@ -31,7 +31,7 @@ def save_picture(form_picture):
 
     return picture_fn
 
-@application.route('/register', methods = ['POST', 'GET'])
+@application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
         usersDB = client["userRegistration"]
