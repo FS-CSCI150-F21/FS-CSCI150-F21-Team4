@@ -4,8 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel = "stylesheet" href = "../static/CSS/profile.css">
-    <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+    
+    <link rel = "stylesheet" href = "../static/CSS/profileEdit.css">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,8 @@
         <br>
         <label for = "image">Profile Pic</label>
         <br>
-        <button type = "btn" id = "Pic">upload</button>
+        <input name = "profilePic" type = "file" accept="image/" capture>
+        
     </Form>
 </body>
 {% endblock %}

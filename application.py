@@ -18,18 +18,6 @@ application = Flask(__name__)
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 client = MongoClient(url)
 
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
 
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
@@ -96,7 +84,7 @@ def profile():
     
     return render_template("profile.html", profileResult=profileResult )
     
-@application.route("/profileEdit")
+@application.route("/profileEdit", methods = ["POST", "GET"])
 def profileEdit():
     #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
     return render_template("profileEdit.html")#, image_file = image_file)
