@@ -10,22 +10,53 @@
 
 {% block content %}
 <body>
-    <Form method = "POST">
-        <label for="username">Username</label>
-        <input type = "text" id = "username">
+    
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    
+    <Form method = "POST" enctype="multipart/form-data">
+        {% if filename %}
+        <div>
+            <img src ="">
+        </div>
+        {% endif %}
+
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+      
+
+
+
+       
         <br>
-        <label for = "password">Password</label>
-        <input type = "text" for = "password">
-        <br>
-        <label for = "email" id = "email"> Email</label>
-        <input type = "text" for = "email" >
-        <br>
-        <label for = "labor">labor</label>
-        <input type = "text" for = "labor">
-        <br>
-        <label for = "image">Profile Pic</label>
-        <br>
-        <input name = "profilePic" type = "file" accept="image/" capture>
+            <label for="username">Username</label>
+            <input type = "text" name = "username">
+            <br>
+            <label for = "email" name = "email"> Email</label>
+            <input type = "text" for = "email" >
+            <br>
+            <label for = "phone" name = "phone"> Phone</label>
+            <input type = "text" for = "phone" >
+            <br>
+            <label for = "labor" name = "labor" >labor</label>
+            <input type = "text" for = "labor">
+            <br>
+            
+            
+            <input type = "submit" class = "create_profile" value = "Create Account">
+       
         
     </Form>
 </body>

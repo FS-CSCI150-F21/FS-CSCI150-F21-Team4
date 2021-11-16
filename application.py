@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, request, session, g
+from flask import Flask, redirect, render_template, url_for, request, session, g, flash
 from pymongo import MongoClient
 import bcrypt
 import pickle
@@ -7,19 +7,38 @@ from datetime import date
 from testData import rslts
 from profileLoadingTestData import profileResult
 from flask_login import login_user
+import certifi
+
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
+import urllib.request
+import os
+from werkzeug.utils import secure_filename
 
 application = Flask(__name__)
 application.secret_key = 'free3070herebozo'
+url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'  
         
 
 
 client = MongoClient(url)
+push = bool(True)
+
+def user():
+    g.user = None
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    if 'email' in session:
+        user = users.find_one({'email': session['email']})
+        g.user = user
+    return g.user
+
+
+client = MongoClient(url, tlsCAFile=certifi.where())
 
 @application.before_request
 def before_request():
@@ -29,6 +48,7 @@ def before_request():
     if 'email' in session:
         user = users.find_one({'email': session['email']})
         g.user = user
+   
 
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
@@ -110,8 +130,49 @@ def profile():
     
     return render_template("profile.html", profileResult=profileResult )
     
-@application.route("/profileEdit", methods = ["POST", "GET"])
+@application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
+    if request.method == "POST":
+    
+        username = request.form.get('username')
+         #request.form.get('password')
+        email = request.form.get('email')
+        labor = request.form.get('image')
+        phone = request.form.get('phone')
+        existing_user = user() 
+        
+        file = request.files.get('file')
+        filename = file.filename
+
+        newvalues = { g.user: {
+            'date': str(date.today()),
+            'name': username,  
+            'email': email, 
+            'phonenumber': phone, 
+            'labor':labor, 
+            'profilePic': file}
+            }
+
+        if filename == '':
+            flash('No image selected for uploading')
+            return redirect(request.url)
+
+        if push: #need a security boost to prevent injections of code check file extensions
+           
+            file.save(os.path.join('static\Images', filename))
+            #print('upload_image filename: ' + filename)
+    
+            if existing_user is None:
+                return redirect(url_for('registration'))
+
+            else:
+                
+                users.update_one(existing_user, newvalues)
+                return redirect(url_for('profile'))
+        
+        else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')#security protocol
+            return redirect(request.url)    
     
     return render_template("profileEdit.html")#, image_file = image_file)
 
