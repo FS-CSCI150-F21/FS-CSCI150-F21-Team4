@@ -35,6 +35,7 @@ def user():
     if 'email' in session:
         user = users.find_one({'email': session['email']})
         g.user = user
+        
     return g.user
 
 
@@ -48,6 +49,7 @@ def before_request():
     if 'email' in session:
         user = users.find_one({'email': session['email']})
         g.user = user
+    
    
 
 @application.route('/register/', methods = ['POST', 'GET'])
@@ -144,13 +146,13 @@ def profileEdit():
         file = request.files.get('file')
         filename = file.filename
 
-        newvalues = { g.user: {
+        newvalues = { 
             'date': str(date.today()),
             'name': username,  
             'email': email, 
             'phonenumber': phone, 
             'labor':labor, 
-            'profilePic': file}
+            'profilePic': file
             }
 
         if filename == '':
@@ -159,7 +161,7 @@ def profileEdit():
 
         if push: #need a security boost to prevent injections of code check file extensions
            
-            file.save(os.path.join('static\Images', filename))
+            #file.save(os.path.join('static\Images', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
