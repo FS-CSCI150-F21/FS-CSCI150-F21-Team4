@@ -22,6 +22,9 @@ from werkzeug.utils import secure_filename
 
 application = Flask(__name__)
 
+url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
+application.secret_key = 'free3070herebozo'
+
 client = MongoClient(url)
 push = bool(True)
 
@@ -186,7 +189,7 @@ def profileEdit():
            
             file.save(os.path.join('static\profilePic', filename))
             project.save(os.path.join('static\projectPic', projectname))
-            project2.save(os.path.join('static\projectPic', projectname2))
+            project2.save(os.path.join('static\projectPic', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
