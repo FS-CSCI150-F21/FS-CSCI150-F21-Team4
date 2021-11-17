@@ -19,24 +19,12 @@ import urllib.request
 import os
 from werkzeug.utils import secure_filename
 
-application = Flask(__name__)
-application.secret_key = 'free3070herebozo'
-url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'  
-        
 
+application = Flask(__name__)
 
 client = MongoClient(url)
 push = bool(True)
 
-def user():
-    g.user = None
-    usersDB = client["userRegistration"]
-    users = usersDB['userregistrations']
-    if 'email' in session:
-        user = users.find_one({'email': session['email']})
-        g.user = user
-        
-    return g.user
 
 
 client = MongoClient(url, tlsCAFile=certifi.where())
@@ -139,29 +127,66 @@ def profileEdit():
         username = request.form.get('username')
          #request.form.get('password')
         email = request.form.get('email')
-        labor = request.form.get('image')
+        labor = request.form.get('labor')
         phone = request.form.get('phone')
-        existing_user = user() 
-        
+        location = request.form.get('location')
+        description = request.form.get('description')
+        projDescription = request.form.get('projDescription')
+
+        existing_user = g.user 
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        login_user = users.find_one(existing_user)
+
         file = request.files.get('file')
         filename = file.filename
+        project = request.files.get('project')
+        projectname = project.filename
+        project2 = request.files.get('project2')
+        projectname2 = project2.filename
 
-        newvalues = { 
+        #validator?
+        if username == '':
+            username = users['name']
+        elif email == '':
+            email = users['email']
+        elif phone == '':
+            phone = users['phonenumber']
+        elif labor == '':
+            email = users['email']
+        elif location == '':
+            flash('eh you dont need a location')
+        elif filename == '': #bug here
+            flash('No image selected for uploading')
+            return redirect(request.url)
+        elif projectname == '': #bug here
+            flash('No image selected for uploading')
+            return redirect(request.url)
+            
+ 
+        #form module?
+        newvalues = { "$set": {
             'date': str(date.today()),
             'name': username,  
             'email': email, 
             'phonenumber': phone, 
             'labor':labor, 
-            'profilePic': file
+            'location': location,
+            'profilePic': filename,
+            'projectPic': projectname,
+            'projectPic2': projectname2,
+            'description': description,
+            'projDescription': projDescription
+        }
             }
 
-        if filename == '':
-            flash('No image selected for uploading')
-            return redirect(request.url)
+       
 
         if push: #need a security boost to prevent injections of code check file extensions
            
-            #file.save(os.path.join('static\Images', filename))
+            file.save(os.path.join('static\profilePic', filename))
+            project.save(os.path.join('static\projectPic', filename))
+            project2.save(os.path.join('static\projectPic', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
@@ -169,7 +194,7 @@ def profileEdit():
 
             else:
                 
-                users.update_one(existing_user, newvalues)
+                users.update_many(existing_user, newvalues)
                 return redirect(url_for('profile'))
         
         else:
