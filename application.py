@@ -185,8 +185,8 @@ def profileEdit():
         if push: #need a security boost to prevent injections of code check file extensions
            
             file.save(os.path.join('static\profilePic', filename))
-            project.save(os.path.join('static\projectPic', filename))
-            project2.save(os.path.join('static\projectPic', filename))
+            project.save(os.path.join('static\projectPic', projectname))
+            project2.save(os.path.join('static\projectPic', projectname2))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
