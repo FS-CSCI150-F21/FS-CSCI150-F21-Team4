@@ -28,8 +28,6 @@ application.secret_key = 'free3070herebozo'
 client = MongoClient(url)
 push = bool(True)
 
-
-
 client = MongoClient(url, tlsCAFile=certifi.where())
 
 @application.before_request
