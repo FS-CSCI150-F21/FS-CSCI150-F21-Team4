@@ -33,10 +33,10 @@
 	  scroll-snap-align: center;
 	}
 	97% {
-	  scroll-snap-align: relative;
+	  scroll-snap-align: absolute;
 	}
 	99% {
-	  scroll-snap-align: relative;
+	  scroll-snap-align: absolute;
 	}
 	100% {
 	  scroll-snap-align: center;
@@ -96,15 +96,16 @@ ol, li {
 	overflow-x: scroll;
 	counter-reset: item;
 	scroll-behavior: smooth;
-	scroll-snap-type: x mandatory;
+	scroll-snap-type: x mandatory; 
 }
   
 .carousel__slide {
 	position: relative;
 	flex: 0 0 100%;
 	width: 100%;
-	background-color: pink ;
-	counter-increment: item;
+	background-color: pink;
+	list-style: none;
+	/*counter-increment: item;*/
 }
   
 .carousel__slide:nth-child(even) {
@@ -112,7 +113,7 @@ ol, li {
 }
   
 .carousel__slide:before {
-	content: counter(item);
+	/*content: counter(item);*/
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -222,8 +223,29 @@ ol, li {
   
 .carousel::before {
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+	
 }
   
 .carousel::after {
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+#Car1{
+	width: 1242px;
+	height: 605px;
+}
+
+#Car2{
+	width: 1242px;
+	height: 605px;
+}
+
+#Car3{
+	width: 1242px;
+	height: 605px;
+}
+
+#Car4{
+	width: 1242px;
+	height: 605px;
 }
