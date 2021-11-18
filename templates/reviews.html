@@ -1,0 +1,39 @@
+{% extends "base.html"%}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="../static/JS/resultsPageJS.js"></script>
+<link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+{% endblock %}
+{% block content %}
+<!--search bar-->
+<br>    
+<form id="searchContainer" method="post">
+    <label for="search" id="searchLabel"> Find </label>
+    <input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+    <script>
+        if (document.getElementById("searchBar").value == null) {
+
+
+        } else {
+            document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+        }
+    </script>
+    <label for="locationBar" id="locationLabel"> Near </label>
+    <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
+    <div id="filterContainer">filter paceholder</div>
+
+    <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
+</form>
+<br>
+<!--search bar-->
+
+
+
+
+
+
+
+
+{% endblock %}
