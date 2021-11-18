@@ -9,6 +9,7 @@ from profileLoadingTestData import profileResult
 from flask_login import login_user
 import certifi
 
+from tweetSentiment import tweetSentimentAnalyzer
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -209,12 +210,17 @@ def profileEdit():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        filename = 'svm_model.sav'
-        model = pickle.load(open(filename, 'rb'))
-        text = request.form.get('NLPtext')
-        prediction = model.predict([text])
-        return render_template("NLP.html", data = [text, prediction[0]])
-    return render_template("NLP.html", data = "")
+        userName = request.form.get('Username')
+        totalTweetsUsed = 20
+        resultsDict, getSuccess = tweetSentimentAnalyzer(userName=userName, totalTweets=totalTweetsUsed)
+        if getSuccess == False:
+            return render_template("NLP.html", data = "")
+        else:
+            positiveTweets = resultsDict["tweet_postive"]
+            negativeTweets = resultsDict["tweet_negative"]
+        return render_template("NLP.html", data = [positiveTweets, negativeTweets, totalTweetsUsed, userName])
+    else:
+        return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
     application.run(debug=True)

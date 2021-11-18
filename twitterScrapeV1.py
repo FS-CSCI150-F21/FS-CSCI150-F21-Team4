@@ -80,12 +80,11 @@ def twitterMentionScrape(userName, tweetAmount):
 def twitterMentionFunct(userName, tweetAmount):
      #---------------------- Description ------------------
     #This Function will take the user name of a user and will check all mentions or replies to a tweet.
-    #Will ignore all replies the user will make to other tweets mentioning them.
     #userName will hold the Name of the user being searched
     #tweetAmount will contain the number of tweets needed for search
     # - note that the max amount of tweets is 100
     #Output will be a dictionary of collected tweets
-    #Last Updated: 10/11/2021
+    #Last Updated: 11/11/2021
     consumer_key = "uaC0BoALYt6SzxdNiWoOpvGym"
     consumer_secret = "NHc7uMZLM3zk77fZ7EuOzqSfuDnpqN52ZsTiLGh2k5CylsEPpj"
 
@@ -107,7 +106,8 @@ def twitterMentionFunct(userName, tweetAmount):
     }
 
     auth_resp = requests.post(auth_url, headers=auth_headers, data=auth_data)
-    print(auth_resp.status_code)
+    if getValid(auth_resp) == False:
+        return [], False
     access_token = auth_resp.json()['access_token']
 
     #------------------- Start of Mention Finder--------------
@@ -118,7 +118,8 @@ def twitterMentionFunct(userName, tweetAmount):
     ## Grab User ID
     httpURL = f"https://api.twitter.com/1.1/users/show.json?screen_name={userName}"
     userMentions = requests.get(url=httpURL, headers=search_headers)
-    print(userMentions.status_code)
+    if getValid(userMentions) == False:
+        return [], False
     userMentions = userMentions.json()
     userID = userMentions['id']
     ##Grab Json tweet results
@@ -128,9 +129,16 @@ def twitterMentionFunct(userName, tweetAmount):
         tweetAmount = 100
     mentionURL = f"https://api.twitter.com/2/users/{userID}/mentions?max_results={tweetAmount}"
     userMentions = requests.get(url=mentionURL, headers=search_headers)
-    print(userMentions.status_code)
+    if getValid(userMentions) == False:
+        return [], False
     userMentions = userMentions.json()
-    return userMentions
+    return userMentions, True
+
+def getValid(responce):
+    isValid = False
+    if responce.status_code == 200:
+        isValid = True
+    return isValid
 
 def tweetFormatJson(filename, data):
     with open(filename, 'w', encoding='utf-8') as outfile:
@@ -227,9 +235,15 @@ def twitterLogin():
 
     return True
 
+#++++++++++++++++++++++++ Test Space ++++++++++++++++++++++++++++
+
 # def main():
-#     userMentions = twitterMentionFunct("foxstevensonnow", 15)
-#     print(userMentions)
+#     userMentions, gotMentions = twitterMentionFunct("foxstevensonnow", 15)
+#     if gotMentions is True:
+#         print(f"Recived mentions!")
+#         print(userMentions)
+#     else:
+#         print("Could not recieve metions due to error.")
 #     # successLogin = twitterLogin()
 #     # if successLogin == True:
 #     #     print("Login Sucessful")

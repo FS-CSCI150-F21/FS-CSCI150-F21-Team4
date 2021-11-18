@@ -4,9 +4,14 @@ import re
 import pickle
 
 def tweetSentimentAnalyzer(userName, totalTweets):
-    tweetData = twitterMentionFunct(userName=userName, tweetAmount=totalTweets)
-    tweetFormatJson("tweetText.json",tweetData)
+    scrapeSuccess = False
+    tweetData, scrapeSuccess = twitterMentionFunct(userName=userName, tweetAmount=totalTweets)
+    if scrapeSuccess is False:
+        return {} , scrapeSuccess
+    else:
+        scrapeSuccess = True
 
+    tweetFormatJson("tweetText.json",tweetData)
     with open("vectorizer.pickle", "rb") as pickle_in:
         processedVector = pickle.load(pickle_in)
 
@@ -49,4 +54,4 @@ def tweetSentimentAnalyzer(userName, totalTweets):
     negativeTweetsTot = predictionList.count('0')
     print(f"Number of Positive tweets: {possitiveTweetsTot}")
     print(f"Number of Negative tweets: {negativeTweetsTot}")
-    return {"tweet_postive": possitiveTweetsTot, "tweet_negative": negativeTweetsTot}
+    return {"tweet_postive": possitiveTweetsTot, "tweet_negative": negativeTweetsTot}, scrapeSuccess
