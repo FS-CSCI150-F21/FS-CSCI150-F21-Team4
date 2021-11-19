@@ -1,0 +1,13 @@
+#DesHeading{
+	text-align: center;
+}
+
+#DesContent{
+
+	width: 1224px;
+	padding: 5px;
+	border-radius: 8px;
+	border: 2px solid black;
+	font-family: Lucida ;
+	font-size: 1.2pc;
+}
