@@ -1,50 +1,42 @@
-from flask import Flask, redirect, render_template, url_for, request, session, g, flash
+from flask import Flask, redirect, render_template, url_for, request, session
+import flask
 from pymongo import MongoClient
 import bcrypt
 import pickle
 import sklearn
 from datetime import date
 from testData import rslts
-from profileLoadingTestData import profileResult
-from flask_login import login_user
-import certifi
 
-from tweetSentiment import tweetSentimentAnalyzer
+import oauth2 as oauth
+import urllib.parse
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
-import urllib.request
-import os
-from werkzeug.utils import secure_filename
-
 
 application = Flask(__name__)
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
-application.secret_key = 'free3070herebozo'
-
 client = MongoClient(url)
-push = bool(True)
 
+twitterAppToken = {}
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
 
-client = MongoClient(url, tlsCAFile=certifi.where())
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
 
-@application.before_request
-def before_request():
-    g.user = None
-    usersDB = client["userRegistration"]
-    users = usersDB['userregistrations']
-    if 'email' in session:
-        user = users.find_one({'email': session['email']})
-        g.user = user
-    
-   
+    return picture_fn
 
-@application.route('/register/', methods = ['POST', 'GET'])
+@application.route('/register', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
         usersDB = client["userRegistration"]
@@ -60,22 +52,12 @@ def register():
         return 'Username already exists'
     return render_template('register.html')
 
-
-@application.route("/logout/", methods=["POST", "GET"])
-def logout():
-    if 'email' in session:
-        session.pop('email', None)
-        return redirect(url_for('landingPage'))
-    else:
-        return redirect(url_for('login'))
-
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
     if request.method == 'POST':
-        session.pop('email', None)
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
-        
+       
         login_user = users.find_one({'name': request.form['username']})
         if login_user is None:
            return redirect(url_for('register'))
@@ -86,11 +68,9 @@ def login():
 
         # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
-            login_email = login_user['email']
-            session['email'] = login_email
-            return redirect(url_for('profile'))
+            return 'Test successful'
         else:
-            return redirect(url_for('login'))
+            return 'Test Failed'
     return render_template('login.html')
 
 
@@ -111,11 +91,12 @@ def landingPage():
         if login() == 'Test successful':
             return login()
     if request.method == 'GET':
-        oauthVerifier = request.args.get('oauth_verifier')
-        if oauthVerifier is None:
-            print("There is no oauth_verifier") 
+        oauth_verifier = request.args.get('oauth_verifier')
+        if oauth_verifier is None:
+            print("No oauth verifier")
         else:
-            print("oauth_verifier Found!")
+            print("Found oauh verifier!")
+        access_token_url = 'https://api.twitter.com/oauth/access_token'
     return render_template("landingPage.html")
 
 @application.route("/<usr>/")
@@ -124,109 +105,44 @@ def user(usr):
     
 @application.route("/profile/")
 def profile():
-    if not g.user:
-        return redirect(url_for('login'))
     return render_template("profile.html")
     
-    return render_template("profile.html", profileResult=profileResult )
-    
-@application.route("/profileEdit/", methods = ["POST", "GET"])
+@application.route("/profileEdit")
 def profileEdit():
-    if request.method == "POST":
-    
-        username = request.form.get('username')
-         #request.form.get('password')
-        email = request.form.get('email')
-        labor = request.form.get('labor')
-        phone = request.form.get('phone')
-        location = request.form.get('location')
-        description = request.form.get('description')
-        projDescription = request.form.get('projDescription')
-
-        existing_user = g.user 
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        login_user = users.find_one(existing_user)
-
-        file = request.files.get('file')
-        filename = file.filename
-        project = request.files.get('project')
-        projectname = project.filename
-        project2 = request.files.get('project2')
-        projectname2 = project2.filename
-
-        #validator?
-        if username == '':
-            username = users['name']
-        elif email == '':
-            email = users['email']
-        elif phone == '':
-            phone = users['phonenumber']
-        elif labor == '':
-            email = users['email']
-        elif location == '':
-            flash('eh you dont need a location')
-        elif filename == '': #bug here
-            flash('No image selected for uploading')
-            return redirect(request.url)
-        elif projectname == '': #bug here
-            flash('No image selected for uploading')
-            return redirect(request.url)
-            
- 
-        #form module?
-        newvalues = { "$set": {
-            'date': str(date.today()),
-            'name': username,  
-            'email': email, 
-            'phonenumber': phone, 
-            'labor':labor, 
-            'location': location,
-            'profilePic': filename,
-            'projectPic': projectname,
-            'projectPic2': projectname2,
-            'description': description,
-            'projDescription': projDescription
-        }
-            }
-
-       
-
-        if push: #need a security boost to prevent injections of code check file extensions
-           
-            file.save(os.path.join('static\profilePic', filename))
-            project.save(os.path.join('static\projectPic', projectname))
-            project2.save(os.path.join('static\projectPic', filename))
-            #print('upload_image filename: ' + filename)
-    
-            if existing_user is None:
-                return redirect(url_for('registration'))
-
-            else:
-                
-                users.update_many(existing_user, newvalues)
-                return redirect(url_for('profile'))
-        
-        else:
-            flash('Allowed image types are - png, jpg, jpeg, gif')#security protocol
-            return redirect(request.url)    
-    
+    #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
     return render_template("profileEdit.html")#, image_file = image_file)
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
+    consumer_key = "uaC0BoALYt6SzxdNiWoOpvGym"
+    consumer_secret = "NHc7uMZLM3zk77fZ7EuOzqSfuDnpqN52ZsTiLGh2k5CylsEPpj"
+
+    request_token_url = 'https://api.twitter.com/oauth/request_token'
+    authorize_url = 'https://api.twitter.com/oauth/authorize'
+    authenticate_url = 'https://api.twitter.com/oauth/authenticate'
+
+    consumer = oauth.Consumer(consumer_key, consumer_secret)
+    client = oauth.Client(consumer)
+
+    resp, content = client.request(request_token_url, "GET")
+    if resp['status'] != '200':
+        raise Exception("Invalid response {}".format(resp['status']))
+
+    request_token = dict(urllib.parse.parse_qsl(content.decode("utf-8")))
+
+    print ("Request Token:")
+    print ("    - oauth_token        = {}".format(request_token['oauth_token']))
+    print ("    - oauth_token_secret = {}".format(request_token['oauth_token_secret'])) 
+    redirectURL = "{0}?oauth_token={1}".format(authenticate_url, request_token['oauth_token'])
+    return flask.redirect(redirectURL, code=302)    
+
     if request.method == 'POST':
-        userName = request.form.get('Username')
-        totalTweetsUsed = 20
-        resultsDict, getSuccess = tweetSentimentAnalyzer(userName=userName, totalTweets=totalTweetsUsed)
-        if getSuccess == False:
-            return render_template("NLP.html", data = "")
-        else:
-            positiveTweets = resultsDict["tweet_postive"]
-            negativeTweets = resultsDict["tweet_negative"]
-        return render_template("NLP.html", data = [positiveTweets, negativeTweets, totalTweetsUsed, userName])
-    else:
-        return render_template("NLP.html", data = "")
+        filename = 'svm_model.sav'
+        model = pickle.load(open(filename, 'rb'))
+        text = request.form.get('NLPtext')
+        prediction = model.predict([text])
+        return render_template("NLP.html", data = [text, prediction[0]])
+    return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
     application.run(debug=True)
