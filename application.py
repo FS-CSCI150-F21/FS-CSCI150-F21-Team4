@@ -110,6 +110,12 @@ def landingPage():
     if request.method == 'POST':
         if login() == 'Test successful':
             return login()
+    if request.method == 'GET':
+        oauthVerifier = request.args.get('oauth_verifier')
+        if oauthVerifier is None:
+            print("There is no oauth_verifier") 
+        else:
+            print("oauth_verifier Found!")
     return render_template("landingPage.html")
 
 @application.route("/<usr>/")

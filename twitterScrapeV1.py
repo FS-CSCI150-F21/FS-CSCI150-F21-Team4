@@ -237,19 +237,19 @@ def twitterLogin():
 
 #++++++++++++++++++++++++ Test Space ++++++++++++++++++++++++++++
 
-# def main():
-#     userMentions, gotMentions = twitterMentionFunct("foxstevensonnow", 15)
-#     if gotMentions is True:
-#         print(f"Recived mentions!")
-#         print(userMentions)
-#     else:
-#         print("Could not recieve metions due to error.")
-#     # successLogin = twitterLogin()
-#     # if successLogin == True:
-#     #     print("Login Sucessful")
-#     # else:
-#     #     print("Login Failed")
-#     # return
+def main():
+    # userMentions, gotMentions = twitterMentionFunct("foxstevensonnow", 15)
+    # if gotMentions is True:
+    #     print(f"Recived mentions!")
+    #     print(userMentions)
+    # else:
+    #     print("Could not recieve metions due to error.")
+    successLogin = twitterLogin()
+    if successLogin == True:
+        print("Login Sucessful")
+    else:
+        print("Login Failed")
+    return
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
