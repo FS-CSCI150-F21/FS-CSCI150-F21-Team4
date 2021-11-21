@@ -5,10 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../static/JS/resultsPageJS.js"></script>
 <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+<link rel = "stylesheet" href = "../static/CSS/reviews.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% endblock %}
 {% block content %}
 <!--search bar-->
-<br>    
+<br>    <br>
 <form id="searchContainer" method="post">
     <label for="search" id="searchLabel"> Find </label>
     <input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
@@ -28,6 +31,63 @@
 </form>
 <br>
 <!--search bar-->
+<section id = "reviewsPageContent">
+
+    <section id = "userReviewsSummary">
+        <ariticle class = "userInfo">
+            <div id = "username">Tony Bahama</div>
+            <div id = "location">Miami Beach</div>
+        </ariticle>
+        <article id = reviewCount>
+            <div class = "reviewStars">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+        </div>
+            <div id = "numReviews">4 Reviews</div>
+        </article>
+        <button id = "writeReview" type= "button">Write A Review</button>
+    </section>
+    <br>
+    <section id = "reviewsSection">
+        <h2>Reviews</h2>
+        <!--loop for each review-->
+        <article class = "review">
+            <div class = "review-topBlock">
+                <section class = 'reviewerProfilePic'>
+                    Picture
+                    <img>
+                </section>
+                <section class = "reviewerInfo">
+                    <div class = "reviewStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                    </div>
+                    <div class = "reviewerName">Bob S.</div>
+                    <div class = "reviewerLocation">Hamtown</div>
+                </section>
+                <section class= "reviewDate">2/2/2222</section>
+                
+                
+            </div>
+            <div class = "review-botBlock">
+                <div class = "reviewTextContainer">
+                    <p class = "review">
+                        Sucked
+                    </p>
+                </div>
+                <div class = "sentimentAssessmnet">:)</div>
+            </div>
+        </article>
+        <!--end loop-->
+    </section>
+</section>
+
 
 
 

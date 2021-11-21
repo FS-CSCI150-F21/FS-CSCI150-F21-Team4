@@ -1,0 +1,38 @@
+#userReviewsSummary{
+    display:flex;
+    flex-direction:column;
+}
+.userInfo{
+    display:flex;
+    flex-direction:row;
+}
+#writeReview{
+    width:20%;
+}
+.review-topBlock{
+    display:flex;
+    flex-direction:row;
+}
+#reviewCount{
+    display:flex;
+    flex-direction:row;
+}
+#reviewsPageContent{
+    margin-left:3%;
+}
+.userInfo div{
+    padding-right:2%;
+}
+.reviewerProfilePic{
+    width:20%;
+}
+.review-botBlock{
+    display:flex;
+    flex-direction:row;
+}
+.reviewTextContainer{
+    width:80%;
+}
+.checked {
+    color: orange;
+  }
