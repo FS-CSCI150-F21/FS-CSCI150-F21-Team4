@@ -21,15 +21,9 @@ from werkzeug.utils import secure_filename
 
 
 application = Flask(__name__)
-<<<<<<< HEAD
-application.secret_key = 'free3070herebozo'
-        
-url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority' 
-=======
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 application.secret_key = 'free3070herebozo'
->>>>>>> main
 
 client = MongoClient(url)
 push = bool(True)
