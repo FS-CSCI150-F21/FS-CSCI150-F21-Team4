@@ -35,7 +35,7 @@
 
     <section id = "userReviewsSummary">
         <ariticle class = "userInfo">
-            <div id = "username">Tony Bahama</div>
+            <h2 id = "username">Tony Bahama</h2> <!--this should link to the user's profile-->
             <div id = "location">Miami Beach</div>
         </ariticle>
         <article id = reviewCount>
@@ -46,30 +46,33 @@
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
         </div>
-            <div id = "numReviews">4 Reviews</div>
+            <div id = "numReviews">4</div>
         </article>
         <button id = "writeReview" type= "button">Write A Review</button>
     </section>
     <br>
     <section id = "reviewsSection">
-        <h2>Reviews</h2>
+        
+        <hr>
+        
+        <h3>Reviews</h3>
         <!--loop for each review-->
         <article class = "review">
             <div class = "review-topBlock">
-                <section class = 'reviewerProfilePic'>
-                    Picture
-                    <img>
+                <section class = 'reviewerProfilePicContainer'>
+                    
+                    <img class = "reviewerProfilePic" src = "../static/Images/userIcon.png">
                 </section>
                 <section class = "reviewerInfo">
+                    <div class = "reviewerName">Bob S.</div>
+                    <div class = "reviewerLocation">Hamtown</div>
                     <div class = "reviewStars">
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star"></span>
                             <span class="fa fa-star"></span>
-                    </div>
-                    <div class = "reviewerName">Bob S.</div>
-                    <div class = "reviewerLocation">Hamtown</div>
+                    </div>                   
                 </section>
                 <section class= "reviewDate">2/2/2222</section>
                 
