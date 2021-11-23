@@ -50,9 +50,9 @@ def register():
 def logout():
     if 'email' in session:
         session.pop('email', None)
-        return redirect(url_for('landingPage'))
+        return render_template('logout.html')
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('landingPage'))
 
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
