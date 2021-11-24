@@ -143,6 +143,7 @@ def user(usr):
     
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
+    print(g.user)
     if request.method == 'POST':
         if login():
             return login()
@@ -158,6 +159,7 @@ def profile():
             "projects": projects,
             "reviews": reviews
         }
+        return render_template("profile.html", profileResult = g.user)
         return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
@@ -305,10 +307,28 @@ def NLP():
         if foundTweets is False:
             return render_template("NLP.html", data = "")
         else:
-            possitiveTweets = results['tweet_postive']
+            positiveTweets = results['tweet_postive']
             negativeTweets = results['tweet_negative']
-            data= [possitiveTweets, negativeTweets, totalTweets, username]
-            return render_template("NLP.html", data = data)
+
+            reviewValues = { "$set": {
+            'Review' : { 
+                'username' : username,   
+                'positive' : positiveTweets,
+                'negative' : negativeTweets,
+                'totalTweets' : totalTweets,
+                }
+            }
+        }
+
+        if username is None:
+            return redirect(url_for('NLP'))
+
+        else:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            users.update_many(username, reviewValues)
+            return redirect(url_for('profile'))
+
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
