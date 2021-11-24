@@ -183,10 +183,15 @@
             <a href = "{{ url_for('resultsPage') }}">  <img src = "/static/Images/search.png" id = "searchIcon" height = "100%" /></a>
           </div>
           
+          {%if session['email']%}
+          <div id = "logoutButtonContainer"> <!-- Logout Button -->
+            <button onclick="location.href='/logout'" style="width:auto; height: auto;" class="otherbuttons">Logout</button>
+          </div>
+          {% else %}
           <div id= "loginButtonContainer"> <!-- Login Button -->
             <button id="loginButton" onclick="document.getElementById('id01').style.display='block'">Login</button>
           </div>
-
+          {% endif %}
           <div id="id01" class="modal">
             <form class="modal-content animate" method="post">
               <div class="imgcontainer">
