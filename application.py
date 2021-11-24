@@ -30,8 +30,6 @@ application.secret_key = 'free3070herebozo'
 client = MongoClient(url)
 push = bool(True)
 
-
-
 client = MongoClient(url, tlsCAFile=certifi.where())
 
 @application.before_request
@@ -45,6 +43,7 @@ def before_request():
     
    
 
+<<<<<<< HEAD
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -91,6 +90,8 @@ def logout():
         return redirect(url_for('landingPage'))
     else:
         return redirect(url_for('login'))
+=======
+>>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
 
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
@@ -115,10 +116,42 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
+@application.route('/register/', methods = ['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        if login():
+            return login()
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        existing_user = users.find_one({'name': request.form['username']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+            #session['username'] = request.form['username']
+            return redirect(url_for('landingPage'))
+
+        return 'Username already exists'
+    return render_template('register.html')
+
+
+@application.route("/logout/", methods=["POST", "GET"])
+def logout():
+    if request.method == 'POST':
+        if login():
+            return login()
+    if 'email' in session:
+        session.pop('email', None)
+        return render_template('logout.html')
+    else:
+        return redirect(url_for('landingPage'))
+
 
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
     if request.method == 'POST':
+        if login():
+            return login()
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         searchResults = users.find({'labor': request.form['search']}) 
@@ -127,32 +160,30 @@ def resultsPage():
     else:
         return render_template("resultsPage.html")
 
+
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():
     if request.method == 'POST':
-        if login() == 'Test successful':
+        if login():
             return login()
     return render_template("landingPage.html")
 
-@application.route("/<usr>/")
+@application.route("/<usr>/", methods = ["POST", "GET"])
 def user(usr):
-	return f"<h1>{usr}</h1>"
+    if request.method == 'POST':
+        if login():
+            return login()
+    return f"<h1>{usr}</h1>"
     
-@application.route("/profile/")
+@application.route("/profile/", methods = ["POST", "GET"])
 def profile():
+    if request.method == 'POST':
+        if login():
+            return login()
     if not g.user:
-        return redirect(url_for('login'))
-    else:
-        existing_user = g.user
-        profile = existing_user.get('profile', 'User labors is Empty.')
-        projects = existing_user.get('projects', 'User projects is Empty.')
-        reviews = existing_user.get('reviews', 'User reviews is Empty.')
-        profileResult = {
-            "profile": profile,
-            "projects": projects,
-            "reviews": reviews
-        }
-        return render_template("profile.html", profileResult=profileResult )
+        return redirect(url_for('landingPage'))
+    return render_template("profile.html")
+    return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
@@ -165,7 +196,7 @@ def profileEdit():
         phone = request.form.get('phone')
         location = request.form.get('location')
         description = request.form.get('description')
-        projDescription = request.form.get('projDescription')
+       
 
         existing_user = g.user 
         usersDB = client["userRegistration"]
@@ -174,10 +205,7 @@ def profileEdit():
 
         file = request.files.get('file')
         filename = file.filename
-        project = request.files.get('project')
-        projectname = project.filename
-        project2 = request.files.get('project2')
-        projectname2 = project2.filename
+     
 
         #validator?
         if username == '':
@@ -193,9 +221,7 @@ def profileEdit():
         elif filename == '': #bug here
             flash('No image selected for uploading')
             return redirect(request.url)
-        elif projectname == '': #bug here
-            flash('No image selected for uploading')
-            return redirect(request.url)
+        
             
  
         #form module?
@@ -205,22 +231,22 @@ def profileEdit():
             'email': email, 
             'phonenumber': phone, 
             'labor':labor, 
-            'location': location,
-            'profilePic': filename,
-            'projectPic': projectname,
-            'projectPic2': projectname2,
-            'description': description,
-            'projDescription': projDescription
-        }
+            'profile':{
+                'displayName': username,
+                'labors': labor,
+                'location': location,
+                'imgLink': filename,
+                'userBio': description
             }
+            
+            }
+        }
 
        
 
         if push: #need a security boost to prevent injections of code check file extensions
            
             file.save(os.path.join('static\profilePic', filename))
-            project.save(os.path.join('static\projectPic', projectname))
-            project2.save(os.path.join('static\projectPic', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
@@ -237,20 +263,110 @@ def profileEdit():
     
     return render_template("profileEdit.html")#, image_file = image_file)
 
+@application.route("/addproj/", methods = ["POST", "GET"])
+def addproj():
+    if request.method == 'POST':
+        
+        project = request.form.get('project')
+        projDescription = request.form.get('projDescription')
+        projImage1 = request.files.get('projImage1')
+        projImage2 = request.files.get('projImage2')
+        filename1 = projImage1.filename
+        filename2 = projImage2.filename
+
+        existing_user = g.user 
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        login_user = users.find_one(existing_user)
+
+        projValues = { "$set": {
+            'project' : {
+                project: {
+
+                    'projDescription' : projDescription,
+                    'projImage1' : filename1,
+                    'projImage2' : filename2,
+                    
+
+                }
+                }
+            
+            }
+        }
+
+        
+        
+
+        if push: #need a security boost to prevent injections of code check file extensions
+           
+            projImage1.save(os.path.join('static\projectPic', filename1))
+            projImage2.save(os.path.join('static\projectPic', filename2))
+            #print('upload_image filename: ' + filename)
+    
+            if existing_user is None:
+                return redirect(url_for('registration'))
+
+            else:
+                
+                users.update_many(existing_user, projValues)
+                return redirect(url_for('profile'))
+        
+        else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')#security protocol
+            return redirect(request.url)
+
+    return render_template("addproj.html")    
+
+        
+
+
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
+<<<<<<< HEAD
         data = []
+=======
+        projValues = ""
+>>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
         totalTweets = 20
         username = request.form.get('Username')
         results, foundTweets  = tweetSentimentAnalyzer(userName=username, totalTweets=totalTweets)
         if foundTweets is False:
             return render_template("NLP.html", data = "")
         else:
+<<<<<<< HEAD
             possitiveTweets = results['tweet_postive']
             negativeTweets = results['tweet_negative']
             data= [possitiveTweets, negativeTweets, totalTweets, username]
             return render_template("NLP.html", data = data)
+=======
+            positiveTweets = results['tweet_postive']
+            negativeTweets = results['tweet_negative']
+
+            reviewValues = { "$set": {
+            'Review' : { 
+                'username' : username,   
+                'positive' : positiveTweets,
+                'negative' : negativeTweets,
+                'totalTweets' : totalTweets,
+                
+                
+                }
+            
+            }
+        }
+
+    
+        if username is None:
+            return redirect(url_for('NLP'))
+
+        else:
+                
+            users.update_many(username, reviewValues)
+            return redirect(url_for('profile'))
+
+
+>>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
