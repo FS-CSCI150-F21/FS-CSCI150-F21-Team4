@@ -32,22 +32,43 @@
 </form>
 <br>
 <!--search bar-->
+<section id = "content">
+    <article id="reviewContent">
+        <header id = "theReviewedInfo">
+            <h2 id = "userName">Johnny Doe</h2>
+            <h2 id  = "separator">-</h2>
+            <h2 id = "userLocation">Fresno</h2>
+            
+        </header>
+        <form id = "reviewForm">
+        <div id = "starSelector">
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
 
-<header id = "theReviewedInfo">
-    <h2 id = "userName">Johnny Doe</h2>
-     <h2 id  = "separator">-</h2>
-     <h2 id = "userLocation">Fresno</h2>
-     
-</header>
-<form id = "reviewForm">
-<div id = "starSelector">
+        </div>
+        <div id ="reviewerInfo">
+            <div id = "reviewerName"></div>
+            <div id = "reviewerLocation"></div>
+        </div>
+        <textarea id = "reviewArea"></textarea>
+        <button id = "postReview">Post Review</button>
+        </form>
+    </article>  
+    <section id = "recentReviews">
+        <h3>Recent Reviews</h3>
 
-</div>
-<div id ="reviewerInfo">
-    <div id = "reviewerName"></div>
-    <div id = "reviewerLocation"></div>
-</div>
-<textarea></textarea>
-<button>Post Review</button>
-</form>
+        <article class = 'r-review'>
+            <p class = "r-review-userName"></p>
+            <div class = "r-review-info">
+                <div class = "r-review-stars"></div>
+                <div class = "r-review-date"></div>
+                <textarea class = "r-review-content"></textarea>
+            </div>
+
+        </article>
+    </section>
+</section>
 {% endblock %}
