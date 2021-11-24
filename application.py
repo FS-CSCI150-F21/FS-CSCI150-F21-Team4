@@ -131,11 +131,7 @@ def profile():
         if login():
             return login()
     if not g.user:
-<<<<<<< HEAD
-        return redirect(url_for('register'))
-=======
         return redirect(url_for('landingPage'))
->>>>>>> e6ef958f7a829471174b8c146d3c0f8942d293bc
     return render_template("profile.html")
     return render_template("profile.html", profileResult=profileResult )
     
@@ -277,13 +273,39 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        if login():
-            return login()
-        filename = 'svm_model.sav'
-        model = pickle.load(open(filename, 'rb'))
-        text = request.form.get('NLPtext')
-        prediction = model.predict([text])
-        return render_template("NLP.html", data = [text, prediction[0]])
+        projValues = ""
+        totalTweets = 20
+        username = request.form.get('Username')
+        results, foundTweets  = tweetSentimentAnalyzer(userName=username, totalTweets=totalTweets)
+        if foundTweets is False:
+            return render_template("NLP.html", data = "")
+        else:
+            positiveTweets = results['tweet_postive']
+            negativeTweets = results['tweet_negative']
+
+            reviewValues = { "$set": {
+            'Review' : { 
+                'username' : username,   
+                'positive' : positiveTweets,
+                'negative' : negativeTweets,
+                'totalTweets' : totalTweets,
+                
+                
+                }
+            
+            }
+        }
+
+    
+        if username is None:
+            return redirect(url_for('NLP'))
+
+        else:
+                
+            users.update_many(username, reviewValues)
+            return redirect(url_for('profile'))
+
+
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
