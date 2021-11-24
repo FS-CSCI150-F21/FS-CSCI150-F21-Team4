@@ -41,9 +41,6 @@ def before_request():
         user = users.find_one({'email': session['email']})
         g.user = user
     
-   
-
-<<<<<<< HEAD
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -82,17 +79,6 @@ def register():
         return 'Username already exists'
     return render_template('register.html')
 
-
-@application.route("/logout/", methods=["POST", "GET"])
-def logout():
-    if 'email' in session:
-        session.pop('email', None)
-        return redirect(url_for('landingPage'))
-    else:
-        return redirect(url_for('login'))
-=======
->>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
-
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
     if request.method == 'POST':
@@ -116,24 +102,23 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
-@application.route('/register/', methods = ['POST', 'GET'])
-def register():
-    if request.method == 'POST':
-        if login():
-            return login()
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        existing_user = users.find_one({'name': request.form['username']})
+# @application.route('/register/', methods = ['POST', 'GET'])
+# def register():
+#     if request.method == 'POST':
+#         if login():
+#             return login()
+#         usersDB = client["userRegistration"]
+#         users = usersDB['userregistrations']
+#         existing_user = users.find_one({'name': request.form['username']})
 
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
-            #session['username'] = request.form['username']
-            return redirect(url_for('landingPage'))
+#         if existing_user is None:
+#             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+#             users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+#             #session['username'] = request.form['username']
+#             return redirect(url_for('landingPage'))
 
-        return 'Username already exists'
-    return render_template('register.html')
-
+#         return 'Username already exists'
+#     return render_template('register.html')
 
 @application.route("/logout/", methods=["POST", "GET"])
 def logout():
@@ -323,23 +308,13 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-<<<<<<< HEAD
-        data = []
-=======
         projValues = ""
->>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
         totalTweets = 20
         username = request.form.get('Username')
         results, foundTweets  = tweetSentimentAnalyzer(userName=username, totalTweets=totalTweets)
         if foundTweets is False:
             return render_template("NLP.html", data = "")
         else:
-<<<<<<< HEAD
-            possitiveTweets = results['tweet_postive']
-            negativeTweets = results['tweet_negative']
-            data= [possitiveTweets, negativeTweets, totalTweets, username]
-            return render_template("NLP.html", data = data)
-=======
             positiveTweets = results['tweet_postive']
             negativeTweets = results['tweet_negative']
 
@@ -349,24 +324,19 @@ def NLP():
                 'positive' : positiveTweets,
                 'negative' : negativeTweets,
                 'totalTweets' : totalTweets,
-                
-                
                 }
-            
             }
         }
 
-    
         if username is None:
             return redirect(url_for('NLP'))
 
         else:
-                
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
             users.update_many(username, reviewValues)
             return redirect(url_for('profile'))
 
-
->>>>>>> ccb9d43aeb9bddf6424accdf3d4553ee6948837f
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
