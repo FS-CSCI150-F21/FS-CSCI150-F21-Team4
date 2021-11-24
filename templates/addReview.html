@@ -4,8 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale = 1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../static/JS/resultsPageJS.js"></script>
+<script src="../static/JS/addReviewStars.js"></script>
 <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
 <link rel = "stylesheet" href = "../static/CSS/addReview.css">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {% endblock %}
@@ -26,7 +28,7 @@
     </script>
     <label for="locationBar" id="locationLabel"> Near </label>
     <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
-    <div id="filterContainer">filter paceholder</div>
+    
 
     <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
 </form>
@@ -35,40 +37,51 @@
 <section id = "content">
     <article id="reviewContent">
         <header id = "theReviewedInfo">
-            <h2 id = "userName">Johnny Doe</h2>
+            <h2 class = "userName">Johnny Doe</h2><!--{{userName}}-->
             <h2 id  = "separator">-</h2>
-            <h2 id = "userLocation">Fresno</h2>
+            <h2 id = "userLocation">Fresno</h2><!--{{location}}-->
             
         </header>
         <form id = "reviewForm">
         <div id = "starSelector">
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
+            <span class="fa fa-star  fa-2x"></span>
+            <span class="fa fa-star fa-2x"></span>
+            <span class="fa fa-star fa-2x"></span>
+            <span class="fa fa-star fa-2x"></span>
+            <span class="fa fa-star fa-2x"></span>
+            <p class = "selectRating">Select your rating</p>
 
         </div>
         <div id ="reviewerInfo">
-            <div id = "reviewerName"></div>
-            <div id = "reviewerLocation"></div>
+            
+            <input id = "reviewerName" type = "text" value = "Joe S." readonly></input> <!--{reviewerusername}}-->
+            
+            <input id = "reviewerLocation" type = "text" value = "Clovis" readonly></input><!--{{reviewerlocation}}-->
         </div>
-        <textarea id = "reviewArea"></textarea>
+        <textarea  rows = "10" id = "reviewArea" placeholder = "Review..." ></textarea>
         <button id = "postReview">Post Review</button>
         </form>
     </article>  
     <section id = "recentReviews">
         <h3>Recent Reviews</h3>
-
+<!--flask loop for each  recent review-->
         <article class = 'r-review'>
-            <p class = "r-review-userName"></p>
+            <div class = "r-review-userName">User Name</div><!--{{userName}}-->
             <div class = "r-review-info">
-                <div class = "r-review-stars"></div>
-                <div class = "r-review-date"></div>
-                <textarea class = "r-review-content"></textarea>
+                <div class = "r-review-stars">
+                    <span class="fa fa-star  "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                </div>
+                <div class = "r-review-date">10/21/2021</div><!--{{date}}-->
+                
             </div>
-
+            <textarea rows = "4" class = "r-review-content" readonly></textarea ><!--{{Review}}-->
+                
         </article>
+        <!--end flask loop-->
     </section>
 </section>
 {% endblock %}
