@@ -67,6 +67,8 @@ def login():
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
+        if login():
+            return login()
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         existing_user = users.find_one({'name': request.form['username']})
@@ -143,7 +145,6 @@ def user(usr):
     
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
-    print(g.user)
     if request.method == 'POST':
         if login():
             return login()
@@ -165,7 +166,8 @@ def profile():
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
     if request.method == "POST":
-    
+        if login():
+            return login()
         username = request.form.get('username')
          #request.form.get('password')
         email = request.form.get('email')
@@ -243,7 +245,8 @@ def profileEdit():
 @application.route("/addproj/", methods = ["POST", "GET"])
 def addproj():
     if request.method == 'POST':
-        
+        if login():
+            return login()
         project = request.form.get('project')
         projDescription = request.form.get('projDescription')
         projImage1 = request.files.get('projImage1')
@@ -300,6 +303,8 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
+        if login():
+            return login()
         data = []
         totalTweets = 20
         username = request.form.get('Username')
