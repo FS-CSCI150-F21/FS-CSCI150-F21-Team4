@@ -1,0 +1,64 @@
+#theReviewedInfo{
+    display:flex;
+    justify-content:space-between;
+    width:55%;
+    font-size: 1.4em;
+  
+}
+#content{
+    margin-left:15%;
+    height:90;
+    display:flex;
+    
+}
+#recentReviews{
+    margin-right:2%;
+}
+
+
+
+#starSelector{
+    height:40%;
+    padding-bottom:1%;
+    display:flex;
+    
+}
+.fa{
+    align-self:center;
+}
+.selectRating{
+    margin-left:1%;
+    margin-bottom:1%;
+    padding-bottom:1%;
+    
+}
+#reviewForm{
+    justify-content: space-evenly;
+    padding-bottom:10%;
+    display:flex;
+    flex-direction: column;    
+}
+#reviewArea{
+    width:70%;
+
+
+}
+#postReview{
+    margin-top:1%;
+    width:10%;
+}
+#reviewContent{
+    width:80%;
+    margin-top:1%;
+}
+.r-review-info{
+    display:flex;
+    flex-direction:row;
+}
+#reviewerInfo{
+    display:flex;
+    flex-direction:row;
+}
+#reviewerLocation, #reviewerName{
+    width:28%;
+}
