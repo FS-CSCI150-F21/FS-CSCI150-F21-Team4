@@ -29,30 +29,6 @@ def before_request():
         user = users.find_one({'email': session['email']})
         g.user = user
 
-@application.route('/register/', methods = ['POST', 'GET'])
-def register():
-    if request.method == 'POST':
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        existing_user = users.find_one({'name': request.form['username']})
-
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
-            #session['username'] = request.form['username']
-            return redirect(url_for('landingPage'))
-
-        return 'Username already exists'
-    return render_template('register.html')
-
-
-@application.route("/logout/", methods=["POST", "GET"])
-def logout():
-    if 'email' in session:
-        session.pop('email', None)
-        return render_template('logout.html')
-    else:
-        return redirect(url_for('landingPage'))
 
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
@@ -78,10 +54,42 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
+@application.route('/register/', methods = ['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        if login():
+            return login()
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        existing_user = users.find_one({'name': request.form['username']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+            #session['username'] = request.form['username']
+            return redirect(url_for('landingPage'))
+
+        return 'Username already exists'
+    return render_template('register.html')
+
+
+@application.route("/logout/", methods=["POST", "GET"])
+def logout():
+    if request.method == 'POST':
+        if login():
+            return login()
+    if 'email' in session:
+        session.pop('email', None)
+        return render_template('logout.html')
+    else:
+        return redirect(url_for('landingPage'))
+
 
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
     if request.method == 'POST':
+        if login():
+            return login()
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         searchResults = users.find({'labor': request.form['search']}) 
@@ -90,31 +98,43 @@ def resultsPage():
     else:
         return render_template("resultsPage.html")
 
+
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():
     if request.method == 'POST':
-        if login() == 'Test successful':
+        if login():
             return login()
     return render_template("landingPage.html")
 
-@application.route("/<usr>/")
+@application.route("/<usr>/", methods = ["POST", "GET"])
 def user(usr):
-	return f"<h1>{usr}</h1>"
+    if request.method == 'POST':
+        if login():
+            return login()
+    return f"<h1>{usr}</h1>"
     
-@application.route("/profile/")
+@application.route("/profile/", methods = ["POST", "GET"])
 def profile():
+    if request.method == 'POST':
+        if login():
+            return login()
     if not g.user:
-        return redirect(url_for('login'))
+        return redirect(url_for('landingPage'))
     return render_template("profile.html")
     
-@application.route("/profileEdit")
+@application.route("/profileEdit", methods = ["POST", "GET"])
 def profileEdit():
+    if request.method == 'POST':
+        if login():
+            return login()
     #imageFile = url_for('static', filname = 'profilePic/' + currentUser+image_file)
     return render_template("profileEdit.html")#, image_file = image_file)
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
+        if login():
+            return login()
         filename = 'svm_model.sav'
         model = pickle.load(open(filename, 'rb'))
         text = request.form.get('NLPtext')
