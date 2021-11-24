@@ -10,6 +10,8 @@ from flask_login import login_user
 import certifi
 
 
+from tweetSentiment import tweetSentimentAnalyzer
+
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
@@ -38,9 +40,6 @@ def before_request():
     if 'email' in session:
         user = users.find_one({'email': session['email']})
         g.user = user
-    
-   
-
 
 @application.route("/login/", methods = ["POST", "GET"])
 def login():
@@ -56,7 +55,6 @@ def login():
         user_pass = login_user['password']
         login_pass = request.form.get('password')
 
-
         # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
             login_email = login_user['email']
@@ -69,21 +67,40 @@ def login():
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        if login():
-            return login()
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         existing_user = users.find_one({'name': request.form['username']})
 
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+            profile = {
+                "displayName": request.form['username'],
+                "labors": request.form['keywords'],
+                "location": "Fresno",
+                "imgLink": "",
+                "userBio": "Default Bio"
+            }
+            projects = [{
+                "projectName": "Estate Garden",
+                "projectDescription": " gabba gabbe",
+                "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
+                "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
+                "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
+                "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
+            }]
+            reviews = [{
+                "reviewerName": "Angry Guy",
+                "reviewScore": "4",
+                "reviewText": "yaddayadda",
+                "??sentimentAnalysis": "Positive Review"
+            }]
+
+            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
             #session['username'] = request.form['username']
             return redirect(url_for('landingPage'))
 
         return 'Username already exists'
     return render_template('register.html')
-
 
 @application.route("/logout/", methods=["POST", "GET"])
 def logout():
@@ -95,7 +112,6 @@ def logout():
         return render_template('logout.html')
     else:
         return redirect(url_for('landingPage'))
-
 
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
@@ -131,9 +147,24 @@ def profile():
         if login():
             return login()
     if not g.user:
+<<<<<<< HEAD
         return redirect(url_for('register'))
     return render_template("profile.html")
     return render_template("profile.html", profileResult=profileResult )
+=======
+        return redirect(url_for('login'))
+    else:
+        existing_user = g.user
+        profile = existing_user.get('profile', 'User labors is Empty.')
+        projects = existing_user.get('projects', 'User projects is Empty.')
+        reviews = existing_user.get('reviews', 'User reviews is Empty.')
+        profileResult = {
+            "profile": profile,
+            "projects": projects,
+            "reviews": reviews
+        }
+        return render_template("profile.html", profileResult=profileResult )
+>>>>>>> DataScrapeMLV2
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
@@ -273,6 +304,7 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
+<<<<<<< HEAD
         if login():
             return login()
         filename = 'svm_model.sav'
@@ -280,6 +312,19 @@ def NLP():
         text = request.form.get('NLPtext')
         prediction = model.predict([text])
         return render_template("NLP.html", data = [text, prediction[0]])
+=======
+        data = []
+        totalTweets = 20
+        username = request.form.get('Username')
+        results, foundTweets  = tweetSentimentAnalyzer(userName=username, totalTweets=totalTweets)
+        if foundTweets is False:
+            return render_template("NLP.html", data = "")
+        else:
+            possitiveTweets = results['tweet_postive']
+            negativeTweets = results['tweet_negative']
+            data= [possitiveTweets, negativeTweets, totalTweets, username]
+            return render_template("NLP.html", data = data)
+>>>>>>> DataScrapeMLV2
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
