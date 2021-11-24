@@ -131,11 +131,7 @@ def profile():
         if login():
             return login()
     if not g.user:
-<<<<<<< HEAD
         return redirect(url_for('register'))
-=======
-        return redirect(url_for('landingPage'))
->>>>>>> e6ef958f7a829471174b8c146d3c0f8942d293bc
     return render_template("profile.html")
     return render_template("profile.html", profileResult=profileResult )
     
