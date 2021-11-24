@@ -55,3 +55,39 @@ def tweetSentimentAnalyzer(userName, totalTweets):
     print(f"Number of Positive tweets: {possitiveTweetsTot}")
     print(f"Number of Negative tweets: {negativeTweetsTot}")
     return {"tweet_postive": possitiveTweetsTot, "tweet_negative": negativeTweetsTot}, scrapeSuccess
+
+def textSentimentAnalyzer(text):
+    with open("vectorizer.pickle", "rb") as pickle_in:
+        processedVector = pickle.load(pickle_in)
+
+    with open("LogisticRegClass.pickle", "rb") as pickle_in:
+        logicRegClass = pickle.load(pickle_in)
+
+    sentence = text
+    testProcessed = []
+    # Remove all the special characters
+    processed_feature = re.sub(r'\W', ' ', sentence)
+
+    # remove all single characters
+    processed_feature= re.sub(r'\s+[a-zA-Z]\s+', ' ', processed_feature)
+
+    # Remove single characters from the start
+    processed_feature = re.sub(r'\^[a-zA-Z]\s+', ' ', processed_feature) 
+
+    # Substituting multiple spaces with single space
+    processed_feature = re.sub(r'\s+', ' ', processed_feature, flags=re.I)
+
+    # Removing prefixed 'b'
+    processed_feature = re.sub(r'^b\s+', '', processed_feature)
+
+    # Converting to Lowercase
+    processed_feature = processed_feature.lower()
+
+    testProcessed.append(processed_feature)
+    processed_features = processedVector.transform(testProcessed).toarray()
+    prediction = logicRegClass.predict(processed_features)
+    if prediction[0] == '4':
+        isPositive = True  
+    else:
+        isPositive = False
+    return isPositive

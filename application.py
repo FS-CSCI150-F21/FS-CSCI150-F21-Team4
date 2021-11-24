@@ -54,7 +54,29 @@ def register():
 
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords']})
+            profile = {
+                "displayName": request.form['username'],
+                "labors": request.form['keywords'],
+                "location": "Fresno",
+                "imgLink": "",
+                "userBio": "Default Bio"
+            }
+            projects = [{
+                "projectName": "Estate Garden",
+                "projectDescription": " gabba gabbe",
+                "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
+                "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
+                "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
+                "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
+            }]
+            reviews = [{
+                "reviewerName": "Angry Guy",
+                "reviewScore": "4",
+                "reviewText": "yaddayadda",
+                "??sentimentAnalysis": "Positive Review"
+            }]
+
+            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
             #session['username'] = request.form['username']
             return redirect(url_for('landingPage'))
 
@@ -83,7 +105,6 @@ def login():
 
         user_pass = login_user['password']
         login_pass = request.form.get('password')
-
 
         # Method 1
         if bcrypt.checkpw(login_pass.encode('utf-8'), user_pass):
@@ -121,9 +142,17 @@ def user(usr):
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-    return render_template("profile.html")
-    
-    return render_template("profile.html", profileResult=profileResult )
+    else:
+        existing_user = g.user
+        profile = existing_user.get('profile', 'User labors is Empty.')
+        projects = existing_user.get('projects', 'User projects is Empty.')
+        reviews = existing_user.get('reviews', 'User reviews is Empty.')
+        profileResult = {
+            "profile": profile,
+            "projects": projects,
+            "reviews": reviews
+        }
+        return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
