@@ -162,12 +162,13 @@ def user(usr):
     
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
+    print(g.user)
     if request.method == 'POST':
         if login():
             return login()
     if not g.user:
         return redirect(url_for('landingPage'))
-    return render_template("profile.html")
+    return render_template("profile.html", profileResult = g.user)
     return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
