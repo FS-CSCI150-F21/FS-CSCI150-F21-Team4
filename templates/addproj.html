@@ -1,0 +1,60 @@
+{% extends "base.html"%}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel = "stylesheet" href = "../static/CSS/profileEdit.css">
+{% endblock %}
+
+{% block content %}
+<body>
+    
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    
+    <Form method = "POST" enctype="multipart/form-data">
+      
+        <label for = "project" >Project Name</label>
+        <input type = "text" name = "project"  required>
+        <br>
+        <label for = "projDescription" >Projectdescription</label>
+        <input type = "text" name = "projDescription"  required>
+        <br>
+
+        <dl>
+            <p>
+                <label for = "projImage1">projectPic</label>
+                <br>
+                <input type="file" name="projImage1" class="form-control" autocomplete="off" required>
+                <br>
+                <label for = "projImage2">projectPic</label>
+                <br>
+                <input type="file" name="projImage2" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+      
+
+
+
+       
+        <br>
+           
+           
+       
+            <input type = "submit" value = "submit">
+       
+        
+    </Form>
+</body>
+{% endblock %}

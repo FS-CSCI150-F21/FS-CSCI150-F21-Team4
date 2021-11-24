@@ -116,7 +116,7 @@ def user(usr):
 @application.route("/profile/")
 def profile():
     if not g.user:
-        return redirect(url_for('login'))
+        return redirect(url_for('register'))
     return render_template("profile.html")
     
     return render_template("profile.html", profileResult=profileResult )
@@ -132,7 +132,7 @@ def profileEdit():
         phone = request.form.get('phone')
         location = request.form.get('location')
         description = request.form.get('description')
-        projDescription = request.form.get('projDescription')
+       
 
         existing_user = g.user 
         usersDB = client["userRegistration"]
@@ -141,10 +141,7 @@ def profileEdit():
 
         file = request.files.get('file')
         filename = file.filename
-        project = request.files.get('project')
-        projectname = project.filename
-        project2 = request.files.get('project2')
-        projectname2 = project2.filename
+     
 
         #validator?
         if username == '':
@@ -160,9 +157,7 @@ def profileEdit():
         elif filename == '': #bug here
             flash('No image selected for uploading')
             return redirect(request.url)
-        elif projectname == '': #bug here
-            flash('No image selected for uploading')
-            return redirect(request.url)
+        
             
  
         #form module?
@@ -172,22 +167,22 @@ def profileEdit():
             'email': email, 
             'phonenumber': phone, 
             'labor':labor, 
-            'location': location,
-            'profilePic': filename,
-            'projectPic': projectname,
-            'projectPic2': projectname2,
-            'description': description,
-            'projDescription': projDescription
-        }
+            'profile':{
+                'displayName': username,
+                'labors': labor,
+                'location': location,
+                'imgLink': filename,
+                'userBio': description
             }
+            
+            }
+        }
 
        
 
         if push: #need a security boost to prevent injections of code check file extensions
            
             file.save(os.path.join('static\profilePic', filename))
-            project.save(os.path.join('static\projectPic', projectname))
-            project2.save(os.path.join('static\projectPic', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
@@ -203,6 +198,63 @@ def profileEdit():
             return redirect(request.url)    
     
     return render_template("profileEdit.html")#, image_file = image_file)
+
+@application.route("/addproj/", methods = ["POST", "GET"])
+def addproj():
+    if request.method == 'POST':
+        
+        project = request.form.get('project')
+        projDescription = request.form.get('projDescription')
+        projImage1 = request.files.get('projImage1')
+        projImage2 = request.files.get('projImage2')
+        filename1 = projImage1.filename
+        filename2 = projImage2.filename
+
+        existing_user = g.user 
+        usersDB = client["userRegistration"]
+        users = usersDB['userregistrations']
+        login_user = users.find_one(existing_user)
+
+        projValues = { "$set": {
+            'project' : {
+                project: {
+
+                    'projDescription' : projDescription,
+                    'projImage1' : filename1,
+                    'projImage2' : filename2,
+                    
+
+                }
+                }
+            
+            }
+        }
+
+        
+        
+
+        if push: #need a security boost to prevent injections of code check file extensions
+           
+            projImage1.save(os.path.join('static\projectPic', filename1))
+            projImage2.save(os.path.join('static\projectPic', filename2))
+            #print('upload_image filename: ' + filename)
+    
+            if existing_user is None:
+                return redirect(url_for('registration'))
+
+            else:
+                
+                users.update_many(existing_user, projValues)
+                return redirect(url_for('profile'))
+        
+        else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')#security protocol
+            return redirect(request.url)
+
+    return render_template("addproj.html")    
+
+        
+
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
