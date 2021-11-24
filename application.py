@@ -147,11 +147,6 @@ def profile():
         if login():
             return login()
     if not g.user:
-<<<<<<< HEAD
-        return redirect(url_for('register'))
-    return render_template("profile.html")
-    return render_template("profile.html", profileResult=profileResult )
-=======
         return redirect(url_for('login'))
     else:
         existing_user = g.user
@@ -164,7 +159,6 @@ def profile():
             "reviews": reviews
         }
         return render_template("profile.html", profileResult=profileResult )
->>>>>>> DataScrapeMLV2
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
@@ -304,15 +298,6 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-<<<<<<< HEAD
-        if login():
-            return login()
-        filename = 'svm_model.sav'
-        model = pickle.load(open(filename, 'rb'))
-        text = request.form.get('NLPtext')
-        prediction = model.predict([text])
-        return render_template("NLP.html", data = [text, prediction[0]])
-=======
         data = []
         totalTweets = 20
         username = request.form.get('Username')
@@ -324,7 +309,6 @@ def NLP():
             negativeTweets = results['tweet_negative']
             data= [possitiveTweets, negativeTweets, totalTweets, username]
             return render_template("NLP.html", data = data)
->>>>>>> DataScrapeMLV2
     return render_template("NLP.html", data = "")
 
 if __name__ == "__main__":
