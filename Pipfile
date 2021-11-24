@@ -1,0 +1,40 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+flask = "*"
+dnspython = "*"
+matplotlib = "*"
+sklearn = "*"
+bcrypt = "*"
+bottle = "*"
+cffi = "*"
+click = "*"
+colorama = "*"
+cycler = "*"
+itsdangerous = "*"
+jinja2 = "*"
+joblib = "*"
+kiwisolver = "*"
+markupsafe = "*"
+numpy = "*"
+pandas = "*"
+pillow = "*"
+pycparser = "*"
+pymongo = "*"
+pyparsing = "*"
+python-dateutil = "*"
+pytz = "*"
+scikit-learn = "*"
+scipy = "*"
+six = "*"
+threadpoolctl = "*"
+werkzeug = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
