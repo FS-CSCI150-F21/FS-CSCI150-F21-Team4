@@ -29,36 +29,31 @@
     </form>
     <br>
     <section id = profileContent>
-        <section id= "profileInfo">
+        <section id = "profileInfo">
             <div id ="profilePic">
-
-                
                 <img src = ""  id = "userImg">
                 <div id = "ratings">ratings</div>
-
             </div>
-
-         
-        
+            <div id = "profileName">
+                <p></p>
+            </div>
         </section>
-            <section id = "userProjects">
-                <h2>Projects</h2>
-                
-                <article id = "projectContainer">
-                    <h3></h3>
-                    <div id = "projectContent">
-                        <img src = "" alt = "photo1" class = "projectPhoto">
-                        <img src = "" alt = "photo2" class = "projectPhoto">
-                        <div id = "projectDescription">
-                            <p>{{profileResult['profile']['displayName']}}</p>
-                        </div>
+        <section id = "userProjects">
+            <h2>Projects</h2>
+            
+            <article id = "projectContainer">
+                <h3></h3>
+                <div id = "projectContent">
+                    <img src = "" alt = "photo1" class = "projectPhoto">
+                    <img src = "" alt = "photo2" class = "projectPhoto">
+                    <div id = "projectDescription">
+                        <p>{{profileResult['profile']['displayName']}}</p>
                     </div>
-                </article>
-               
-            </section>
+                </div>
+            </article>
+            
+        </section>
     </section>
-
-
     <a href = "{{url_for('addproj')}}">Add Project</a>
     <br>
     <a href = "{{url_for('profileEdit')}}">Edit</a>
