@@ -138,11 +138,19 @@ def landingPage():
 
 @application.route("/<usr>/", methods = ["POST", "GET"])
 def user(usr):
-    print("hey")
-    if request.method == 'POST':
-        if login():
-            return login()
-    return f"<h1>{usr}</h1>"
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    
+    profile_user = users.find_one({'name': usr})
+    if profile_user is None:
+        # This profile does not exist
+        return render_template("resultsPage.html")
+
+    isUser = False
+    if not(g.user == None):
+        if (g.user['name'] == usr):
+            isUser = True
+    return render_template("profile.html", profileResult = profile_user, isUser = isUser)
     
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
@@ -161,8 +169,7 @@ def profile():
             "projects": projects,
             "reviews": reviews
         }
-        return render_template("profile.html", profileResult = profileResult)
-        return render_template("profile.html", profileResult=profileResult )
+        return render_template("profile.html", profileResult = profileResult, isUser = True)
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
