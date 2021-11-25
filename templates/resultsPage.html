@@ -36,20 +36,21 @@
 			<div id="results">
 				{%if rslts is defined and rslts != [{}] %}
 				{% for users in rslts %}
-				<article class="result">
-					<div class="result_imageContainer">
-						<img src="" class="result_profileImage">
-					</div>
-					<div class="result_info">
-						<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
-						<p class="result_labor">{{users.labor}}</p>
-						<p class="result_location">{{users.phonenumber}}</p>
-					</div>
-					<div class="result_stars">
-					</div>
-					
-				</article>
-				<hr>
+					<p> {{userResult}}</p>
+					<article class="result">
+						<div class="result_imageContainer">
+							<img src="" class="result_profileImage">
+						</div>
+						<div class="result_info">
+							<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
+							<p class="result_labor">{{users.labor}}</p>
+							<p class="result_location">{{users.phonenumber}}</p>
+						</div>
+						<div class="result_stars">
+						</div>
+						
+					</article>
+					<hr>
 				{% endfor %}
 				{% else %}
 					<p>Nothing here</p>

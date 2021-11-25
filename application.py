@@ -122,7 +122,8 @@ def resultsPage():
         if 'form-name' in request.form:
             usersDB = client["userRegistration"]
             users = usersDB['userregistrations']
-            searchResults = users.find({'labor': request.form['search']}) 
+            searchResults = users.find({'labor': request.form['search']})
+            searchResults = searchResults[:10]
             return render_template("resultsPage.html",rslts = searchResults)
         if 'login_form' in request.form:
             return login()
