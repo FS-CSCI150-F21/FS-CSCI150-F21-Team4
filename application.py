@@ -67,41 +67,42 @@ def login():
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        if login():
+        if 'form-name' in request.form:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            existing_user = users.find_one({'name': request.form['username']})
+
+            if existing_user is None:
+                hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+                profile = {
+                    "displayName": request.form['username'],
+                    "labors": request.form['keywords'],
+                    "location": "Fresno",
+                    "imgLink": "",
+                    "userBio": "Default Bio"
+                }
+                projects = [{
+                    "projectName": "Estate Garden",
+                    "projectDescription": " gabba gabbe",
+                    "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
+                    "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
+                    "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
+                    "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
+                }]
+                reviews = [{
+                    "reviewerName": "Angry Guy",
+                    "reviewScore": "4",
+                    "reviewText": "yaddayadda",
+                    "??sentimentAnalysis": "Positive Review"
+                }]
+
+                users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
+                #session['username'] = request.form['username']
+                return redirect(url_for('landingPage'))
+
+            return 'Username already exists'
+        if 'login_form' in request.form:
             return login()
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        existing_user = users.find_one({'name': request.form['username']})
-
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            profile = {
-                "displayName": request.form['username'],
-                "labors": request.form['keywords'],
-                "location": "Fresno",
-                "imgLink": "",
-                "userBio": "Default Bio"
-            }
-            projects = [{
-                "projectName": "Estate Garden",
-                "projectDescription": " gabba gabbe",
-                "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
-                "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
-                "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
-                "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
-            }]
-            reviews = [{
-                "reviewerName": "Angry Guy",
-                "reviewScore": "4",
-                "reviewText": "yaddayadda",
-                "??sentimentAnalysis": "Positive Review"
-            }]
-
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
-            #session['username'] = request.form['username']
-            return redirect(url_for('landingPage'))
-
-        return 'Username already exists'
     return render_template('register.html')
 
 @application.route("/logout/", methods=["POST", "GET"])
@@ -118,16 +119,15 @@ def logout():
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
     if request.method == 'POST':
-        #if login():
-            #return login()
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        searchResults = users.find({'labor': request.form['search']}) 
-
-        return render_template("resultsPage.html",rslts = searchResults)
+        if 'form-name' in request.form:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            searchResults = users.find({'labor': request.form['search']}) 
+            return render_template("resultsPage.html",rslts = searchResults)
+        if 'login_form' in request.form:
+            return login()
     else:
         return render_template("resultsPage.html")
-
 
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():
