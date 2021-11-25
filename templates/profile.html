@@ -55,7 +55,7 @@
                     <p>ratings</p>
                 </div>
                 <div id ="profilePic">
-                    <img src = "/static/profilePic/bigSur1.jpg"  id = "userImg">
+                    <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}"  id = "userImg">
                 </div>
             </div>
             <div id = nameLocationBioContainer>
@@ -78,8 +78,8 @@
                 <article id = "projectContainer">
                     <h3>{{project['projName']}}</h3>
                     <div id = "projectContent">
-                        <img src = "" alt = "photo1" class = "projectPhoto">
-                        <img src = "" alt = "photo2" class = "projectPhoto">
+                        <img src = "{{url_for('static', filename='projectPic/' + project['projImage1'])}}" alt = "photo1" class = "projectPhoto">
+                        <img src = "{{url_for('static', filename='projectPic/' + project['projImage2'])}}" alt = "photo2" class = "projectPhoto">
                         <div id = "projectDescription">
                             <p>{{project['projDescription']}}</p>
                         </div>

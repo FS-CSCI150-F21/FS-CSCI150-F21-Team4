@@ -21,8 +21,9 @@ import urllib.request
 import os
 from werkzeug.utils import secure_filename
 
-
+UPLOAD_FOLDER = './static/profilePic'
 application = Flask(__name__)
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 application.secret_key = 'free3070herebozo'
@@ -281,8 +282,8 @@ def addproj():
         }
 
         if push: #need a security boost to prevent injections of code check file extensions
-            projImage1.save(os.path.join('static\projectPic', filename1))
-            projImage2.save(os.path.join('static\projectPic', filename2))
+            projImage1.save(os.path.join('static/projectPic', filename1))
+            projImage2.save(os.path.join('static/projectPic', filename2))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
