@@ -160,7 +160,7 @@ def profile():
             "projects": projects,
             "reviews": reviews
         }
-        return render_template("profile.html", profileResult = g.user)
+        return render_template("profile.html", profileResult = profileResult)
         return render_template("profile.html", profileResult=profileResult )
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
@@ -245,8 +245,8 @@ def profileEdit():
 @application.route("/addproj/", methods = ["POST", "GET"])
 def addproj():
     if request.method == 'POST':
-        if login():
-            return login()
+        #if login():
+            #return login()
         project = request.form.get('project')
         projDescription = request.form.get('projDescription')
         projImage1 = request.files.get('projImage1')
@@ -259,46 +259,30 @@ def addproj():
         users = usersDB['userregistrations']
         login_user = users.find_one(existing_user)
 
-        projValues = { "$set": {
-            'project' : {
-                project: {
-
+        projValues = { "$push": {
+            'projects' : {
+                    'projName': project,
                     'projDescription' : projDescription,
                     'projImage1' : filename1,
                     'projImage2' : filename2,
-                    
-
                 }
-                }
-            
             }
         }
 
-        
-        
-
         if push: #need a security boost to prevent injections of code check file extensions
-           
             projImage1.save(os.path.join('static\projectPic', filename1))
             projImage2.save(os.path.join('static\projectPic', filename2))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
                 return redirect(url_for('registration'))
-
             else:
-                
                 users.update_many(existing_user, projValues)
                 return redirect(url_for('profile'))
-        
         else:
             flash('Allowed image types are - png, jpg, jpeg, gif')#security protocol
             return redirect(request.url)
-
     return render_template("addproj.html")    
-
-        
-
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():

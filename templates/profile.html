@@ -6,6 +6,26 @@
     <title>Document</title>
     <link rel = "stylesheet" href = "../static/CSS/profile.css">
     <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+    <style>
+        #profileInfo {
+            border-style: solid;
+            border-width: 1px;
+            display: flex;
+            flex-direction: row;
+        }
+        #ratingsPicContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            width: 50%;
+        }
+        #nameLocationBioContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -30,28 +50,42 @@
     <br>
     <section id = profileContent>
         <section id = "profileInfo">
-            <div id ="profilePic">
-                <img src = ""  id = "userImg">
-                <div id = "ratings">ratings</div>
+            <div id = "ratingsPicContainer">
+                <div id = "profileRatings">
+                    <p>ratings</p>
+                </div>
+                <div id ="profilePic">
+                    <img src = "/static/profilePic/bigSur1.jpg"  id = "userImg">
+                </div>
             </div>
-            <div id = "profileName">
-                <p></p>
+            <div id = nameLocationBioContainer>
+                <div id = "profileName">
+                    <p>Name: {{profileResult['profile']['displayName']}}</p>
+                </div>
+                <div id = "profileLocation">
+                    <p>Location: {{profileResult['profile']['location']}}</p>
+                </div>
+                <div id = "profileBio">
+                    <p>Labors: {{profileResult['profile']['labors']}}</p>
+                    <p>Bio: {{profileResult['profile']['userBio']}}</p>
+                </div>
             </div>
         </section>
         <section id = "userProjects">
             <h2>Projects</h2>
             
-            <article id = "projectContainer">
-                <h3></h3>
-                <div id = "projectContent">
-                    <img src = "" alt = "photo1" class = "projectPhoto">
-                    <img src = "" alt = "photo2" class = "projectPhoto">
-                    <div id = "projectDescription">
-                        <p>{{profileResult['profile']['displayName']}}</p>
+            {% for project in profileResult['projects'] %}
+                <article id = "projectContainer">
+                    <h3>{{project['projName']}}</h3>
+                    <div id = "projectContent">
+                        <img src = "" alt = "photo1" class = "projectPhoto">
+                        <img src = "" alt = "photo2" class = "projectPhoto">
+                        <div id = "projectDescription">
+                            <p>{{project['projDescription']}}</p>
+                        </div>
                     </div>
-                </div>
-            </article>
-            
+                </article>
+            {% endfor %}
         </section>
     </section>
     <a href = "{{url_for('addproj')}}">Add Project</a>
