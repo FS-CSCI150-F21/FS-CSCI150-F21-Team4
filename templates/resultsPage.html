@@ -40,7 +40,7 @@
 						<img src="" class="result_profileImage">
 					</div>
 					<div class="result_info">
-						<p class="result_userName">{{users.name}}</p>
+						<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
 						<p class="result_labor">{{users.labor}}</p>
 						<p class="result_location">{{users.phonenumber}}</p>
 					</div>

@@ -118,8 +118,8 @@ def logout():
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
     if request.method == 'POST':
-        if login():
-            return login()
+        #if login():
+            #return login()
         usersDB = client["userRegistration"]
         users = usersDB['userregistrations']
         searchResults = users.find({'labor': request.form['search']}) 
@@ -138,6 +138,7 @@ def landingPage():
 
 @application.route("/<usr>/", methods = ["POST", "GET"])
 def user(usr):
+    print("hey")
     if request.method == 'POST':
         if login():
             return login()
