@@ -10,7 +10,7 @@ from flask_login import login_user
 import certifi
 
 
-from tweetSentiment import tweetSentimentAnalyzer
+from tweetSentiment import tweetSentimentAnalyzer, textSentimentAnalyzer
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -85,10 +85,8 @@ def register():
                 projects = [{
                     "projectName": "Estate Garden",
                     "projectDescription": " gabba gabbe",
-                    "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
-                    "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
-                    "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
-                    "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
+                    "projImage1": "",
+                    "projImage2": ""
                 }]
                 reviews = [{
                     "reviewerName": "Angry Guy",
@@ -197,8 +195,45 @@ def reviews(usr):
     print(review_data)
     for i, loc in enumerate(review_data):
         profile_user['reviews'][i]['location'] = loc
+    print(profile_user['reviews'])
 
     return render_template("reviews.html", profileResult = profile_user, isUser = isUser)
+
+@application.route("/addreview/<usr>", methods = ["POST", "GET"])
+def addReview(usr):
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    profile_user = users.find_one({'name': usr})
+
+    if request.method == 'POST':
+        if 'login_form' in request.form:
+            return login()
+        reviewName = g.user['name']
+        reviewStars = request.form.getlist('star')
+        reviewScore = int(reviewStars[0])
+        reviewText = request.form.get('reviewArea')
+        sentiment = ""
+        if (textSentimentAnalyzer(reviewText)):
+            sentiment = "Positive Review"
+        else:
+            sentiment = "Negative Review"
+
+        reviewValues = { "$push": {
+            'reviews' : {
+                    'reviewerName': reviewName,
+                    'reviewScore' : reviewScore,
+                    'reviewText' : reviewText,
+                    'sentimentAnalysis' : sentiment,
+                }
+            }
+        }
+
+        users.update_one(profile_user, reviewValues)
+        return redirect(url_for('reviews', usr=profile_user['name']))
+
+    review_user = g.user
+
+    return render_template("addReview.html", profileResult=profile_user, reviewUser=review_user)
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():

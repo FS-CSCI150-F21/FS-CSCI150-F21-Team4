@@ -33,7 +33,7 @@
 }
 .review-botBlock{
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
 }
 .reviewTextContainer{
     width:70%;
