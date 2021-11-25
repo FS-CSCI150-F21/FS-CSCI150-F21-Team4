@@ -50,8 +50,7 @@
                         <img src = "" alt = "photo1" class = "projectPhoto">
                         <img src = "" alt = "photo2" class = "projectPhoto">
                         <div id = "projectDescription">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor repellendus accusamus atque blanditiis voluptate rerum illo. 
-                                Ratione at veritatis ab animi? Sunt consequuntur provident, ea tempore nesciunt fugiat esse deserunt?</p>
+                            <p>{{profileResult['profile']['displayName']}}</p>
                         </div>
                     </div>
                 </article>
@@ -59,5 +58,8 @@
             </section>
     </section>
 
+
+    <a href = "{{url_for('addproj')}}">Add Project</a>
+    <br>
     <a href = "{{url_for('profileEdit')}}">Edit</a>
     {% endblock %}
