@@ -4,8 +4,8 @@ import bcrypt
 import pickle
 import sklearn
 from datetime import date
-from testData import rslts
-from profileLoadingTestData import profileResult
+#from testData import rslts
+#from profileLoadingTestData import profileResult
 from flask_login import login_user
 import certifi
 
