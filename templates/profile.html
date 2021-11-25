@@ -75,9 +75,9 @@
             <h2>Projects</h2>
             
             {% for project in profileResult['projects'] %}
-                <article id = "projectContainer">
+                <article class = "projectContainer">
                     <h3>{{project['projName']}}</h3>
-                    <div id = "projectContent">
+                    <div class = "projectContent">
                         <img src = "{{url_for('static', filename='projectPic/' + project['projImage1'])}}" alt = "photo1" class = "projectPhoto">
                         <img src = "{{url_for('static', filename='projectPic/' + project['projImage2'])}}" alt = "photo2" class = "projectPhoto">
                         <div id = "projectDescription">
