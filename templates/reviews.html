@@ -1,0 +1,102 @@
+{% extends "base.html"%}
+{% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="../static/JS/resultsPageJS.js"></script>
+<link rel = "stylesheet" href = "../static/CSS/searchBar.css">
+<link rel = "stylesheet" href = "../static/CSS/reviews.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock %}
+{% block content %}
+<!--search bar-->
+<br>    <br>
+<form id="searchContainer" method="post">
+    <label for="search" id="searchLabel"> Find </label>
+    <input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+    <script>
+        if (document.getElementById("searchBar").value == null) {
+
+
+        } else {
+            document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+        }
+    </script>
+    <label for="locationBar" id="locationLabel"> Near </label>
+    <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
+    <div id="filterContainer">filter paceholder</div>
+
+    <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
+</form>
+<br>
+<!--search bar-->
+<section id = "reviewsPageContent">
+
+    <section id = "userReviewsSummary">
+        <ariticle class = "userInfo">
+            <h2 id = "username">Tony Bahama</h2> <!--this should link to the user's profile-->
+            <div id = "location">Miami Beach</div>
+        </ariticle>
+        <article id = reviewCount>
+            <div class = "reviewStars">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+        </div>
+            <div id = "numReviews">4</div>
+        </article>
+        <button id = "writeReview" type= "button">Write A Review</button>
+    </section>
+    <br>
+    <section id = "reviewsSection">
+        
+        <hr>
+        
+        <h3>Reviews</h3>
+        <!--loop for each review-->
+        <article class = "review">
+            <div class = "review-topBlock">
+                <section class = 'reviewerProfilePicContainer'>
+                    
+                    <img class = "reviewerProfilePic" src = "../static/Images/userIcon.png">
+                </section>
+                <section class = "reviewerInfo">
+                    <div class = "reviewerName">Bob S.</div>
+                    <div class = "reviewerLocation">Hamtown</div>
+                    <div class = "reviewStars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                    </div>                   
+                </section>
+                <section class= "reviewDate">2/2/2222</section>
+                
+                
+            </div>
+            <div class = "review-botBlock">
+                <div class = "reviewTextContainer">
+                    <p class = "review">
+                        Sucked
+                    </p>
+                </div>
+                <div class = "sentimentAssessmnet">:)</div>
+            </div>
+        </article>
+        <!--end loop-->
+    </section>
+</section>
+
+
+
+
+
+
+
+
+
+{% endblock %}
