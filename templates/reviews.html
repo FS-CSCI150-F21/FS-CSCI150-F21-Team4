@@ -48,7 +48,9 @@
         </div>
             <div id = "numReviews">{{profileResult['reviews']|length}}</div>
         </article>
-        <button id = "writeReview" type= "button">Write A Review</button>
+        {% if isUser is false %}
+        <button id = "writeReview" type= "button" onclick='location = "{{url_for('addReview', usr=profileResult['profile']['displayName'])}}"'>Write A Review</button>
+        {% endif %}
     </section>
     <br>
     <section id = "reviewsSection">
@@ -68,13 +70,14 @@
                     <div class = "reviewerName">{{ review['reviewerName'] }}</div>
                     <div class = "reviewerLocation">{{ review['location'] }}</div>
                     <div class = "reviewStars">
-                            <!-- <p>{{ review['reviewScore'] }} / 5</p> -->
-                            {% for n in range(review['reviewScore'] | int) %}
-                                <span class="fa fa-star checked"></span>
-                            {% endfor %}
-                            {% for n in range(5 - (review['reviewScore'] | int)) %}
-                                <span class="fa fa-star"></span>
-                            {% endfor %}
+                        <p>{{ review['reviewScore'] }} / 5</p>
+                        {% for n in range(review['reviewScore'] | int) %}
+                            <span class="fa fa-star checked"></span>
+                        {% endfor %}
+                        {% for n in range(5 - (review['reviewScore'] | int)) %}
+                            <span class="fa fa-star"></span>
+                        {% endfor %}
+                        
                     </div>                   
                 </section>
                 <section class= "reviewDate">2/2/2222</section>
@@ -82,12 +85,15 @@
                 
             </div>
             <div class = "review-botBlock">
+                <div class = "sentimentAssessmnet">
+                    <p> NLP Analysis: {{ review['sentimentAnalysis'] }} </p>
+                </div>
+                <br>
                 <div class = "reviewTextContainer">
                     <p class = "review">
                         {{ review['reviewText'] }}
                     </p>
                 </div>
-                <div class = "sentimentAssessmnet"></div>
             </div>
         </article>
         {% endfor %}
