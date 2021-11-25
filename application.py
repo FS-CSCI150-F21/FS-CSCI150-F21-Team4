@@ -108,7 +108,7 @@ def register():
 @application.route("/logout/", methods=["POST", "GET"])
 def logout():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
     if 'email' in session:
         session.pop('email', None)
@@ -155,7 +155,7 @@ def user(usr):
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
     if not g.user:
         return redirect(url_for('login'))
@@ -174,7 +174,7 @@ def profile():
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
     if request.method == "POST":
-        if login():
+        if 'login_form' in request.form:
             return login()
         username = request.form.get('username')
          #request.form.get('password')
@@ -253,8 +253,8 @@ def profileEdit():
 @application.route("/addproj/", methods = ["POST", "GET"])
 def addproj():
     if request.method == 'POST':
-        #if login():
-            #return login()
+        if 'login_form' in request.form:
+            return login()
         project = request.form.get('project')
         projDescription = request.form.get('projDescription')
         projImage1 = request.files.get('projImage1')
@@ -295,7 +295,7 @@ def addproj():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
         data = []
         totalTweets = 20
