@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel = "stylesheet" href = "../static/CSS/profile.css">
     <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
-    <style> /* Just using borders for testing (feel free to remove this style section) */
+    <style> /* Just using borders for testing (feel free to remove this style section) 
         #profileInfo {
             border-style: solid;
             border-width: 1px;
@@ -25,6 +25,7 @@
             justify-content: center;
             flex-grow: 1;
         }
+        */
     </style>
 {% endblock %}
 
@@ -51,11 +52,12 @@
     <section id = profileContent>
         <section id = "profileInfo">
             <div id = "ratingsPicContainer">
-                <div id = "profileRatings">
-                    <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
-                </div>
+                
                 <div id ="profilePic">
                     <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}"  id = "userImg">
+                </div>
+                <div id = "profileRatings">
+                    <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
                 </div>
             </div>
             <div id = nameLocationBioContainer>
