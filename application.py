@@ -174,6 +174,31 @@ def profile():
             "reviews": reviews
         }
         return render_template("profile.html", profileResult = profileResult, isUser = True)
+
+@application.route("/reviews/<usr>", methods = ["POST", "GET"])
+def reviews(usr):
+    if request.method == 'POST':
+        if 'login_form' in request.form:
+            return login()
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    profile_user = users.find_one({'name': usr})
+
+    if profile_user is None:
+        # This profile does not exist
+        return render_template("resultsPage.html")
+
+    isUser = False
+    if not(g.user == None):
+        if (g.user['name'] == usr):
+            isUser = True
+
+    review_data = [users.find_one({'name': review['reviewerName']})['profile']['location'] for review in profile_user['reviews']]
+    print(review_data)
+    for i, loc in enumerate(review_data):
+        profile_user['reviews'][i]['location'] = loc
+
+    return render_template("reviews.html", profileResult = profile_user, isUser = isUser)
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
