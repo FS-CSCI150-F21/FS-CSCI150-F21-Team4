@@ -43,7 +43,7 @@
         </script>
         <label for="locationBar" id="locationLabel"> Near </label>
         <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
-        <div id="filterContainer">filter paceholder</div>
+        <!-- <div id="filterContainer">filter paceholder</div> -->
 
         <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
     </form>
@@ -52,7 +52,7 @@
         <section id = "profileInfo">
             <div id = "ratingsPicContainer">
                 <div id = "profileRatings">
-                    <p>ratings</p>
+                    <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
                 </div>
                 <div id ="profilePic">
                     <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}"  id = "userImg">
