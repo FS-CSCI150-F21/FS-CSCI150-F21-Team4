@@ -292,6 +292,12 @@ def addproj():
             return redirect(request.url)
     return render_template("addproj.html")    
 
+@application.route("/landscaping", methods = ["GET"])
+def grab():
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    searchResults = users.find({'labor': 'landscaping'}) 
+
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
