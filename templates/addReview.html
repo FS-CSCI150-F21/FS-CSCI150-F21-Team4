@@ -4,7 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale = 1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <script src="../static/JS/resultsPageJS.js"></script>
-<script src="../static/JS/addReviewStars.js"></script>
+
+<link rel = "stylesheet" href = "../static/CSS/stars.css">
 <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
 <link rel = "stylesheet" href = "../static/CSS/addReview.css">
 
@@ -44,13 +45,13 @@
         </header>
         <form id = "reviewForm">
         <div id = "starSelector">
-            <span class="fa fa-star  fa-2x"></span>
-            <span class="fa fa-star fa-2x"></span>
-            <span class="fa fa-star fa-2x"></span>
-            <span class="fa fa-star fa-2x"></span>
-            <span class="fa fa-star fa-2x"></span>
+            <span class="fa fa-star  fa-2x" id = "star1" onmouseout = "unhoverStar(1);" onmouseover="hoverStar(1);"></span>
+            <span class="fa fa-star fa-2x" id = "star2"  onmouseout = "unhoverStar(2);" onmouseover="hoverStar(2);"  ></span>
+            <span class="fa fa-star fa-2x" id = "star3"  onmouseout = "unhoverStar(3);" onmouseover="hoverStar(3);"></span>
+            <span class="fa fa-star fa-2x" id = "star4"  onmouseout = "unhoverStar(4);" onmouseover="hoverStar(4);"></span>
+            <span class="fa fa-star fa-2x" id = "star5"  onmouseout = "unhoverStar(5);" onmouseover="hoverStar(5);"></span>
             <p class = "selectRating">Select your rating</p>
-
+            <script src="../static/JS/addReviewStars.js"></script>
         </div>
         <div id ="reviewerInfo">
             

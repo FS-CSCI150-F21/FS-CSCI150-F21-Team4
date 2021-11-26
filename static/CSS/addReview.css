@@ -62,3 +62,6 @@
 #reviewerLocation, #reviewerName{
     width:28%;
 }
+textarea{
+resize: none;
+}
