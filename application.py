@@ -92,7 +92,7 @@ def register():
                     "reviewerName": "Angry Guy",
                     "reviewScore": "4",
                     "reviewText": "yaddayadda",
-                    "??sentimentAnalysis": "Positive Review"
+                    "sentimentAnalysis": "Positive Review"
                 }]
 
                 users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
