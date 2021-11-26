@@ -184,8 +184,8 @@
           </div>
           
           {%if session['email']%}
-          <div id = "logoutButtonContainer"> <!-- Logout Button -->
-            <button onclick="location.href='/logout'" style="width:auto; height: auto;" class="otherbuttons">Logout</button>
+          <div id = "loginButtonContainer"> <!-- Logout Button -->
+            <button onclick="location.href='/logout'" id = "loginButton">Logout</button>
           </div>
           {% else %}
           <div id= "loginButtonContainer"> <!-- Login Button -->
@@ -201,6 +201,7 @@
 
             <!--Login form found here-->
             <div class="container">
+              <input type="hidden" name = 'login_form'>
               <label><b>Username</b></label>
               <input type="text" placeholder="Enter Username" name="username" required>
 

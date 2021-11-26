@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel = "stylesheet" href = "../static/CSS/profile.css">
     <link rel = "stylesheet" href = "../static/CSS/searchBar.css">
-    <style> /* Just using borders for testing (feel free to remove this style section) */
+    <style> /* Just using borders for testing (feel free to remove this style section) 
         #profileInfo {
             border-style: solid;
             border-width: 1px;
@@ -25,6 +25,7 @@
             justify-content: center;
             flex-grow: 1;
         }
+        */
     </style>
 {% endblock %}
 
@@ -43,7 +44,7 @@
         </script>
         <label for="locationBar" id="locationLabel"> Near </label>
         <input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
-        
+        <!-- <div id="filterContainer">filter paceholder</div> -->
 
         <div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
     </form>
@@ -51,11 +52,12 @@
     <section id = profileContent>
         <section id = "profileInfo">
             <div id = "ratingsPicContainer">
-                <div id = "profileRatings">
-                    <p>ratings</p>
-                </div>
+                
                 <div id ="profilePic">
-                    <img src = "/static/profilePic/bigSur1.jpg"  id = "userImg">
+                    <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}"  id = "userImg">
+                </div>
+                <div id = "profileRatings">
+                    <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
                 </div>
             </div>
             <div id = nameLocationBioContainer>
@@ -75,11 +77,11 @@
             <h2>Projects</h2>
             
             {% for project in profileResult['projects'] %}
-                <article id = "projectContainer">
+                <article class = "projectContainer">
                     <h3>{{project['projName']}}</h3>
-                    <div id = "projectContent">
-                        <img src = "" alt = "photo1" class = "projectPhoto">
-                        <img src = "" alt = "photo2" class = "projectPhoto">
+                    <div class = "projectContent">
+                        <img src = "{{url_for('static', filename='projectPic/' + project['projImage1'])}}" alt = "photo1" class = "projectPhoto">
+                        <img src = "{{url_for('static', filename='projectPic/' + project['projImage2'])}}" alt = "photo2" class = "projectPhoto">
                         <div id = "projectDescription">
                             <p>{{project['projDescription']}}</p>
                         </div>

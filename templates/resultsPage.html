@@ -14,6 +14,7 @@
 	<div class="midContent">
 		<form id="searchContainer" method="post">
 			<label for="search" id="searchLabel"> Find </label>
+			<input type="hidden" name = "form-name" value = "search_form">
 			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
 			<script>
 				if (document.getElementById("searchBar").value == null) {
@@ -25,7 +26,7 @@
 			</script>
 			<label for="locationBar" id="locationLabel"> Near </label>
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">
-			<!--<div id="filterContainer">filter paceholder</div>-->
+			<!-- <div id="filterContainer">filter paceholder</div> -->
 
 			<div id="searchButtonContainer"><input type="submit" name="searchButton" id="searchButton" onclick = "setSearchTerm()"> </div>
 		</form>
@@ -35,20 +36,21 @@
 			<div id="results">
 				{%if rslts is defined and rslts != [{}] %}
 				{% for users in rslts %}
-				<article class="result">
-					<div class="result_imageContainer">
-						<img src="" class="result_profileImage">
-					</div>
-					<div class="result_info">
-						<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
-						<p class="result_labor">{{users.labor}}</p>
-						<p class="result_location">{{users.phonenumber}}</p>
-					</div>
-					<div class="result_stars">
-					</div>
-					
-				</article>
-				<hr>
+					<p> {{userResult}}</p>
+					<article class="result">
+						<div class="result_imageContainer">
+							<img src="" class="result_profileImage">
+						</div>
+						<div class="result_info">
+							<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
+							<p class="result_labor">{{users.labor}}</p>
+							<p class="result_location">{{users.phonenumber}}</p>
+						</div>
+						<div class="result_stars">
+						</div>
+						
+					</article>
+					<hr>
 				{% endfor %}
 				{% else %}
 					<p>Nothing here</p>

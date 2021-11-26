@@ -4,13 +4,13 @@ import bcrypt
 import pickle
 import sklearn
 from datetime import date
-from testData import rslts
-from profileLoadingTestData import profileResult
+#from testData import rslts
+#from profileLoadingTestData import profileResult
 from flask_login import login_user
 import certifi
 
 
-from tweetSentiment import tweetSentimentAnalyzer
+from tweetSentiment import tweetSentimentAnalyzer, textSentimentAnalyzer
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -21,8 +21,9 @@ import urllib.request
 import os
 from werkzeug.utils import secure_filename
 
-
+UPLOAD_FOLDER = './static/profilePic'
 application = Flask(__name__)
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 url = 'mongodb+srv://Admin:1234@wordofmouth.yoff3.mongodb.net/userRegistration?retryWrites=true&w=majority'
 application.secret_key = 'free3070herebozo'
@@ -67,47 +68,46 @@ def login():
 @application.route('/register/', methods = ['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        if login():
+        if 'form-name' in request.form:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            existing_user = users.find_one({'name': request.form['username']})
+
+            if existing_user is None:
+                hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+                profile = {
+                    "displayName": request.form['username'],
+                    "labors": request.form['keywords'],
+                    "location": "Fresno",
+                    "imgLink": "",
+                    "userBio": "Default Bio"
+                }
+                projects = [{
+                    "projectName": "Estate Garden",
+                    "projectDescription": " gabba gabbe",
+                    "projImage1": "",
+                    "projImage2": ""
+                }]
+                reviews = [{
+                    "reviewerName": "Angry Guy",
+                    "reviewScore": "4",
+                    "reviewText": "yaddayadda",
+                    "sentimentAnalysis": "Positive Review"
+                }]
+
+                users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
+                #session['username'] = request.form['username']
+                return redirect(url_for('landingPage'))
+
+            return 'Username already exists'
+        if 'login_form' in request.form:
             return login()
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        existing_user = users.find_one({'name': request.form['username']})
-
-        if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            profile = {
-                "displayName": request.form['username'],
-                "labors": request.form['keywords'],
-                "location": "Fresno",
-                "imgLink": "",
-                "userBio": "Default Bio"
-            }
-            projects = [{
-                "projectName": "Estate Garden",
-                "projectDescription": " gabba gabbe",
-                "photoLink1": "../static/Images/testDataImages/projectImg1.jpg",
-                "photoLink2": "../static/Images/testDataImages/projectImg2.jpg",
-                "photoLink3": "../static/Images/testDataImages/projectImg3.jpg",
-                "photoLink4": "../static/Images/testDataImages/projectImg4.jpg"
-            }]
-            reviews = [{
-                "reviewerName": "Angry Guy",
-                "reviewScore": "4",
-                "reviewText": "yaddayadda",
-                "??sentimentAnalysis": "Positive Review"
-            }]
-
-            users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
-            #session['username'] = request.form['username']
-            return redirect(url_for('landingPage'))
-
-        return 'Username already exists'
     return render_template('register.html')
 
 @application.route("/logout/", methods=["POST", "GET"])
 def logout():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
     if 'email' in session:
         session.pop('email', None)
@@ -118,16 +118,18 @@ def logout():
 @application.route("/results/", methods = ['POST','GET'])
 def resultsPage():
     if request.method == 'POST':
-        #if login():
-            #return login()
-        usersDB = client["userRegistration"]
-        users = usersDB['userregistrations']
-        searchResults = users.find({'labor': request.form['search']}) 
-
-        return render_template("resultsPage.html",rslts = searchResults)
+        if 'form-name' in request.form:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            searchQuery = {'labor': request.form['search'], 'profile.location': request.form['locationBar']}
+            searchQuery = {k:v for k,v in searchQuery.items() if v != ""}
+            searchResults = users.find(searchQuery)
+            searchResults = searchResults[:10]
+            return render_template("resultsPage.html",rslts = searchResults)
+        if 'login_form' in request.form:
+            return login()
     else:
         return render_template("resultsPage.html")
-
 
 @application.route("/", methods = ["POST", "GET"])
 def landingPage():
@@ -155,7 +157,7 @@ def user(usr):
 @application.route("/profile/", methods = ["POST", "GET"])
 def profile():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
     if not g.user:
         return redirect(url_for('login'))
@@ -170,11 +172,73 @@ def profile():
             "reviews": reviews
         }
         return render_template("profile.html", profileResult = profileResult, isUser = True)
+
+@application.route("/reviews/<usr>", methods = ["POST", "GET"])
+def reviews(usr):
+    if request.method == 'POST':
+        if 'login_form' in request.form:
+            return login()
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    profile_user = users.find_one({'name': usr})
+
+    if profile_user is None:
+        # This profile does not exist
+        return render_template("resultsPage.html")
+
+    isUser = False
+    if not(g.user == None):
+        if (g.user['name'] == usr):
+            isUser = True
+
+    review_data = [users.find_one({'name': review['reviewerName']})['profile']['location'] for review in profile_user['reviews']]
+    print(review_data)
+    for i, loc in enumerate(review_data):
+        profile_user['reviews'][i]['location'] = loc
+    print(profile_user['reviews'])
+
+    return render_template("reviews.html", profileResult = profile_user, isUser = isUser)
+
+@application.route("/addreview/<usr>", methods = ["POST", "GET"])
+def addReview(usr):
+    usersDB = client["userRegistration"]
+    users = usersDB['userregistrations']
+    profile_user = users.find_one({'name': usr})
+
+    if request.method == 'POST':
+        if 'login_form' in request.form:
+            return login()
+        reviewName = g.user['name']
+        reviewStars = request.form.getlist('star')
+        reviewScore = int(reviewStars[0])
+        reviewText = request.form.get('reviewArea')
+        sentiment = ""
+        if (textSentimentAnalyzer(reviewText)):
+            sentiment = "Positive Review"
+        else:
+            sentiment = "Negative Review"
+
+        reviewValues = { "$push": {
+            'reviews' : {
+                    'reviewerName': reviewName,
+                    'reviewScore' : reviewScore,
+                    'reviewText' : reviewText,
+                    'sentimentAnalysis' : sentiment,
+                }
+            }
+        }
+
+        users.update_one(profile_user, reviewValues)
+        return redirect(url_for('reviews', usr=profile_user['name']))
+
+    review_user = g.user
+
+    return render_template("addReview.html", profileResult=profile_user, reviewUser=review_user)
     
 @application.route("/profileEdit/", methods = ["POST", "GET"])
 def profileEdit():
     if request.method == "POST":
-        if login():
+        if 'login_form' in request.form:
             return login()
         username = request.form.get('username')
          #request.form.get('password')
@@ -253,8 +317,8 @@ def profileEdit():
 @application.route("/addproj/", methods = ["POST", "GET"])
 def addproj():
     if request.method == 'POST':
-        #if login():
-            #return login()
+        if 'login_form' in request.form:
+            return login()
         project = request.form.get('project')
         projDescription = request.form.get('projDescription')
         projImage1 = request.files.get('projImage1')
@@ -278,8 +342,8 @@ def addproj():
         }
 
         if push: #need a security boost to prevent injections of code check file extensions
-            projImage1.save(os.path.join('static\projectPic', filename1))
-            projImage2.save(os.path.join('static\projectPic', filename2))
+            projImage1.save(os.path.join('static/projectPic', filename1))
+            projImage2.save(os.path.join('static/projectPic', filename2))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
@@ -301,7 +365,7 @@ def grab():
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
     if request.method == 'POST':
-        if login():
+        if 'login_form' in request.form:
             return login()
         data = []
         totalTweets = 20
