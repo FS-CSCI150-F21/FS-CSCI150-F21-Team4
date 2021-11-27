@@ -11,7 +11,21 @@
 }
 #writeReview{
     width:9%;
+    background-color:white;
+    border: 1px solid transparent;
+    border-radius: .75rem;
+    box-sizing: border-box;
+    color: black;
+    font-size: .9rem;
+    font-weight: 600;
+    
 }
+#writeReview:hover{
+	border: 3px solid rgb(211, 198, 172);
+    cursor: pointer;
+}
+
+
 .review-topBlock{
     display:flex;
     flex-direction:row;

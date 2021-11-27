@@ -6,6 +6,19 @@
     display: flex;
   }
 
+.profileButtons{
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: .75rem;
+    box-sizing: border-box;
+    color: black;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.profileButtons:hover{
+	border: 3px solid rgb(211, 198, 172);
+    cursor: pointer;
+}
 #profileInfo{
     display:flex;
     border-left: 2px solid white;
