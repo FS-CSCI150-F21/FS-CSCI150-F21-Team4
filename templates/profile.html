@@ -59,7 +59,8 @@
                             <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}" style="width:230px;height:230px" id = "userImg">
                         </div>
                         <div id = "profileRatings">
-                            <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
+                            <br>
+                            <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}"><button class = "profileButtons" type = "button">Reviews</button></a>
                         </div>
                     </div>
                 </div>
@@ -75,11 +76,14 @@
                             <p>Labors: {{profileResult['profile']['labors']}}</p>
                             <p>Bio: {{profileResult['profile']['userBio']}}</p>
                         </div>
+                        
                         {% if isUser is true %}
-                            <a href = "{{url_for('addproj')}}">Add Project</a>
+                            <a href = "{{url_for('addproj')}}"><button class = "profileButtons" type = "button">Add Project</button></a>
                             <br>
-                            <a href = "{{url_for('profileEdit')}}">Edit</a>
+                            <br>
+                            <a href = "{{url_for('profileEdit')}}"><button class = "profileButtons" type = "button">Edit</button></a>
                         {% endif %}
+                        
                     </div>
                 </div>
             </section>
