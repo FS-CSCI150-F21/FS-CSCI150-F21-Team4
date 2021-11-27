@@ -15,14 +15,19 @@
 		<form id="searchContainer" method="post">
 			<label for="search" id="searchLabel"> Find </label>
 			<input type="hidden" name = "form-name" value = "search_form">
-			<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+			{% if labor is defined %}
+				<input name="search" type="text" id="searchBar" value="{{labor}}">
+			{% endif %}
+			{% if labor is not defined %}
+				<input name="search" type="text" id="searchBar" placeholder="gardener, plumber, painter... ">
+			{% endif %}
 			<script>
-				if (document.getElementById("searchBar").value == null) {
+				// if (document.getElementById("searchBar").value == null) {
 
 
-				} else {
-					document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
-				}
+				// } else {
+				// 	document.getElementById("searchBar").value = sessionStorage.getItem("searchItem");
+				// }
 			</script>
 			<label for="locationBar" id="locationLabel"> Near </label>
 			<input name="locationBar" type="text" id="locationBar" placeholder="Fresno,CA">

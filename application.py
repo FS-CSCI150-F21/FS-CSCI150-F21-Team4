@@ -79,21 +79,11 @@ def register():
                     "displayName": request.form['username'],
                     "labors": request.form['keywords'],
                     "location": "Fresno",
-                    "imgLink": "",
+                    "imgLink": "userIcon.png",
                     "userBio": "Default Bio"
                 }
-                projects = [{
-                    "projectName": "Estate Garden",
-                    "projectDescription": " gabba gabbe",
-                    "projImage1": "",
-                    "projImage2": ""
-                }]
-                reviews = [{
-                    "reviewerName": "Angry Guy",
-                    "reviewScore": "4",
-                    "reviewText": "yaddayadda",
-                    "sentimentAnalysis": "Positive Review"
-                }]
+                projects = []
+                reviews = []
 
                 users.insert_one({'date': str(date.today()),'name': request.form['username'], 'password':hashpass, 'email': request.form['email'], 'phonenumber': request.form['phonenumber'], 'labor':request.form['keywords'], 'profile':profile, 'projects':projects, 'reviews':reviews})
                 #session['username'] = request.form['username']
@@ -191,6 +181,7 @@ def reviews(usr):
         if (g.user['name'] == usr):
             isUser = True
 
+    print(profile_user['reviews'])
     review_data = [users.find_one({'name': review['reviewerName']})['profile']['location'] for review in profile_user['reviews']]
     print(review_data)
     for i, loc in enumerate(review_data):
@@ -259,22 +250,22 @@ def profileEdit():
      
 
         #validator?
-        if username == '':
-            username = users['name']
-        elif email == '':
-            email = users['email']
-        elif phone == '':
-            phone = users['phonenumber']
-        elif labor == '':
-            email = users['email']
-        elif location == '':
-            flash('eh you dont need a location')
-        elif filename == '': #bug here
+        if username == "":
+            username = login_user['name']
+        if email == "":
+            email = login_user['email']
+        if phone == "":
+            phone = login_user['phonenumber']
+        if labor == "":
+            labor = login_user['labor']
+        if location == "":
+            location = login_user['profile']['location']
+        if description == "":
+            description = login_user['profile']['userBio']
+        if filename == "": #bug here
             flash('No image selected for uploading')
             return redirect(request.url)
         
-            
- 
         #form module?
         newvalues = { "$set": {
             'date': str(date.today()),
@@ -297,7 +288,7 @@ def profileEdit():
 
         if push: #need a security boost to prevent injections of code check file extensions
            
-            file.save(os.path.join('static\profilePic', filename))
+            file.save(os.path.join('static/profilePic', filename))
             #print('upload_image filename: ' + filename)
     
             if existing_user is None:
@@ -305,7 +296,7 @@ def profileEdit():
 
             else:
                 
-                users.update_many(existing_user, newvalues)
+                users.update_one(existing_user, newvalues)
                 return redirect(url_for('profile'))
         
         else:
@@ -356,11 +347,22 @@ def addproj():
             return redirect(request.url)
     return render_template("addproj.html")    
 
-@application.route("/landscaping", methods = ["GET"])
-def grab():
-    usersDB = client["userRegistration"]
-    users = usersDB['userregistrations']
-    searchResults = users.find({'labor': 'landscaping'}) 
+@application.route("/results/<labor>", methods = ['POST','GET'])
+def grab(labor):
+    if request.method == 'POST':
+        if 'form-name' in request.form:
+            usersDB = client["userRegistration"]
+            users = usersDB['userregistrations']
+            searchQuery = {'labor': request.form['search'], 'profile.location': request.form['locationBar']}
+            searchQuery = {k:v for k,v in searchQuery.items() if v != ""}
+            searchResults = users.find(searchQuery)
+            searchResults = searchResults[:10]
+            return render_template("resultsPage.html",rslts = searchResults)
+        if 'login_form' in request.form:
+            return login()
+    else:
+        return render_template("resultsPage.html", labor=labor)
+
 
 @application.route("/NLP/", methods = ["POST", "GET"])
 def NLP():
