@@ -183,7 +183,7 @@
             <a href = "{{ url_for('resultsPage') }}">  <img src = "/static/Images/search.png" id = "searchIcon" height = "100%" /></a>
           </div>
           
-          {%if g.user!=None%}
+          {%if g.user != None%}
           <div id = "loginButtonContainer"> <!-- Logout Button -->
             <button onclick="location.href='/logout'" id = "loginButton">Logout</button>
           </div>
@@ -196,7 +196,7 @@
             <form class="modal-content animate" method="post">
               <div class="imgcontainer">
                 <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                <!--<img src="/static/images/img_avatar2.png" alt="Avatar" class="avatar">-->
+                <img src="/static/images/img_avatar2.png" alt="Avatar" class="avatar">
               </div>
 
             <!--Login form found here-->
