@@ -183,7 +183,7 @@
             <a href = "{{ url_for('resultsPage') }}">  <img src = "/static/Images/search.png" id = "searchIcon" height = "100%" /></a>
           </div>
           
-          {%if session['email']%}
+          {%if g.user != None%}
           <div id = "loginButtonContainer"> <!-- Logout Button -->
             <button onclick="location.href='/logout'" id = "loginButton">Logout</button>
           </div>
