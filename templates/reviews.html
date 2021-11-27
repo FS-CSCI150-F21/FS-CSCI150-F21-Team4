@@ -40,11 +40,17 @@
         </ariticle>
         <article id = reviewCount>
             <div class = "reviewStars">
-                <span class="fa fa-star checked"></span>
+                {% for n in range(avgStars) %}
+                    <span class="fa fa-star checked"></span>
+                {% endfor %}
+                {% for n in range(5 - avgStars) %}
+                    <span class="fa fa-star"></span>
+                {% endfor %}
+                <!-- <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span> -->
         </div>
             <div id = "numReviews">{{profileResult['reviews']|length}}</div>
         </article>

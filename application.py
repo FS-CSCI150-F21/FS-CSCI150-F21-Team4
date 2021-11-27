@@ -189,14 +189,16 @@ def reviews(usr):
         if (g.user['name'] == usr):
             isUser = True
 
-    print(profile_user['reviews'])
+    avgStars = round(sum([review['reviewScore'] for review in profile_user['reviews']]) / len(profile_user['reviews']))
+
+    #print(profile_user['reviews'])
     review_data = [users.find_one({'name': review['reviewerName']})['profile']['location'] for review in profile_user['reviews']]
-    print(review_data)
+    #print(review_data)
     for i, loc in enumerate(review_data):
         profile_user['reviews'][i]['location'] = loc
-    print(profile_user['reviews'])
+    #print(profile_user['reviews'])
 
-    return render_template("reviews.html", profileResult = profile_user, isUser = isUser)
+    return render_template("reviews.html", profileResult = profile_user, isUser = isUser, avgStars=avgStars)
 
 @application.route("/addreview/<usr>", methods = ["POST", "GET"])
 def addReview(usr):
