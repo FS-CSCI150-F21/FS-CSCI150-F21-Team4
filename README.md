@@ -38,6 +38,6 @@ Database Integration - We will be using MySql Workbench to harbor csv files to d
 ## Prioritization
 edit
 ## Diagrams
-Database: https://embed.creately.com/338jTLdcvsF?token=WyUUiWLugD8krQKA&type=svg
+edit
 ## References
 edit
