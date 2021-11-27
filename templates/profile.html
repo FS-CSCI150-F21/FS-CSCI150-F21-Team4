@@ -50,29 +50,40 @@
     </form>
     <br>
     <section id = profileContent>
-        <section id = "profileInfo">
-            <div id = "ratingsPicContainer">
-                
-                <div id ="profilePic">
-                    <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}"  id = "userImg">
+        <div class="row">
+            <section id = "profileInfo">
+                <div class="column">
+                    <div id = "ratingsPicContainer">
+                        
+                        <div id ="profilePic">
+                            <img src = "{{url_for('static', filename='profilePic/' + profileResult['profile']['imgLink'])}}" style="width:230px;height:230px" id = "userImg">
+                        </div>
+                        <div id = "profileRatings">
+                            <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
+                        </div>
+                    </div>
                 </div>
-                <div id = "profileRatings">
-                    <a href="{{url_for('reviews', usr=profileResult['profile']['displayName'])}}">Reviews</a>
+                <div class="column" style="padding-left: 20px;">
+                    <div id = "nameLocationBioContainer">
+                        <div id = "profileName">
+                            <p>Name: {{profileResult['profile']['displayName']}}</p>
+                        </div>
+                        <div id = "profileLocation">
+                            <p>Location: {{profileResult['profile']['location']}}</p>
+                        </div>
+                        <div id = "profileBio">
+                            <p>Labors: {{profileResult['profile']['labors']}}</p>
+                            <p>Bio: {{profileResult['profile']['userBio']}}</p>
+                        </div>
+                        {% if isUser is true %}
+                            <a href = "{{url_for('addproj')}}">Add Project</a>
+                            <br>
+                            <a href = "{{url_for('profileEdit')}}">Edit</a>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div id = nameLocationBioContainer>
-                <div id = "profileName">
-                    <p>Name: {{profileResult['profile']['displayName']}}</p>
-                </div>
-                <div id = "profileLocation">
-                    <p>Location: {{profileResult['profile']['location']}}</p>
-                </div>
-                <div id = "profileBio">
-                    <p>Labors: {{profileResult['profile']['labors']}}</p>
-                    <p>Bio: {{profileResult['profile']['userBio']}}</p>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
         <section id = "userProjects">
             <h2>Projects</h2>
             
@@ -90,9 +101,5 @@
             {% endfor %}
         </section>
     </section>
-    {% if isUser is true %}
-        <a href = "{{url_for('addproj')}}">Add Project</a>
-        <br>
-        <a href = "{{url_for('profileEdit')}}">Edit</a>
-    {% endif %}
+    
     {% endblock %}
