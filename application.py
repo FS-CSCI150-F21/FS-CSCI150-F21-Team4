@@ -101,6 +101,7 @@ def logout():
             return login()
     if 'email' in session:
         session.pop('email', None)
+        g.user = None
         return render_template('logout.html')
     else:
         return redirect(url_for('landingPage'))
@@ -130,6 +131,11 @@ def landingPage():
 
 @application.route("/<usr>/", methods = ["POST", "GET"])
 def user(usr):
+    if request.method == 'POST':
+        if 'login_form' in request.form:
+            return login()
+        if 'search_form' in request.form:
+            return redirect(url_for('grab',labor=request.form.get('search')))
     usersDB = client["userRegistration"]
     users = usersDB['userregistrations']
     
@@ -149,6 +155,8 @@ def profile():
     if request.method == 'POST':
         if 'login_form' in request.form:
             return login()
+        if 'search_form' in request.form:
+            return redirect(url_for('grab',labor=request.form.get('search')))
     if not g.user:
         return redirect(url_for('login'))
     else:
@@ -199,6 +207,8 @@ def addReview(usr):
     if request.method == 'POST':
         if 'login_form' in request.form:
             return login()
+        if 'search_form' in request.form:
+            return redirect(url_for('grab',labor=request.form.get('search')))
         reviewName = g.user['name']
         reviewStars = request.form.getlist('star')
         reviewScore = int(reviewStars[0])
@@ -310,6 +320,8 @@ def addproj():
     if request.method == 'POST':
         if 'login_form' in request.form:
             return login()
+        if 'search_form' in request.form:
+            return redirect(url_for('grab',labor=request.form.get('search')))
         project = request.form.get('project')
         projDescription = request.form.get('projDescription')
         projImage1 = request.files.get('projImage1')
@@ -360,8 +372,7 @@ def grab(labor):
             return render_template("resultsPage.html",rslts = searchResults)
         if 'login_form' in request.form:
             return login()
-    else:
-        return render_template("resultsPage.html", labor=labor)
+    return render_template("resultsPage.html", labor=labor)
 
 
 @application.route("/NLP/", methods = ["POST", "GET"])
