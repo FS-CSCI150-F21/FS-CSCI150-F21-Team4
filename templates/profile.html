@@ -77,6 +77,9 @@
                             <p>Labors: {{profileResult['profile']['labors']}}</p>
                             <p>Bio: {{profileResult['profile']['userBio']}}</p>
                         </div>
+                        <div id = "phone">
+                            <p>Phone Number: {{profileResult['phonenumber']}}</p>
+                        </div>
                         
                         {% if isUser is true %}
                             <a href = "{{url_for('addproj')}}"><button class = "profileButtons" type = "button">Add Project</button></a>
