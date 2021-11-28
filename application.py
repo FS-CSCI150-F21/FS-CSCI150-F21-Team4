@@ -164,7 +164,9 @@ def profile():
         profile = existing_user.get('profile', 'User labors is Empty.')
         projects = existing_user.get('projects', 'User projects is Empty.')
         reviews = existing_user.get('reviews', 'User reviews is Empty.')
+        phonenumber = existing_user.get('phonenumber', 'phonenumber is empty')
         profileResult = {
+            "phonenumber": phonenumber,
             "profile": profile,
             "projects": projects,
             "reviews": reviews
