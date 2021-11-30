@@ -44,7 +44,7 @@
 					<p> {{userResult}}</p>
 					<article class="result">
 						<div class="result_imageContainer">
-							<img src="" class="result_profileImage">
+							<img src="{{url_for('static', filename='profilePic/' + users['profile']['imgLink'])}}" style="width:100px;height:100px" class="result_profileImage">
 						</div>
 						<div class="result_info">
 							<a class="result_userName" href={{url_for('user', usr=users.name)}}>{{users.name}}</a>
